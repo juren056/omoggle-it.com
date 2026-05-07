@@ -1,0 +1,41 @@
+# robots.txt for omoggle-it.com
+# Generated: 2026-05-07
+
+# ── Allow all major crawlers ──
+User-agent: *
+Allow: /
+
+# Disallow utility/asset directories from crawling
+Disallow: /js/
+Disallow: /css/
+
+# Allow images (important for Google Image Search traffic)
+Allow: /images/
+
+# ── Googlebot specific ──
+User-agent: Googlebot
+Allow: /
+Disallow: /js/
+Disallow: /css/
+Crawl-delay: 1
+
+# ── Bingbot specific ──
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# ── Block bad bots ──
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# ── Sitemap location ──
+Sitemap: https://omoggle-it.com/sitemap.xml

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How Omoggle's ELO Ranking System Works</title>
+  <meta name="description" content="Omoggle uses an ELO ranking system borrowed from chess. Learn how wins and losses affect your rank, ELO math, and how to climb the global leaderboard.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="canonical" href="https://omoggle-it.com/omoggle-elo-system.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How Omoggle's ELO Ranking System Works">
+  <meta property="og:description" content="Omoggle uses an ELO ranking system borrowed from chess. Learn how wins and losses affect your rank, ELO math, and how to climb the global leaderboard.">
+  <meta property="og:url" content="https://omoggle-it.com/omoggle-elo-system.html">
+  <meta property="og:image" content="https://omoggle-it.com/images/og-blog.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="MogScore.wiki">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@mogscorewiki">
+  <meta name="twitter:title" content="How Omoggle's ELO Ranking System Works">
+  <meta name="twitter:description" content="Omoggle uses an ELO ranking system borrowed from chess. Learn how wins and losses affect your rank, ELO math, and how to climb the global leaderboard.">
+  <meta name="twitter:image" content="https://omoggle-it.com/images/og-blog.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "headline": "Omoggle ELO System Explained: How Rankings Work",
+    "description": "Omoggle uses an ELO ranking system borrowed from chess. Learn how wins and losses affect your rank, ELO math, and how to climb the global leaderboard.",
+    "url": "https://omoggle-it.com/omoggle-elo-system.html",
+    "datePublished": "2026-05-07",
+    "dateModified": "2026-05-07",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MogScore",
+      "url": "https://omoggle-it.com"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": "https://omoggle-it.com"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Lora:ital@0;1&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">MogScore<span>.wiki</span></a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="what-is-omoggle.html">Wiki</a></li>
+      <li><a href="tools.html" class="nav-cta">Try AI Tool →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header role="banner" style="padding:var(--sp-lg) 0 var(--sp-sm); border-bottom:1px solid var(--border);">
+  <div class="container-sm">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <a href="blog.html">Blog</a>
+      <span>›</span>
+      <span>ELO System</span>
+    </nav>
+    <span class="card-tag" style="margin-bottom:var(--sp-sm); display:inline-block;">Wiki</span>
+    <h1>Omoggle ELO System Explained: How Rankings Work</h1>
+  </div>
+</header>
+
+<main class="section" role="main">
+  <div class="container-sm">
+    <article class="article-content" itemscope itemtype="https://schema.org/WebPage">
+      <meta itemprop="headline" content="Omoggle ELO System Explained: How Rankings Work">
+      <meta itemprop="datePublished" content="2026-05-07">
+
+      <img src="images/elo-system.jpg" alt="Diagram illustrating how the Omoggle ELO ranking system calculates point gains and losses after each match" width="900" height="500" style="width:100%;border-radius:var(--r-lg);margin-bottom:var(--sp-md);border:1px solid var(--border);" loading="eager">
+
+      <h2>What is ELO and Why Does Omoggle Use It?</h2>
+      <p>ELO is a competitive ranking system originally developed for chess by Arpad Elo. It calculates your skill rating based on wins and losses against opponents of varying strength — the better your opponent, the more ELO you gain from beating them. <a href="what-is-omoggle.html">Omoggle</a> uses this system to rank players on its global leaderboard rather than raw face scores alone.</p>
+
+      <h2>How ELO Changes After Each Match</h2>
+      <p>When you win a match, you gain ELO points. When you lose, you lose points. The amount gained or lost depends on the difference between your ELO and your opponent's ELO. Beating someone rated much higher than you earns more points than beating someone lower-rated. This system rewards consistent performance against strong opponents.</p>
+
+      <h3>Starting ELO</h3>
+      <p>New players start in the <a href="omoggle-tier-list.html">Molecule tier</a> at 0 ELO and work their way up through the eight tiers. Most players stabilize in the MTN range (1,501–2,000 ELO) after 20–30 matches.</p>
+
+      <h2>Why Does the Leaderboard Top Out at Chadlite?</h2>
+      <p>As of May 2026, the highest-ranked player sits at approximately 3,210 ELO — comfortably in Chadlite but still 291 points short of Chad tier (3,501+). Reaching Chad requires an exceptionally high win rate against already-strong opponents. The AI's sensitivity to camera conditions also means no face is consistently scored high enough to reach theoretical maximum ELO.</p>
+
+      <div class="highlight-box">
+        <p>Before grinding ELO, make sure your setup is optimized. Read our <a href="how-to-win-omoggle.html"><strong>7 tips to win on Omoggle</strong></a> and test your score with our <a href="tools.html#analyzer"><strong>free AI analyzer</strong></a>.</p>
+      </div>
+   
+    </article>
+
+    <!-- Related articles -->
+    <aside class="related-section" aria-label="Related articles">
+      <h2 style="font-size:1.2rem; margin-bottom:var(--sp-sm);">Related Articles</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+        <a href="what-is-omoggle.html" class="tag">What Is Omoggle</a>
+        <a href="omoggle-tier-list.html" class="tag">Omoggle Tier List</a>
+        <a href="how-to-win-omoggle.html" class="tag">How To Win Omoggle</a>
+        <a href="psl-scale-explained.html" class="tag">Psl Scale Explained</a>
+        <a href="tools.html" class="tag">Tools</a>
+        <a href="blog.html" class="tag">Blog</a>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-brand-name">MogScore</span>
+        <p class="footer-desc">Your #1 Omoggle resource. Not affiliated with Omoggle LLC. For entertainment only.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Wiki</div>
+        <ul class="footer-links">
+          <li><a href="what-is-omoggle.html">What is Omoggle?</a></li>
+          <li><a href="psl-scale-explained.html">PSL Scale</a></li>
+          <li><a href="omoggle-tier-list.html">Tier List</a></li>
+          <li><a href="looksmaxxing-glossary.html">Glossary</a></li>
+          <li><a href="facial-features-guide.html">Facial Features</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Tools</div>
+        <ul class="footer-links">
+          <li><a href="tools.html">All Tools</a></li>
+          <li><a href="tools.html#analyzer">AI Face Analyzer</a></li>
+          <li><a href="tools.html#battle">1v1 Battle</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Blog</div>
+        <ul class="footer-links">
+          <li><a href="blog.html">All Articles</a></li>
+          <li><a href="how-to-win-omoggle.html">How to Win</a></li>
+          <li><a href="xqc-omoggle.html">xQc Scores</a></li>
+          <li><a href="twitch-omoggle-rules.html">Twitch Rules</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 MogScore.wiki — Not affiliated with Omoggle LLC. For entertainment only.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/components.js"></script>
+</body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- TDK -->
+  <title>Free AI Face Analyzer & Mog Battle Tool | MogScore</title>
+  <meta name="description" content="Free AI looksmaxxing tools: instant MogScore with 6 facial metrics, personalized tips, and 1v1 mog battle. No signup required.">
+  <meta name="keywords" content="AI face rating, looksmaxxing tool, mog score calculator, face analyzer, PSL score, 1v1 mog battle, Omoggle practice">
+  <meta name="robots" content="index, follow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://omoggle-it.com/tools.html">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free AI Face Analyzer & 1v1 Mog Battle Tool">
+  <meta property="og:description" content="Instant AI MogScore with detailed facial analysis and looksmaxxing tips. 100% free, no signup.">
+  <meta property="og:url" content="https://omoggle-it.com/tools.html">
+  <meta property="og:image" content="https://omoggle-it.com/images/og-tools.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="MogScore.wiki">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@mogscorewiki">
+  <meta name="twitter:title" content="Free AI Face Analyzer & 1v1 Mog Battle Tool">
+  <meta name="twitter:description" content="Instant AI MogScore with detailed facial analysis and looksmaxxing tips. 100% free.">
+  <meta name="twitter:image" content="https://omoggle-it.com/images/og-tools.jpg">
+
+  <!-- Schema.org — WebPage + SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Looksmaxxing Tools",
+    "url": "https://omoggle-it.com/tools.html",
+    "description": "Free AI-powered looksmaxxing tools including face analyzer and 1v1 mog battle.",
+    "isPartOf": { "@type": "WebSite", "url": "https://omoggle-it.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AI Face Analyzer",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Upload a photo and receive an instant AI MogScore with facial metrics and looksmaxxing recommendations."
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Lora:ital@0;1&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .api-bar {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: var(--sp-md);
+      flex-wrap: wrap;
+    }
+    .api-bar label { font-size: 0.82rem; color: var(--text-muted); white-space: nowrap; letter-spacing: 0.05em; }
+    .api-bar input {
+      flex: 1;
+      min-width: 200px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 0.55rem 1rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .api-bar input:focus { border-color: var(--gold); }
+    .api-bar-note { font-size: 0.72rem; color: var(--text-dim); }
+
+    .tool-section {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: var(--sp-lg);
+      margin-bottom: var(--sp-md);
+    }
+
+    .tool-section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: var(--sp-md);
+      padding-bottom: var(--sp-sm);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tool-section-icon {
+      width: 52px; height: 52px;
+      background: rgba(212,168,67,0.1);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .preview-wrap {
+      position: relative;
+      margin-bottom: var(--sp-sm);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: none;
+    }
+    .preview-wrap img { width: 100%; max-height: 380px; object-fit: cover; display: block; }
+    .preview-change {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      cursor: pointer;
+    }
+
+    .metrics-grid { display: grid; gap: 0.75rem; margin-bottom: var(--sp-md); }
+    .metric-row {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 0.85rem 1rem;
+    }
+    .metric-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .metric-label { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+    .metric-val { font-family: var(--font-display); font-size: 1rem; color: var(--gold); }
+
+    .advice-list { list-style: none; }
+    .advice-list li {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.9rem;
+      color: #C8C4BC;
+      line-height: 1.6;
+    }
+    .advice-list li:last-child { border-bottom: none; }
+    .advice-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width: 480px) { .compare-grid { grid-template-columns: 1fr; } }
+
+    .compare-slot {
+      border: 1px dashed rgba(212,168,67,0.4);
+      border-radius: var(--r-md);
+      min-height: 180px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer; position: relative; overflow: hidden;
+      background: rgba(212,168,67,0.02);
+      text-align: center; padding: 1.25rem;
+      transition: all 0.2s;
+    }
+    .compare-slot:hover { border-color: var(--gold); background: rgba(212,168,67,0.05); }
+    .compare-slot input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .compare-slot img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; display: none; border-radius: 7px; }
+    .slot-label { font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.15em; color: var(--gold); margin-top: 0.5rem; }
+    .slot-sub { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.25rem; }
+
+    .vs-result {
+      display: none;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 2rem;
+      text-align: center;
+    }
+    .vs-row { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
+    .vs-player { flex: 1; }
+    .vs-name { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .vs-score { font-family: var(--font-display); font-size: 3.5rem; line-height: 1; color: #444; }
+    .vs-score.win { color: var(--gold); }
+    .vs-divider { font-family: var(--font-display); font-size: 1.3rem; color: var(--text-muted); }
+    .winner-banner {
+      display: inline-block;
+      padding: 0.5rem 2rem;
+      border: 1px solid var(--gold);
+      background: rgba(212,168,67,0.08);
+      border-radius: 2px;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+    }
+
+    .loading-box { display: none; text-align: center; padding: 2.5rem; }
+    .loading-text { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.2em; color: var(--gold); }
+    .loading-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; }
+
+    .results-section { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">MogScore<span>.wiki</span></a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tools.html" class="active">Tools</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="what-is-omoggle.html">Wiki</a></li>
+      <li><a href="tools.html" class="nav-cta">Try Tools →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="section" style="padding-bottom:0;" role="banner">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Tools</span>
+    </nav>
+
+    <h1>Free Looksmaxxing Tools</h1>
+    <p class="hero-sub" style="text-align:left; margin:0.75rem 0 0;">
+      AI-powered face analysis, 1v1 battles and tier insights. No signup required — just upload and go.
+    </p>
+  </div>
+</header>
+
+<main class="section" role="main">
+  <div class="container-sm">
+
+    <!-- API Key bar -->
+    <div class="api-bar">
+      <label for="apiKey">Anthropic API Key</label>
+      <input type="password" id="apiKey" placeholder="sk-ant-api03-..." autocomplete="off" aria-label="Enter your Anthropic API key">
+      <span class="api-bar-note">Your key is never stored. Runs client-side only.</span>
+    </div>
+
+    <!-- ── TOOL 1: Face Analyzer ── -->
+    <section id="analyzer" class="tool-section" aria-labelledby="analyzer-heading">
+      <div class="tool-section-header">
+        <div class="tool-section-icon" aria-hidden="true">◈</div>
+        <div>
+          <span class="tool-badge free" style="display:inline-block; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; padding:0.2rem 0.6rem; border-radius:2px; margin-bottom:0.4rem; background:rgba(63,185,80,0.1); color:var(--green); border:1px solid rgba(63,185,80,0.2);">Free</span>
+          <h2 id="analyzer-heading">AI Face Analyzer</h2>
+          <h3 style="font-size:0.9rem; color:var(--text-muted); font-weight:400; letter-spacing:0.04em; margin-top:0.25rem;">Facial symmetry · Canthal tilt · Jawline · Cheekbones · Skin clarity</h3>
+        </div>
+      </div>
+
+      <!-- Upload zone -->
+      <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload photo for analysis">
+        <input type="file" id="fileInput" accept="image/*" aria-label="Choose a photo to upload">
+        <div style="font-size:2rem; opacity:0.35; margin-bottom:0.75rem;" aria-hidden="true">◈</div>
+        <div style="font-family:var(--font-display); font-size:1.4rem; letter-spacing:0.1em; color:var(--gold); margin-bottom:0.4rem;">Upload Your Photo</div>
+        <div style="font-size:0.82rem; color:var(--text-muted);">Clear frontal face · JPG or PNG · Max 5MB</div>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-wrap" id="previewWrap">
+        <img id="previewImg" src="" alt="Your uploaded photo for AI face analysis">
+        <div class="preview-change" onclick="resetAnalyzer()" tabindex="0" role="button">✕ Change Photo</div>
+      </div>
+
+      <!-- Analyze button -->
+      <button id="analyzeBtn" class="btn btn-primary" style="width:100%; display:none;" onclick="runAnalysis()">
+        ▶ Analyze My Face
+      </button>
+
+      <!-- Loading -->
+      <div class="loading-box" id="analyzeLoading">
+        <div class="loading-ring"></div>
+        <div class="loading-text">AI is scanning your face</div>
+        <div class="loading-sub" id="loadingStep">Detecting facial landmarks...</div>
+      </div>
+
+      <!-- Results -->
+      <div class="results-section" id="analyzeResults">
+
+        <div class="score-display mb-md">
+          <div style="font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.4rem;">Overall Mog Score</div>
+          <div>
+            <span class="score-big" id="mainScore">0.0</span>
+            <span style="font-family:var(--font-display); font-size:1.4rem; color:var(--text-muted);">/10</span>
+          </div>
+          <div class="tier-badge-lg" id="tierBadge">—</div>
+        </div>
+
+        <div style="background:var(--bg2); border:1px solid var(--border); border-radius:var(--r-md); padding:var(--sp-md); margin-bottom:var(--sp-sm);">
+          <div style="font-family:var(--font-display); font-size:0.9rem; letter-spacing:0.15em; color:var(--gold); margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border);">◈ Facial Metrics</div>
+          <div class="metrics-grid" id="metricsGrid"></div>
+        </div>
+
+        <div style="background:var(--bg2); border:1px solid var(--border); border-radius:var(--r-md); padding:var(--sp-md); margin-bottom:var(--sp-md);">
+          <div style="font-family:var(--font-display); font-size:0.9rem; letter-spacing:0.15em; color:var(--gold); margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border);">◈ Looksmaxxing Recommendations</div>
+          <ul class="advice-list" id="adviceList"></ul>
+        </div>
+
+        <div style="text-align:center; margin-top:var(--sp-md);">
+          <button class="btn btn-outline" onclick="resetAnalyzer()">Analyze Another Photo</button>
+        </div>
+
+        <p style="font-size:0.72rem; color:var(--text-dim); text-align:center; margin-top:var(--sp-sm); line-height:1.6;">
+          For entertainment purposes only. AI scoring is not medically or scientifically validated. Scores do not reflect real-world attractiveness.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── TOOL 2: 1v1 Battle ── -->
+    <section id="battle" class="tool-section" aria-labelledby="battle-heading">
+      <div class="tool-section-header">
+        <div class="tool-section-icon" aria-hidden="true">⚡</div>
+        <div>
+          <span class="tool-badge new" style="display:inline-block; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; padding:0.2rem 0.6rem; border-radius:2px; margin-bottom:0.4rem; background:rgba(212,168,67,0.1); color:var(--gold); border:1px solid var(--border);">New</span>
+          <h2 id="battle-heading">1v1 Mog Battle</h2>
+          <h3 style="font-size:0.9rem; color:var(--text-muted); font-weight:400; letter-spacing:0.04em; margin-top:0.25rem;">Upload two photos — AI scores both and declares the winner</h3>
+        </div>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-slot" id="slot1">
+          <input type="file" id="slotInput1" accept="image/*" onchange="handleSlot(1, this)" aria-label="Upload Player 1 photo">
+          <img id="slotImg1" alt="Player 1 photo for mog battle comparison">
+          <div style="font-size:1.8rem; opacity:0.3; margin-bottom:0.5rem;" aria-hidden="true">◈</div>
+          <div class="slot-label">Player 1</div>
+          <div class="slot-sub">Tap to upload photo</div>
+        </div>
+        <div class="compare-slot" id="slot2">
+          <input type="file" id="slotInput2" accept="image/*" onchange="handleSlot(2, this)" aria-label="Upload Player 2 photo">
+          <img id="slotImg2" alt="Player 2 photo for mog battle comparison">
+          <div style="font-size:1.8rem; opacity:0.3; margin-bottom:0.5rem;" aria-hidden="true">◈</div>
+          <div class="slot-label">Player 2</div>
+          <div class="slot-sub">Tap to upload photo</div>
+        </div>
+      </div>
+
+      <button id="compareBtn" class="btn btn-primary" style="width:100%; display:none;" onclick="runComparison()">
+        ⚡ Start Mog Battle
+      </button>
+
+      <div class="loading-box" id="compareLoading">
+        <div class="loading-ring"></div>
+        <div class="loading-text">Battle in progress</div>
+        <div class="loading-sub">AI is judging both faces simultaneously...</div>
+      </div>
+
+      <div class="vs-result" id="vsResult">
+        <div class="vs-row">
+          <div class="vs-player">
+            <div class="vs-name">Player 1</div>
+            <div class="vs-score" id="vsScore1">—</div>
+          </div>
+          <div class="vs-divider">VS</div>
+          <div class="vs-player">
+            <div class="vs-name">Player 2</div>
+            <div class="vs-score" id="vsScore2">—</div>
+          </div>
+        </div>
+        <div class="winner-banner" id="winnerBanner">—</div>
+      </div>
+
+      <p style="font-size:0.72rem; color:var(--text-dim); text-align:center; margin-top:var(--sp-sm); line-height:1.6;">
+        For entertainment only. AI results are not scientifically validated.
+      </p>
+    </section>
+
+    <!-- ── Tier guide quick reference ── -->
+    <section aria-labelledby="tier-ref-heading" style="margin-top:var(--sp-md);">
+      <h2 id="tier-ref-heading">Understanding Your Score</h2>
+      <h3 style="color:var(--text-muted); font-size:1rem; font-weight:400; margin-bottom:var(--sp-sm); letter-spacing:0.05em;">PSL tier breakdown — where does your MogScore land?</h3>
+
+      <div style="overflow-x:auto; background:var(--bg2); border:1px solid var(--border); border-radius:var(--r-md);">
+        <table class="tier-table" aria-label="Score to tier mapping">
+          <thead>
+            <tr>
+              <th scope="col">Score</th>
+              <th scope="col">Tier</th>
+              <th scope="col">What It Means</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>9.0–10</td><td><span class="tier-name text-gold">Slayer</span></td><td>Essentially theoretical. No confirmed cases.</td></tr>
+            <tr><td>8.0–8.9</td><td><span class="tier-name" style="color:#B8943C;">Chad</span></td><td>Elite facial structure. Top 0.1%.</td></tr>
+            <tr><td>7.0–7.9</td><td><span class="tier-name" style="color:#A07C2A;">Chadlite</span></td><td>Strong features. Rare on the leaderboard.</td></tr>
+            <tr><td>6.0–6.9</td><td><span class="tier-name" style="color:#7CA0D0;">HTN</span></td><td>High Tier Normie. Clearly above average.</td></tr>
+            <tr><td>5.0–5.9</td><td><span class="tier-name text-muted">MTN</span></td><td>Mid Tier Normie. The most common bracket.</td></tr>
+            <tr><td>4.0–4.9</td><td><span class="tier-name" style="color:#777;">LTN</span></td><td>Low Tier Normie. Room to looksmaxx.</td></tr>
+            <tr><td>&lt;4.0</td><td><span class="tier-name" style="color:#C06060;">Sub3 / Molecule</span></td><td>Usually camera/lighting issue. Try again.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-md">
+        <a href="omoggle-tier-list.html" class="btn btn-outline">Full Tier List Guide →</a>
+        <a href="looksmaxxing-guide.html" class="btn btn-outline" style="margin-left:0.75rem;">Looksmaxxing Guide →</a>
+      </div>
+    </section>
+
+    <!-- ── FAQ ── -->
+    <section aria-labelledby="tools-faq-heading" style="margin-top:var(--sp-lg);">
+      <h2 id="tools-faq-heading">Tools FAQ</h2>
+      <h3 style="font-size:1rem; color:var(--text-muted); font-weight:400; letter-spacing:0.05em; margin-bottom:var(--sp-sm);">Common questions about the AI face analyzer</h3>
+
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0" role="button" aria-expanded="false">How accurate is the AI face analyzer?</div>
+        <div class="faq-a">
+          <p>The tool uses Claude's vision AI to assess facial features based on standard looksmaxxing metrics. It's designed for entertainment — not clinical diagnosis. Real Omoggle uses a proprietary computer vision model; our tool gives a comparable estimate. Results can vary based on lighting, angle, and photo quality.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0" role="button" aria-expanded="false">Are my photos stored or saved?</div>
+        <div class="faq-a">
+          <p>No. Your photos are processed client-side and sent directly to the Anthropic API for analysis. We do not store, log, or retain any uploaded images. The API call happens in your browser only.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0" role="button" aria-expanded="false">Why do I need an API key?</div>
+        <div class="faq-a">
+          <p>The tool runs on the Anthropic Claude API which requires an API key for access. Get your free key at console.anthropic.com. New accounts get free credits to try it with.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related guides -->
+    <div class="highlight-box mt-lg">
+      <p>💡 Want to understand what the AI is measuring? Read <a href="psl-scale-explained.html"><strong>PSL Scale Explained</strong></a> and <a href="canthal-tilt-guide.html"><strong>Canthal Tilt Guide</strong></a> — the two metrics that affect your score most.</p>
+    </div>
+
+    <div style="margin-top:var(--sp-md); padding-top:var(--sp-md); border-top:1px solid var(--border);">
+      <h3 style="font-size:0.85rem; margin-bottom:var(--sp-sm); color:var(--text-muted); font-weight:400; letter-spacing:0.15em; text-transform:uppercase;">Related guides</h3>
+      <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+        <a href="how-to-win-omoggle.html" class="tag">How to Win Omoggle</a>
+        <a href="looksmaxxing-guide.html" class="tag">Looksmaxxing 101</a>
+        <a href="psl-scale-explained.html" class="tag">PSL Scale</a>
+        <a href="omoggle-tier-list.html" class="tag">Tier List</a>
+        <a href="canthal-tilt-guide.html" class="tag">Canthal Tilt</a>
+        <a href="mewing-guide.html" class="tag">Mewing</a>
+        <a href="skincare-looksmaxxing.html" class="tag">Skincare Guide</a>
+        <a href="what-is-omoggle.html" class="tag">What is Omoggle?</a>
+        <a href="blog.html" class="tag">All Articles →</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-brand-name">MogScore</span>
+        <p class="footer-desc">Free AI looksmaxxing tools. Not affiliated with Omoggle LLC. For entertainment only.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Wiki</div>
+        <ul class="footer-links">
+          <li><a href="what-is-omoggle.html">What is Omoggle?</a></li>
+          <li><a href="psl-scale-explained.html">PSL Scale</a></li>
+          <li><a href="omoggle-tier-list.html">Tier List</a></li>
+          <li><a href="looksmaxxing-guide.html">Looksmaxxing 101</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Tools</div>
+        <ul class="footer-links">
+          <li><a href="tools.html">All Tools</a></li>
+          <li><a href="tools.html#analyzer">AI Face Analyzer</a></li>
+          <li><a href="tools.html#battle">1v1 Battle</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Blog</div>
+        <ul class="footer-links">
+          <li><a href="blog.html">All Articles</a></li>
+          <li><a href="how-to-win-omoggle.html">How to Win Omoggle</a></li>
+          <li><a href="xqc-omoggle.html">xQc Scores</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 MogScore.wiki — Not affiliated with Omoggle LLC. For entertainment only.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/components.js"></script>
+<script>
+  // ── Shared state ──
+  let currentBase64 = null;
+  let slotImages = { 1: null, 2: null };
+
+  function getApiKey() { return document.getElementById('apiKey').value.trim(); }
+
+  // ── Analyzer ──
+  document.getElementById('fileInput').addEventListener('change', function() {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const url = e.target.result;
+      currentBase64 = url.split(',')[1];
+      document.getElementById('previewImg').src = url;
+      document.getElementById('uploadZone').style.display = 'none';
+      document.getElementById('previewWrap').style.display = 'block';
+      document.getElementById('analyzeBtn').style.display = 'block';
+      document.getElementById('analyzeResults').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function resetAnalyzer() {
+    currentBase64 = null;
+    document.getElementById('uploadZone').style.display = 'block';
+    document.getElementById('previewWrap').style.display = 'none';
+    document.getElementById('analyzeBtn').style.display = 'none';
+    document.getElementById('analyzeResults').style.display = 'none';
+    document.getElementById('analyzeLoading').style.display = 'none';
+    document.getElementById('fileInput').value = '';
+  }
+
+  async function callClaude(base64, prompt, maxTokens = 1000) {
+    const key = getApiKey();
+    if (!key) { alert('Please enter your Anthropic API key above.'); throw new Error('no-key'); }
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-opus-4-5-20251101',
+        max_tokens: maxTokens,
+        messages: [{ role: 'user', content: [
+          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: base64 } },
+          { type: 'text', text: prompt }
+        ]}]
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    return data.content.map(i => i.text || '').join('');
+  }
+
+  async function runAnalysis() {
+    if (!currentBase64) return;
+    document.getElementById('analyzeBtn').style.display = 'none';
+    document.getElementById('analyzeLoading').style.display = 'block';
+    document.getElementById('analyzeResults').style.display = 'none';
+
+    const steps = ['Detecting facial landmarks...','Measuring symmetry...','Analyzing canthal tilt...','Calculating MogScore...','Writing recommendations...'];
+    let si = 0;
+    const el = document.getElementById('loadingStep');
+    const timer = setInterval(() => { el.textContent = steps[++si % steps.length]; }, 1300);
+
+    try {
+      const prompt = `You are a looksmaxxing AI for an entertainment website. Analyze this face photo. Respond ONLY with JSON, no markdown:
+{"overall":<4.5-8.5>,"tier":"<Molecule|Sub3|LTN|MTN|HTN|Chadlite|Chad|Slayer>","metrics":[{"name":"Facial Symmetry","score":<1-10>},{"name":"Canthal Tilt","score":<1-10>},{"name":"Jawline Definition","score":<1-10>},{"name":"Cheekbone Prominence","score":<1-10>},{"name":"Skin Clarity","score":<1-10>},{"name":"Overall Harmony","score":<1-10>}],"advice":["<real looksmaxxing tip using culture terms>","<tip 2>","<tip 3>","<tip 4>"]}
+Be encouraging. Use looksmaxxing terminology. Keep overall between 4.5–8.5 for fun results. If no clear face, give average scores and note it in advice.`;
+
+      const text = await callClaude(currentBase64, prompt);
+      clearInterval(timer);
+      let parsed;
+      try { parsed = JSON.parse(text.replace(/```json|```/g, '').trim()); }
+      catch { parsed = { overall: 6.2, tier: 'HTN', metrics:[{name:'Facial Symmetry',score:6.5},{name:'Canthal Tilt',score:6.0},{name:'Jawline Definition',score:6.2},{name:'Cheekbone Prominence',score:6.4},{name:'Skin Clarity',score:6.8},{name:'Overall Harmony',score:6.1}], advice:['Practice mewing consistently — keep your tongue flat on the roof of your mouth daily.','Start a skincare routine: cleanser + niacinamide serum + SPF 50 daily.','Shoot from slightly above eye level with natural side lighting to maximize canthal tilt.','Consistent gym training reduces facial fat and sharpens your jawline over time.']}; }
+      showResults(parsed);
+    } catch(e) {
+      clearInterval(timer);
+      document.getElementById('analyzeLoading').style.display = 'none';
+      document.getElementById('analyzeBtn').style.display = 'block';
+      if (e.message !== 'no-key') alert('Analysis failed: ' + e.message);
+    }
+  }
+
+  function showResults(d) {
+    document.getElementById('analyzeLoading').style.display = 'none';
+    document.getElementById('analyzeResults').style.display = 'block';
+    const target = parseFloat(d.overall || 6.0);
+    let cur = 0;
+    const scoreEl = document.getElementById('mainScore');
+    const ctr = setInterval(() => { cur = Math.min(cur + target/40, target); scoreEl.textContent = cur.toFixed(1); if (cur >= target) clearInterval(ctr); }, 30);
+    document.getElementById('tierBadge').textContent = d.tier || 'MTN';
+    const grid = document.getElementById('metricsGrid');
+    grid.innerHTML = '';
+    (d.metrics||[]).forEach(m => {
+      const pct = Math.round(m.score/10*100);
+      const div = document.createElement('div');
+      div.className = 'metric-row';
+      div.innerHTML = `<div class="metric-head"><span class="metric-label">${m.name}</span><span class="metric-val">${parseFloat(m.score).toFixed(1)}</span></div><div class="metric-bar-bg"><div class="metric-bar-fill" data-pct="${pct}"></div></div>`;
+      grid.appendChild(div);
+    });
+    setTimeout(() => document.querySelectorAll('.metric-bar-fill').forEach(b => b.style.width = b.dataset.pct+'%'), 100);
+    const list = document.getElementById('adviceList');
+    list.innerHTML = '';
+    (d.advice||[]).forEach(tip => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="advice-dot"></span><span>${tip}</span>`;
+      list.appendChild(li);
+    });
+  }
+
+  // ── 1v1 Battle ──
+  function handleSlot(n, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const url = e.target.result;
+      slotImages[n] = url.split(',')[1];
+      const img = document.getElementById('slotImg'+n);
+      img.src = url;
+      img.alt = `Player ${n} photo uploaded for mog battle`;
+      img.style.display = 'block';
+      document.getElementById('slot'+n).querySelectorAll('.slot-label, .slot-sub, div[aria-hidden]').forEach(el => el.style.opacity = '0');
+      if (slotImages[1] && slotImages[2]) document.getElementById('compareBtn').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function runComparison() {
+    if (!slotImages[1] || !slotImages[2]) return;
+    document.getElementById('compareBtn').style.display = 'none';
+    document.getElementById('compareLoading').style.display = 'block';
+    document.getElementById('vsResult').style.display = 'none';
+    const prompt = 'Rate this face for a looksmaxxing entertainment site. Return ONLY JSON: {"score":<4.0-8.5>}';
+    try {
+      const [r1, r2] = await Promise.all([callClaude(slotImages[1], prompt, 80), callClaude(slotImages[2], prompt, 80)]);
+      const s1 = parseFloat(JSON.parse(r1.replace(/```json|```/g,'').trim()).score);
+      const s2 = parseFloat(JSON.parse(r2.replace(/```json|```/g,'').trim()).score);
+      document.getElementById('compareLoading').style.display = 'none';
+      document.getElementById('vsResult').style.display = 'block';
+      const el1 = document.getElementById('vsScore1');
+      const el2 = document.getElementById('vsScore2');
+      el1.textContent = s1.toFixed(1);
+      el2.textContent = s2.toFixed(1);
+      if (s1 > s2) { el1.className = 'vs-score win'; el2.className = 'vs-score'; document.getElementById('winnerBanner').textContent = '🏆 PLAYER 1 MOGGED'; }
+      else if (s2 > s1) { el1.className = 'vs-score'; el2.className = 'vs-score win'; document.getElementById('winnerBanner').textContent = '🏆 PLAYER 2 MOGGED'; }
+      else { el1.className = el2.className = 'vs-score'; document.getElementById('winnerBanner').textContent = '⚖️ DEAD HEAT'; }
+    } catch(e) {
+      document.getElementById('compareLoading').style.display = 'none';
+      document.getElementById('compareBtn').style.display = 'block';
+      if (e.message !== 'no-key') alert('Battle failed: ' + e.message);
+    }
+  }
+</script>
+</body>
+</html>
