@@ -1,285 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- ── Core pages ── -->
   <url>
     <loc>https://omoggle-it.com/</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/tools.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/blog.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- ── Wiki / Explainer pages ── -->
   <url>
     <loc>https://omoggle-it.com/what-is-omoggle.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/what-is-omoggle.jpg</image:loc>
-      <image:title>What is Omoggle — the AI face rating platform</image:title>
-    </image:image>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/what-is-mogging.html</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/psl-scale-explained.html</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/psl-scale.jpg</image:loc>
-      <image:title>PSL Scale from 1 to 10 explained with tier descriptions</image:title>
-    </image:image>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/omoggle-tier-list.html</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/tier-list.jpg</image:loc>
-      <image:title>Omoggle tier list showing all 8 ELO ranks</image:title>
-    </image:image>
   </url>
-
-  <url>
-    <loc>https://omoggle-it.com/omoggle-elo-system.html</loc>
-    <lastmod>2026-05-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
-
-  <url>
-    <loc>https://omoggle-it.com/omoggle-top-players.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ── Looksmaxxing guides ── -->
   <url>
     <loc>https://omoggle-it.com/looksmaxxing-guide.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/looksmaxxing-guide.jpg</image:loc>
-      <image:title>Looksmaxxing 101 beginner guide with before and after examples</image:title>
-    </image:image>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/canthal-tilt-guide.html</loc>
-    <lastmod>2026-04-27</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/canthal-tilt.jpg</image:loc>
-      <image:title>Canthal tilt diagram showing positive versus negative angle</image:title>
-    </image:image>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/mewing-guide.html</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/mewing-guide.jpg</image:loc>
-      <image:title>Mewing tongue posture guide for jawline improvement</image:title>
-    </image:image>
   </url>
-
-  <url>
-    <loc>https://omoggle-it.com/skincare-looksmaxxing.html</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.72</priority>
-  </url>
-
-  <url>
-    <loc>https://omoggle-it.com/jawline-guide.html</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.72</priority>
-  </url>
-
-  <!-- ── News / Blog articles ── -->
   <url>
     <loc>https://omoggle-it.com/how-to-win-omoggle.html</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/how-to-win-omoggle.jpg</image:loc>
-      <image:title>Camera setup and lighting tips to get a higher Omoggle score</image:title>
-    </image:image>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/xqc-omoggle.html</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/xqc-omoggle.jpg</image:loc>
-      <image:title>xQc reacting to being mogged on Omoggle during his live stream</image:title>
-    </image:image>
+    <priority>0.80</priority>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/twitch-omoggle-rules.html</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.82</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/twitch-rule-change.jpg</image:loc>
-      <image:title>Twitch community guidelines update allowing Omoggle streams</image:title>
-    </image:image>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/clavicular-mogged.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
-    <image:image>
-      <image:loc>https://omoggle-it.com/images/clavicular-mogged.jpg</image:loc>
-      <image:title>Clavicular looking surprised after losing on Omoggle and ragequitting</image:title>
-    </image:image>
   </url>
-
   <url>
-    <loc>https://omoggle-it.com/asmongold-omoggle.html</loc>
-    <lastmod>2026-05-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
-
-  <url>
-    <loc>https://omoggle-it.com/jynxzi-omoggle.html</loc>
-    <lastmod>2026-05-03</lastmod>
+    <loc>https://omoggle-it.com/skincare-looksmaxxing.html</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.72</priority>
   </url>
-
+  <url>
+    <loc>https://omoggle-it.com/jawline-guide.html</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://omoggle-it.com/omoggle-elo-system.html</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://omoggle-it.com/omoggle-top-players.html</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://omoggle-it.com/asmongold-omoggle.html</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://omoggle-it.com/jynxzi-omoggle.html</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.72</priority>
+  </url>
   <url>
     <loc>https://omoggle-it.com/omoggle-updates.html</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.70</priority>
   </url>
-
   <url>
     <loc>https://omoggle-it.com/facial-symmetry-guide.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.82</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/looksmaxxing-for-women.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.82</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/haircut-looksmaxxing.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/gym-face-guide.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/sleep-looksmaxxing.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/omoggle-camera-setup.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/omoggle-beginner-guide.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/omoggle-tricks-hacks.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/best-angle-for-photos.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/streamers-omoggle-scores.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/omoggle-viral-moments.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/omoggle-vs-omegle.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/looksmaxxing-glossary.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.83</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/facial-features-guide.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://omoggle-it.com/omoggle-faq.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
