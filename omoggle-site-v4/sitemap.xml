@@ -218,4 +218,19 @@
     <priority>0.88</priority>
   </url>
 
+
+  <url>
+    <loc>https://omoggle-it.com/privacy-policy.html</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://omoggle-it.com/contact.html</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
 </urlset>
