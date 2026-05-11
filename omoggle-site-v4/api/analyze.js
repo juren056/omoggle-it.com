@@ -15,8 +15,8 @@ export default async function handler(req, res) {
     const isCompare = mode === 'compare'
 
     const prompt = isCompare
-      ? 'You are a fun face rating AI for entertainment. Rate this face on a scale of 4.0 to 8.5. Return ONLY JSON: {"score":<number>}. No explanation.'
-      : 'You are a fun looksmaxxing AI for MogScore entertainment website. Analyze this face photo for entertainment purposes only. Return ONLY valid JSON, no markdown: {"overall":<4.5-8.5>,"tier":"<Molecule|Sub3|LTN|MTN|HTN|Chadlite|Chad|Slayer>","metrics":[{"name":"Facial Symmetry","score":<1-10>},{"name":"Canthal Tilt","score":<1-10>},{"name":"Jawline Definition","score":<1-10>},{"name":"Cheekbone Prominence","score":<1-10>},{"name":"Skin Clarity","score":<1-10>},{"name":"Overall Harmony","score":<1-10>}],"advice":["<fun looksmaxxing tip 1>","<tip 2>","<tip 3>","<tip 4>"]} Keep overall between 4.5 and 8.5. Be encouraging and fun.'
+      ? 'You are a fun face rating AI for entertainment. FIRST check if the image contains a clear human face. If NO clear human face is visible, return ONLY: {"error":"no_face"}. If yes, rate the face from 4.0 to 8.5. Return ONLY JSON: {"score":<number>}. No explanation.'
+      : 'You are a fun looksmaxxing AI for MogScore entertainment website. FIRST check if the image contains a clear human face. If the image does NOT contain a clear human face (e.g. it shows objects, animals, scenery, or inappropriate content), return ONLY this JSON: {"error":"no_face"}. If a clear human face IS present, analyze it for entertainment and return ONLY valid JSON, no markdown: {"overall":<4.5-8.5>,"tier":"<Molecule|Sub3|LTN|MTN|HTN|Chadlite|Chad|Slayer>","metrics":[{"name":"Facial Symmetry","score":<1-10>},{"name":"Canthal Tilt","score":<1-10>},{"name":"Jawline Definition","score":<1-10>},{"name":"Cheekbone Prominence","score":<1-10>},{"name":"Skin Clarity","score":<1-10>},{"name":"Overall Harmony","score":<1-10>}],"advice":["<fun looksmaxxing tip 1>","<tip 2>","<tip 3>","<tip 4>"]} Keep overall between 4.5 and 8.5. Be encouraging and fun.'
 
     const apiKey = process.env.GPTSAPI_KEY
     if (!apiKey) return res.status(500).json({ error: 'API not configured' })
@@ -76,6 +76,9 @@ export default async function handler(req, res) {
       const parsed = JSON.parse(text.replace(/```json|```/g, '').trim())
       if (parsed.error === 'inappropriate_image') {
         return res.status(200).json({ error: 'inappropriate_image' })
+      }
+      if (parsed.error === 'no_face') {
+        return res.status(200).json({ error: 'no_face' })
       }
     } catch { }
 

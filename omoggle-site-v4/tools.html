@@ -322,6 +322,7 @@
     }
     const data = await res.json();
     if (data.error === 'inappropriate_image') throw new Error('inappropriate_image');
+    if (data.error === 'no_face') throw new Error('no_face');
     if (data.error) throw new Error(data.error);
     return data.result;
   }
@@ -415,6 +416,8 @@
       const errEl = document.getElementById('analyzeError');
       if (e.message === 'inappropriate_image') {
         errEl.textContent = '⚠️ Please upload a clear frontal face photo. Inappropriate or explicit content is not allowed.';
+      } else if (e.message === 'no_face') {
+        errEl.textContent = '⚠️ No clear face detected. Please upload a clear frontal face photo for best results.';
       } else {
         errEl.textContent = 'Analysis failed: ' + e.message + '. Please try again.';
       }
@@ -510,6 +513,8 @@
       const errEl = document.getElementById('compareError');
       if (e.message === 'inappropriate_image') {
         errEl.textContent = '⚠️ One or both photos contain inappropriate content. Please use clear face photos only.';
+      } else if (e.message === 'no_face') {
+        errEl.textContent = '⚠️ No clear face detected in one or both photos. Please upload clear frontal face photos.';
       } else {
         errEl.textContent = 'Battle failed: ' + e.message;
       }
