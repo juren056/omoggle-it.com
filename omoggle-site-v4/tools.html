@@ -331,23 +331,25 @@
 
 
   // Compress image before sending to avoid 413 errors
-  function compressImage(base64, maxSizeKB = 900) {
+  function compressImage(base64, maxSizeKB = 1500) {
     return new Promise(resolve => {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
         let w = img.width, h = img.height;
-        const maxPx = 1200;
+        // Keep higher resolution for better face detection
+        const maxPx = 1600;
         if (w > maxPx || h > maxPx) {
           if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
           else { w = Math.round(w * maxPx / h); h = maxPx; }
         }
         canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        let quality = 0.85;
+        let quality = 0.9;
         let result = canvas.toDataURL('image/jpeg', quality);
-        while (result.length > maxSizeKB * 1024 * 1.37 && quality > 0.3) {
-          quality -= 0.1;
+        // Don't compress below 0.6 to preserve face details
+        while (result.length > maxSizeKB * 1024 * 1.37 && quality > 0.6) {
+          quality -= 0.05;
           result = canvas.toDataURL('image/jpeg', quality);
         }
         resolve(result.split(',')[1]);
