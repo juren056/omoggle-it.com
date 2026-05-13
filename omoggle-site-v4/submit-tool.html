@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Directory Submission Toolkit | MogScore</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.40.0/iconfont/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0D1117; --bg2: #161B22; --bg3: #1C2333;
+      --gold: #D4A843; --gold-lt: #F0C96A;
+      --text: #E6E1D6; --muted: #8B8680; --dim: #4A4640;
+      --border: rgba(212,168,67,0.15); --border-md: rgba(212,168,67,0.3);
+      --green: #3FB950; --green-bg: rgba(63,185,80,0.1);
+      --orange: #F0883E; --orange-bg: rgba(240,136,62,0.1);
+      --r: 8px; --r-lg: 12px;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem 4rem; }
+    .container { max-width: 860px; margin: 0 auto; }
+
+    /* Header */
+    .header { margin-bottom: 2rem; }
+    .header h1 { font-size: 1.8rem; font-weight: 500; color: var(--text); margin-bottom: .4rem; }
+    .header p { font-size: .9rem; color: var(--muted); }
+
+    /* Info cards */
+    .info-section { margin-bottom: 2rem; }
+    .info-section h2 { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .info-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); padding: 1rem; }
+    .info-card.full { grid-column: 1/-1; }
+    .info-card label { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: .4rem; }
+    .info-card .val { font-size: .88rem; color: var(--text); line-height: 1.6; }
+    .copy-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: .6rem; font-size: .75rem; padding: 3px 10px; background: transparent; border: 1px solid var(--border-md); border-radius: 4px; color: var(--muted); cursor: pointer; transition: all .2s; }
+    .copy-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+    .stat { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); padding: .85rem; text-align: center; }
+    .stat .num { font-size: 1.8rem; font-weight: 500; color: var(--gold); line-height: 1; }
+    .stat .lbl { font-size: .72rem; color: var(--muted); margin-top: 3px; letter-spacing: .05em; }
+
+    /* Filter */
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+    .filter-btn { font-size: .78rem; padding: 4px 14px; border: 1px solid var(--border); border-radius: 99px; background: transparent; color: var(--muted); cursor: pointer; transition: all .2s; }
+    .filter-btn:hover { border-color: var(--border-md); color: var(--text); }
+    .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(212,168,67,0.08); }
+
+    /* Directory list */
+    .dir-list { display: flex; flex-direction: column; gap: 8px; }
+    .dir-item { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 14px 16px; display: flex; align-items: center; gap: 12px; transition: border-color .2s; }
+    .dir-item:hover { border-color: var(--border-md); }
+    .dir-item.is-listed { border-color: rgba(63,185,80,0.3); }
+    .dir-item.is-submitted { opacity: .6; }
+
+    .dir-icon { width: 38px; height: 38px; border-radius: var(--r); background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; border: 1px solid var(--border); }
+
+    .dir-info { flex: 1; min-width: 0; }
+    .dir-name { font-size: .9rem; font-weight: 500; color: var(--text); }
+    .dir-domain { font-size: .75rem; color: var(--dim); margin-top: 1px; }
+    .dir-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+    .badge { font-size: .68rem; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--border); color: var(--muted); }
+    .badge.high { border-color: rgba(212,168,67,0.4); color: var(--gold); background: rgba(212,168,67,0.08); }
+    .badge.listed { border-color: rgba(63,185,80,0.4); color: var(--green); background: var(--green-bg); }
+    .badge.submitted { border-color: var(--border-md); color: var(--muted); }
+    .badge.cn { border-color: rgba(88,166,255,0.4); color: #58a6ff; background: rgba(88,166,255,0.08); }
+
+    .dir-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .status-sel { font-size: .78rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px; color: var(--muted); cursor: pointer; outline: none; }
+    .status-sel:focus { border-color: var(--gold); }
+    .go-btn { font-size: .82rem; padding: 5px 16px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px; white-space: nowrap; transition: all .2s; background: var(--gold); color: #0D1117; border: none; font-weight: 500; }
+    .go-btn:hover { background: var(--gold-lt); }
+
+    /* Next button */
+    .next-wrap { margin-top: 1rem; }
+    .next-btn { width: 100%; padding: 12px; font-size: .9rem; background: transparent; border: 1px solid var(--border-md); border-radius: var(--r); color: var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all .2s; font-family: 'DM Sans', sans-serif; }
+    .next-btn:hover { background: rgba(212,168,67,0.06); }
+
+    /* Progress bar */
+    .progress-wrap { margin-bottom: 1.5rem; }
+    .progress-label { display: flex; justify-content: space-between; font-size: .78rem; color: var(--muted); margin-bottom: .4rem; }
+    .progress-track { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); border-radius: 2px; transition: width .5s; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--bg2); border: 1px solid var(--border-md); border-radius: var(--r); padding: 10px 18px; font-size: .85rem; color: var(--text); opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 999; }
+    .toast.show { opacity: 1; }
+
+    @media(max-width:600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2,1fr); }
+      .dir-actions { flex-direction: column; align-items: flex-end; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>AI Directory Submission Toolkit</h1>
+    <p>Submit MogScore to all major AI tool directories. Click "Open" to go to each site, paste your info, mark as submitted.</p>
+  </div>
+
+  <!-- Info to copy -->
+  <div class="info-section">
+    <h2>Your tool info — copy and paste into each form</h2>
+    <div class="info-grid">
+      <div class="info-card full">
+        <label>Tool name</label>
+        <div class="val">MogScore — Free AI Face Analyzer & Looksmaxxing Tool</div>
+        <button class="copy-btn" onclick="copyText('MogScore — Free AI Face Analyzer & Looksmaxxing Tool', this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+      <div class="info-card full">
+        <label>Description (use this everywhere)</label>
+        <div class="val" id="desc-text">Free AI face analyzer that scores your facial features on 6 metrics: symmetry, canthal tilt, jawline, cheekbones, skin clarity and harmony. Based on Omoggle's PSL Scale system. Upload any photo and get an instant MogScore with personalized looksmaxxing tips. Also includes a 1v1 Mog Battle feature. No signup required, 100% free.</div>
+        <button class="copy-btn" onclick="copyEl('desc-text', this)"><i class="ti ti-copy"></i> Copy description</button>
+      </div>
+      <div class="info-card">
+        <label>Website URL</label>
+        <div class="val">https://omoggle-it.com/tools.html</div>
+        <button class="copy-btn" onclick="copyText('https://omoggle-it.com/tools.html', this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+      <div class="info-card">
+        <label>Homepage</label>
+        <div class="val">https://omoggle-it.com</div>
+        <button class="copy-btn" onclick="copyText('https://omoggle-it.com', this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+      <div class="info-card">
+        <label>Tags / Keywords</label>
+        <div class="val">face rating, looksmaxxing, PSL scale, AI face analysis, Omoggle, canthal tilt, facial symmetry, mog score</div>
+        <button class="copy-btn" onclick="copyText('face rating, looksmaxxing, PSL scale, AI face analysis, Omoggle, canthal tilt, facial symmetry, mog score', this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+      <div class="info-card">
+        <label>Category / Pricing</label>
+        <div class="val">AI Image Analysis · Entertainment · Health & Beauty<br>Pricing: Free</div>
+        <button class="copy-btn" onclick="copyText('AI Image Analysis, Entertainment, Health & Beauty', this)"><i class="ti ti-copy"></i> Copy category</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="num" id="cnt-total">25</div><div class="lbl">total</div></div>
+    <div class="stat"><div class="num" id="cnt-pending">25</div><div class="lbl">pending</div></div>
+    <div class="stat"><div class="num" id="cnt-submitted">0</div><div class="lbl">submitted</div></div>
+    <div class="stat"><div class="num" id="cnt-listed">0</div><div class="lbl">listed</div></div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Submission progress</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter('pending',this)">Pending</button>
+    <button class="filter-btn" onclick="setFilter('submitted',this)">Submitted</button>
+    <button class="filter-btn" onclick="setFilter('listed',this)">Listed</button>
+    <button class="filter-btn" onclick="setFilter('high',this)">High priority</button>
+    <button class="filter-btn" onclick="setFilter('cn',this)">Chinese</button>
+  </div>
+
+  <!-- Directory list -->
+  <div class="dir-list" id="dir-list"></div>
+
+  <div class="next-wrap">
+    <button class="next-btn" onclick="openNext()">
+      <i class="ti ti-player-skip-forward"></i> Open next pending site
+    </button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DIRS = [
+  {id:1,  name:'Product Hunt',           url:'https://www.producthunt.com/posts/new',                   domain:'producthunt.com',              priority:'high', cat:'General',    icon:'🚀'},
+  {id:2,  name:'Toolify.ai',             url:'https://www.toolify.ai/submit',                           domain:'toolify.ai',                   priority:'high', cat:'AI Tools',   icon:'🤖'},
+  {id:3,  name:"There's An AI For That", url:'https://theresanaiforthat.com/submit/',                   domain:'theresanaiforthat.com',         priority:'high', cat:'AI Tools',   icon:'🔍'},
+  {id:4,  name:'FutureTools.io',         url:'https://www.futuretools.io/submit-a-tool',                domain:'futuretools.io',               priority:'high', cat:'AI Tools',   icon:'🛠'},
+  {id:5,  name:'Futurepedia',            url:'https://www.futurepedia.io/submit-tool',                  domain:'futurepedia.io',               priority:'high', cat:'AI Tools',   icon:'📚'},
+  {id:6,  name:'Crunchbase',             url:'https://www.crunchbase.com/add-new',                      domain:'crunchbase.com',               priority:'high', cat:'General',    icon:'📊'},
+  {id:7,  name:'AIbase (中文)',           url:'https://www.aibase.com/submit',                           domain:'aibase.com',                   priority:'high', cat:'Chinese',    icon:'🇨🇳'},
+  {id:8,  name:'AI工具集 (中文)',          url:'https://ai-bot.cn',                                       domain:'ai-bot.cn',                    priority:'high', cat:'Chinese',    icon:'🇨🇳'},
+  {id:9,  name:'AI Tool Hunt',           url:'https://www.aitoolhunt.com/submit',                       domain:'aitoolhunt.com',               priority:'med',  cat:'AI Tools',   icon:'🎯'},
+  {id:10, name:'TopAI.tools',            url:'https://topai.tools/submit',                              domain:'topai.tools',                  priority:'med',  cat:'AI Tools',   icon:'⭐'},
+  {id:11, name:'AI Valley',              url:'https://aivalley.ai/submit-tool/',                        domain:'aivalley.ai',                  priority:'med',  cat:'AI Tools',   icon:'🏔'},
+  {id:12, name:'Supertools',             url:'https://supertools.therundown.ai/submit',                 domain:'supertools.therundown.ai',     priority:'med',  cat:'AI Tools',   icon:'⚡'},
+  {id:13, name:'Insidr.ai',             url:'https://www.insidr.ai/submit-a-tool/',                    domain:'insidr.ai',                    priority:'med',  cat:'AI Tools',   icon:'🔮'},
+  {id:14, name:'AI Depot',              url:'https://aidepot.co/submit',                               domain:'aidepot.co',                   priority:'med',  cat:'AI Tools',   icon:'🏪'},
+  {id:15, name:'AIcyclopedia',          url:'https://www.aicyclopedia.com/submit',                     domain:'aicyclopedia.com',             priority:'med',  cat:'AI Tools',   icon:'📖'},
+  {id:16, name:'EasyWithAI',            url:'https://easywithai.com/submit-ai-tool/',                  domain:'easywithai.com',               priority:'med',  cat:'AI Tools',   icon:'✨'},
+  {id:17, name:'AI Tool Directory',     url:'https://aitooldirectory.com/submit/',                     domain:'aitooldirectory.com',          priority:'med',  cat:'AI Tools',   icon:'📁'},
+  {id:18, name:'AlternativeTo',         url:'https://alternativeto.net/add/',                          domain:'alternativeto.net',            priority:'med',  cat:'General',    icon:'🔄'},
+  {id:19, name:'SaaSHub',               url:'https://www.saashub.com/add-product',                     domain:'saashub.com',                  priority:'med',  cat:'General',    icon:'💼'},
+  {id:20, name:'G2',                    url:'https://www.g2.com/products/new',                         domain:'g2.com',                       priority:'med',  cat:'General',    icon:'⭐'},
+  {id:21, name:'Capterra',              url:'https://www.capterra.com/vendors/',                       domain:'capterra.com',                 priority:'med',  cat:'General',    icon:'🏆'},
+  {id:22, name:"Ben's Bites",           url:'https://bensbites.beehiiv.com/forms/submit-a-tool',       domain:'bensbites.beehiiv.com',        priority:'med',  cat:'Newsletter', icon:'📰'},
+  {id:23, name:'The Rundown AI',        url:'https://www.therundown.ai/submit-tool',                   domain:'therundown.ai',                priority:'med',  cat:'Newsletter', icon:'📋'},
+  {id:24, name:'AInavigator (中文)',    url:'https://www.ainavigator.cn/',                             domain:'ainavigator.cn',               priority:'med',  cat:'Chinese',    icon:'🇨🇳'},
+  {id:25, name:'Phygital+',             url:'https://phygital.plus/submit',                            domain:'phygital.plus',                priority:'low',  cat:'AI Tools',   icon:'🌐'},
+];
+
+const KEY = 'mogscore_dir_states';
+let states = JSON.parse(localStorage.getItem(KEY) || '{}');
+let currentFilter = 'all';
+
+function getState(id) { return states[id] || 'pending'; }
+
+function setState(id, val) {
+  states[id] = val;
+  localStorage.setItem(KEY, JSON.stringify(states));
+  updateStats();
+  render();
+}
+
+function updateStats() {
+  const total = DIRS.length;
+  const submitted = DIRS.filter(d => getState(d.id) === 'submitted').length;
+  const listed = DIRS.filter(d => getState(d.id) === 'listed').length;
+  const pending = DIRS.filter(d => getState(d.id) === 'pending').length;
+  const done = submitted + listed;
+  const pct = Math.round(done / total * 100);
+
+  document.getElementById('cnt-total').textContent = total;
+  document.getElementById('cnt-pending').textContent = pending;
+  document.getElementById('cnt-submitted').textContent = submitted;
+  document.getElementById('cnt-listed').textContent = listed;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function render() {
+  let dirs = [...DIRS];
+  if (currentFilter === 'pending')   dirs = dirs.filter(d => getState(d.id) === 'pending');
+  if (currentFilter === 'submitted') dirs = dirs.filter(d => getState(d.id) === 'submitted');
+  if (currentFilter === 'listed')    dirs = dirs.filter(d => getState(d.id) === 'listed');
+  if (currentFilter === 'high')      dirs = dirs.filter(d => d.priority === 'high');
+  if (currentFilter === 'cn')        dirs = dirs.filter(d => d.cat === 'Chinese');
+
+  // Sort: high priority first, then by state (pending first)
+  dirs.sort((a,b) => {
+    const order = {high:0, med:1, low:2};
+    const stOrder = {pending:0, submitted:1, listed:2};
+    if (order[a.priority] !== order[b.priority]) return order[a.priority] - order[b.priority];
+    return stOrder[getState(a.id)] - stOrder[getState(b.id)];
+  });
+
+  const list = document.getElementById('dir-list');
+  list.innerHTML = dirs.map(d => {
+    const st = getState(d.id);
+    let itemClass = 'dir-item';
+    if (st === 'listed') itemClass += ' is-listed';
+    if (st === 'submitted') itemClass += ' is-submitted';
+
+    const prioBadge = d.priority === 'high'
+      ? '<span class="badge high">high priority</span>'
+      : d.priority === 'med' ? '' : '';
+
+    const cnBadge = d.cat === 'Chinese' ? '<span class="badge cn">中文</span>' : '';
+    const catBadge = `<span class="badge">${d.cat}</span>`;
+    const stBadge = st === 'listed'
+      ? '<span class="badge listed">listed ✓</span>'
+      : st === 'submitted' ? '<span class="badge submitted">submitted</span>' : '';
+
+    return `
+    <div class="${itemClass}">
+      <div class="dir-icon">${d.icon}</div>
+      <div class="dir-info">
+        <div class="dir-name">${d.name}</div>
+        <div class="dir-domain">${d.domain}</div>
+        <div class="dir-tags">${prioBadge}${cnBadge}${catBadge}${stBadge}</div>
+      </div>
+      <div class="dir-actions">
+        <select class="status-sel" onchange="setState(${d.id}, this.value)">
+          <option value="pending"   ${st==='pending'  ?'selected':''}>Pending</option>
+          <option value="submitted" ${st==='submitted'?'selected':''}>Submitted</option>
+          <option value="listed"    ${st==='listed'   ?'selected':''}>Listed ✓</option>
+        </select>
+        <button class="go-btn" onclick="openDir('${d.url}', ${d.id})">
+          Open <i class="ti ti-external-link"></i>
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openDir(url, id) {
+  window.open(url, '_blank');
+  if (getState(id) === 'pending') setState(id, 'submitted');
+}
+
+function openNext() {
+  const next = DIRS.find(d => getState(d.id) === 'pending');
+  if (next) {
+    openDir(next.url, next.id);
+  } else {
+    showToast('All directories submitted! Great work.');
+  }
+}
+
+function setFilter(val, btn) {
+  currentFilter = val;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+    showToast('Copied to clipboard');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<i class="ti ti-copy"></i> Copy';
+    }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Copied!');
+  });
+}
+
+function copyEl(id, btn) {
+  copyText(document.getElementById(id).textContent, btn);
+  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.classList.remove('copied');
+    btn.innerHTML = '<i class="ti ti-copy"></i> Copy description';
+  }, 2000);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// Init
+updateStats();
+render();
+</script>
+</body>
+</html>
