@@ -269,4 +269,20 @@
     <priority>0.75</priority>
   </url>
 
+
+  <!-- Japanese -->
+  <url><loc>https://omoggle-it.com/ja/index.html</loc><lastmod>2026-05-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://omoggle-it.com/ja/what-is-omoggle.html</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://omoggle-it.com/ja/tools.html</loc><lastmod>2026-05-14</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+
+  <!-- Portuguese -->
+  <url><loc>https://omoggle-it.com/pt/index.html</loc><lastmod>2026-05-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://omoggle-it.com/pt/what-is-omoggle.html</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://omoggle-it.com/pt/tools.html</loc><lastmod>2026-05-14</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+
+  <!-- Russian -->
+  <url><loc>https://omoggle-it.com/ru/index.html</loc><lastmod>2026-05-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://omoggle-it.com/ru/what-is-omoggle.html</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://omoggle-it.com/ru/tools.html</loc><lastmod>2026-05-14</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+
 </urlset>
