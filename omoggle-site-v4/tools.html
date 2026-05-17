@@ -75,6 +75,28 @@
     .loading-sub{font-size:.8rem;color:var(--text-muted);margin-top:.4rem}
     .results-section{display:none}
     .error-msg{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);border-radius:var(--r-md);padding:1rem;text-align:center;color:#F85149;font-size:.9rem;display:none;margin-top:1rem}
+    /* ToS Modal */
+    .tos-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem}
+    .tos-box{background:var(--bg2);border:1px solid var(--border-md);border-radius:var(--r-lg);max-width:520px;width:100%;max-height:85vh;display:flex;flex-direction:column}
+    .tos-header{padding:1.5rem 1.5rem 1rem;border-bottom:1px solid var(--border)}
+    .tos-header h2{font-family:var(--font-display);font-size:1.6rem;letter-spacing:.05em;color:var(--gold)}
+    .tos-header p{font-size:.82rem;color:var(--text-muted);margin-top:.35rem}
+    .tos-body{padding:1rem 1.5rem;overflow-y:auto;flex:1;font-size:.85rem;color:var(--text-muted);line-height:1.8}
+    .tos-body h3{font-family:var(--font-display);font-size:1rem;letter-spacing:.08em;color:var(--text);margin:1rem 0 .35rem}
+    .tos-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:.75rem;flex-direction:column}
+    .tos-check{display:flex;align-items:flex-start;gap:.75rem;cursor:pointer;font-size:.83rem;color:var(--text-muted)}
+    .tos-check input{width:16px;height:16px;margin-top:2px;accent-color:var(--gold);flex-shrink:0;cursor:pointer}
+    .tos-agree-btn{width:100%;padding:.85rem;background:var(--gold);color:#0D1117;border:none;border-radius:var(--r-sm);font-family:var(--font-display);font-size:1rem;letter-spacing:.15em;cursor:pointer;transition:opacity .2s}
+    .tos-agree-btn:disabled{opacity:.4;cursor:not-allowed}
+    .tos-agree-btn:not(:disabled):hover{opacity:.88}
+    /* Rate limit banner */
+    .rate-banner{background:rgba(212,168,67,.08);border:1px solid var(--border-md);border-radius:var(--r-md);padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:var(--sp-sm);flex-wrap:wrap}
+    .rate-banner .rb-left{font-size:.85rem;color:var(--text-muted)}
+    .rate-banner .rb-count{font-family:var(--font-display);font-size:1.1rem;color:var(--gold)}
+    .rate-limit-block{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3);border-radius:var(--r-lg);padding:var(--sp-lg);text-align:center;display:none}
+    .rate-limit-block h3{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.08em;color:#F85149;margin-bottom:.75rem}
+    .rate-limit-block p{font-size:.9rem;color:var(--text-muted);margin-bottom:var(--sp-sm)}
+    .reset-time{font-size:.8rem;color:var(--text-dim);margin-top:.5rem}
   </style>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2031710024449901" crossorigin="anonymous"></script>
@@ -125,6 +147,12 @@
         </div>
       </div>
 
+      
+      <!-- Rate limit counter -->
+      <div class="rate-banner" id="rateBanner" style="display:none;">
+        <div class="rb-left">Free analyses used today</div>
+        <div><span class="rb-count" id="rateUsed">0</span><span style="color:var(--text-muted);font-size:.85rem;"> / 3</span></div>
+      </div>
       <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload photo for analysis">
         <input type="file" id="fileInput" accept="image/*" aria-label="Choose a photo">
         <div style="font-size:2rem;opacity:.35;margin-bottom:.75rem;" aria-hidden="true">◈</div>
@@ -534,5 +562,51 @@
 </script>
 
   <script src="/js/i18n.js"></script>
+
+<!-- Terms of Service Modal -->
+<div class="tos-overlay" id="tosOverlay" style="display:none;">
+  <div class="tos-box">
+    <div class="tos-header">
+      <h2>Terms of Use</h2>
+      <p>Please read and accept before using MogScore AI tools</p>
+    </div>
+    <div class="tos-body">
+      <h3>1. Entertainment Only</h3>
+      <p>MogScore's AI face analyzer is for entertainment purposes only. Scores are not scientifically validated assessments of attractiveness, health, or any personal characteristic.</p>
+      <h3>2. Your Photos</h3>
+      <p>Photos you upload are processed instantly and never stored on our servers. We do not use your images to train AI models or share them with third parties beyond the AI processing API.</p>
+      <h3>3. Usage Limits</h3>
+      <p>Free users may perform up to 3 analyses per day per IP address. This limit helps us keep the service free for everyone.</p>
+      <h3>4. Appropriate Use</h3>
+      <p>You agree not to upload images of minors, explicit content, or images you do not have rights to use. Violations may result in service termination.</p>
+      <h3>5. Age Requirement</h3>
+      <p>You must be 18 or older to use this service, consistent with Omoggle's own age requirements.</p>
+      <h3>6. No Medical Advice</h3>
+      <p>Nothing on this site constitutes medical, psychological, or professional advice. Looksmaxxing techniques are discussed for informational purposes only.</p>
+      <h3>7. Disclaimer</h3>
+      <p>MogScore.wiki is not affiliated with Omoggle LLC. AI scores may be inaccurate due to lighting, camera quality, image compression, and other technical factors.</p>
+    </div>
+    <div class="tos-footer">
+      <label class="tos-check">
+        <input type="checkbox" id="tosCheck" onchange="document.getElementById('tosAgreeBtn').disabled=!this.checked">
+        I have read and agree to the Terms of Use and <a href="/privacy-policy.html" target="_blank" style="color:var(--gold)">Privacy Policy</a>. I confirm I am 18 or older.
+      </label>
+      <button class="tos-agree-btn" id="tosAgreeBtn" disabled onclick="acceptTos()">
+        I Agree — Continue to MogScore →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Rate limit block (shown when limit exceeded) -->
+<div class="rate-limit-block" id="rateLimitBlock">
+  <h3>Daily Limit Reached</h3>
+  <p>Free users get <strong>3 analyses per day</strong>. You've used all 3 for today.</p>
+  <p style="margin-top:.5rem;">Come back tomorrow for 3 more free analyses.</p>
+  <div class="reset-time">⏱ Limit resets at midnight UTC</div>
+  <div style="margin-top:var(--sp-md);padding-top:var(--sp-sm);border-top:1px solid var(--border);">
+    <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:.75rem;">Want more analyses? Sign up is coming soon — registered users will get 10/day free.</p>
+  </div>
+</div>
 </body>
 </html>
