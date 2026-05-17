@@ -561,7 +561,77 @@
   }
 </script>
 
-  <script src="/js/i18n.js"></script>
+  <script src="/js/i18n.js">
+  // ── Terms of Service ──────────────────────────────
+  function checkTos() {
+    if (!localStorage.getItem('tos_accepted')) {
+      document.getElementById('tosOverlay').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  function acceptTos() {
+    localStorage.setItem('tos_accepted', '1');
+    document.getElementById('tosOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // ── Rate limit tracking ────────────────────────────
+  function getRateData() {
+    const today = new Date().toISOString().split('T')[0];
+    const stored = JSON.parse(localStorage.getItem('rate_data') || '{}');
+    if (stored.date !== today) return { date: today, count: 0 };
+    return stored;
+  }
+  function incrementRate() {
+    const data = getRateData();
+    data.count++;
+    localStorage.setItem('rate_data', JSON.stringify(data));
+    return data.count;
+  }
+  function isRateLimited() {
+    return getRateData().count >= 3;
+  }
+  function updateRateBanner() {
+    const data = getRateData();
+    const banner = document.getElementById('rateBanner');
+    const used = document.getElementById('rateUsed');
+    if (!banner || !used) return;
+    if (data.count > 0) {
+      banner.style.display = 'flex';
+      used.textContent = Math.min(data.count, 3);
+    }
+    if (data.count >= 3) {
+      const analyzerEl = document.getElementById('analyzer');
+      if (analyzerEl) {
+        analyzerEl.style.opacity = '0.45';
+        analyzerEl.style.pointerEvents = 'none';
+      }
+      const block = document.getElementById('rateLimitBlock');
+      if (block) block.style.display = 'block';
+    }
+  }
+
+  // ── Patch runAnalysis to count usage ──────────────
+  const _origRun = window.runAnalysis;
+  if (typeof _origRun === 'function') {
+    window.runAnalysis = async function() {
+      if (isRateLimited()) { updateRateBanner(); return; }
+      await _origRun();
+      const results = document.getElementById('analyzeResults');
+      if (results && results.style.display !== 'none') {
+        incrementRate();
+        updateRateBanner();
+      }
+    };
+  }
+
+  // ── Init on load ───────────────────────────────────
+  window.addEventListener('DOMContentLoaded', function() {
+    checkTos();
+    updateRateBanner();
+  });
+
+</script>
 
 <!-- Terms of Service Modal -->
 <div class="tos-overlay" id="tosOverlay" style="display:none;">
