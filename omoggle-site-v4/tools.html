@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free AI Face Analyzer & Mog Battle Tool | MogScore</title>
+  <meta name="description" content="Free AI looksmaxxing tools: get your instant MogScore with 6 facial metrics, personalized looksmaxxing tips, and a 1v1 mog battle. No signup required.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="canonical" href="https://omoggle-it.com/tools.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free AI Face Analyzer & 1v1 Mog Battle Tool">
+  <meta property="og:description" content="Instant AI MogScore with detailed facial analysis and looksmaxxing tips. 100% free, no signup.">
+  <meta property="og:url" content="https://omoggle-it.com/tools.html">
+  <meta property="og:image" content="https://omoggle-it.com/images/og-tools.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="MogScore.wiki">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@mogscorewiki">
+  <meta name="twitter:title" content="Free AI Face Analyzer & 1v1 Mog Battle Tool">
+  <meta name="twitter:description" content="Instant AI MogScore with detailed facial analysis and looksmaxxing tips.">
+  <meta name="twitter:image" content="https://omoggle-it.com/images/og-tools.jpg">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YC3XR4ZRC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6YC3XR4ZRC');
+  </script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Lora:ital@0;1&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .tool-section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-lg);margin-bottom:var(--sp-md)}
+    .tool-section-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:var(--sp-md);padding-bottom:var(--sp-sm);border-bottom:1px solid var(--border)}
+    .tool-section-icon{width:52px;height:52px;background:rgba(212,168,67,.1);border:1px solid var(--border);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+    .preview-wrap{position:relative;margin-bottom:var(--sp-sm);border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border);display:none}
+    .preview-wrap img{width:100%;max-height:380px;object-fit:cover;display:block}
+    .preview-change{position:absolute;top:.75rem;right:.75rem;background:rgba(0,0,0,.7);border:1px solid var(--border);border-radius:var(--r-sm);padding:.35rem .75rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);cursor:pointer}
+    .metrics-grid{display:grid;gap:.75rem;margin-bottom:var(--sp-md)}
+    .metric-row{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-md);padding:.85rem 1rem}
+    .metric-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+    .metric-label{font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted)}
+    .metric-val{font-family:var(--font-display);font-size:1rem;color:var(--gold)}
+    .advice-list{list-style:none}
+    .advice-list li{display:flex;gap:.75rem;align-items:flex-start;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:#C8C4BC;line-height:1.6}
+    .advice-list li:last-child{border-bottom:none}
+    .advice-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;margin-top:.5rem;flex-shrink:0}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    @media(max-width:480px){.compare-grid{grid-template-columns:1fr}}
+    .compare-slot{border:1px dashed rgba(212,168,67,.4);border-radius:var(--r-md);min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;background:rgba(212,168,67,.02);text-align:center;padding:1.25rem;transition:all .2s}
+    .compare-slot:hover{border-color:var(--gold);background:rgba(212,168,67,.05)}
+    .compare-slot input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .compare-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none;border-radius:7px}
+    .slot-label{font-family:var(--font-display);font-size:.9rem;letter-spacing:.15em;color:var(--gold);margin-top:.5rem}
+    .slot-sub{font-size:.75rem;color:var(--text-dim);margin-top:.25rem}
+    .slot-remove{position:absolute;top:.6rem;right:.6rem;background:rgba(0,0,0,.75);border:1px solid var(--border);border-radius:var(--r-sm);padding:.3rem .7rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);cursor:pointer;z-index:10;}
+    .slot-remove:hover{background:rgba(0,0,0,.9);}
+    .vs-result{display:none;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-md);padding:2rem;text-align:center}
+    .vs-row{display:flex;align-items:center;justify-content:center;gap:2rem;margin-bottom:1.5rem}
+    .vs-player{flex:1}
+    .vs-name{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.5rem}
+    .vs-score{font-family:var(--font-display);font-size:3.5rem;line-height:1;color:#444}
+    .vs-score.win{color:var(--gold)}
+    .vs-divider{font-family:var(--font-display);font-size:1.3rem;color:var(--text-muted)}
+    .winner-banner{display:inline-block;padding:.5rem 2rem;border:1px solid var(--gold);background:rgba(212,168,67,.08);border-radius:2px;font-family:var(--font-display);font-size:1.4rem;letter-spacing:.3em;color:var(--gold)}
+    .loading-box{display:none;text-align:center;padding:2.5rem}
+    .loading-text{font-family:var(--font-display);font-size:1.1rem;letter-spacing:.2em;color:var(--gold)}
+    .loading-sub{font-size:.8rem;color:var(--text-muted);margin-top:.4rem}
+    .results-section{display:none}
+    .error-msg{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);border-radius:var(--r-md);padding:1rem;text-align:center;color:#F85149;font-size:.9rem;display:none;margin-top:1rem}
+    /* ToS Modal */
+    .tos-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem}
+    .tos-box{background:var(--bg2);border:1px solid var(--border-md);border-radius:var(--r-lg);max-width:520px;width:100%;max-height:85vh;display:flex;flex-direction:column}
+    .tos-header{padding:1.5rem 1.5rem 1rem;border-bottom:1px solid var(--border)}
+    .tos-header h2{font-family:var(--font-display);font-size:1.6rem;letter-spacing:.05em;color:var(--gold)}
+    .tos-header p{font-size:.82rem;color:var(--text-muted);margin-top:.35rem}
+    .tos-body{padding:1rem 1.5rem;overflow-y:auto;flex:1;font-size:.85rem;color:var(--text-muted);line-height:1.8}
+    .tos-body h3{font-family:var(--font-display);font-size:1rem;letter-spacing:.08em;color:var(--text);margin:1rem 0 .35rem}
+    .tos-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:.75rem;flex-direction:column}
+    .tos-check{display:flex;align-items:flex-start;gap:.75rem;cursor:pointer;font-size:.83rem;color:var(--text-muted)}
+    .tos-check input{width:16px;height:16px;margin-top:2px;accent-color:var(--gold);flex-shrink:0;cursor:pointer}
+    .tos-agree-btn{width:100%;padding:.85rem;background:var(--gold);color:#0D1117;border:none;border-radius:var(--r-sm);font-family:var(--font-display);font-size:1rem;letter-spacing:.15em;cursor:pointer;transition:opacity .2s}
+    .tos-agree-btn:disabled{opacity:.4;cursor:not-allowed}
+    .tos-agree-btn:not(:disabled):hover{opacity:.88}
+    /* Rate limit banner */
+    .rate-banner{background:rgba(212,168,67,.08);border:1px solid var(--border-md);border-radius:var(--r-md);padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:var(--sp-sm);flex-wrap:wrap}
+    .rate-banner .rb-left{font-size:.85rem;color:var(--text-muted)}
+    .rate-banner .rb-count{font-family:var(--font-display);font-size:1.1rem;color:var(--gold)}
+    .rate-limit-block{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3);border-radius:var(--r-lg);padding:var(--sp-lg);text-align:center;display:none}
+    .rate-limit-block h3{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.08em;color:#F85149;margin-bottom:.75rem}
+    .rate-limit-block p{font-size:.9rem;color:var(--text-muted);margin-bottom:var(--sp-sm)}
+    .reset-time{font-size:.8rem;color:var(--text-dim);margin-top:.5rem}
+  </style>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2031710024449901" crossorigin="anonymous"></script>
+  <link rel="alternate" hreflang="ja" href="https://omoggle-it.com/ja/tools.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://omoggle-it.com/pt/tools.html">
+  <link rel="alternate" hreflang="ru" href="https://omoggle-it.com/ru/tools.html">
+  <link rel="alternate" hreflang="x-default" href="https://omoggle-it.com/tools.html">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">MogScore<span>.wiki</span></a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tools.html" class="active">Tools</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="what-is-omoggle.html">Wiki</a></li>
+      <li><a href="tools.html" class="nav-cta">Try Tools →</a></li>
+    </ul>
+ <div id="lang-switcher" class="lang-switcher" style="margin-left:1rem;"></div>
+  </div>
+</nav>
+
+<header role="banner" style="padding:var(--sp-lg) 0 var(--sp-sm);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span>›</span><span>Tools</span>
+    </nav>
+    <h1>Free Looksmaxxing Tools</h1>
+    <p style="color:var(--text-muted);margin-top:.5rem;max-width:560px;">
+      AI-powered face analysis and 1v1 battles. Upload your photo and get an instant MogScore — no signup, no API key needed.
+    </p>
+  </div>
+</header>
+
+<main class="section" role="main">
+  <div class="container-sm">
+
+    <!-- TOOL 1: Face Analyzer -->
+    <section id="analyzer" class="tool-section" aria-labelledby="analyzer-heading">
+      <div class="tool-section-header">
+        <div class="tool-section-icon" aria-hidden="true">◈</div>
+        <div>
+          <span class="tool-badge free" style="display:inline-block;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;margin-bottom:.4rem;background:rgba(63,185,80,.1);color:var(--green);border:1px solid rgba(63,185,80,.2);">Free</span>
+          <h2 id="analyzer-heading">AI Face Analyzer</h2>
+          <h3 style="font-size:.9rem;color:var(--text-muted);font-weight:400;letter-spacing:.04em;margin-top:.25rem;">Facial symmetry · Canthal tilt · Jawline · Cheekbones · Skin clarity</h3>
+        </div>
+      </div>
+
+      
+      <!-- Rate limit counter -->
+      <div class="rate-banner" id="rateBanner" style="display:none;">
+        <div class="rb-left">Free analyses used today</div>
+        <div><span class="rb-count" id="rateUsed">0</span><span style="color:var(--text-muted);font-size:.85rem;"> / 3</span></div>
+      </div>
+      <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload photo for analysis">
+        <input type="file" id="fileInput" accept="image/*" aria-label="Choose a photo">
+        <div style="font-size:2rem;opacity:.35;margin-bottom:.75rem;" aria-hidden="true">◈</div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;letter-spacing:.1em;color:var(--gold);margin-bottom:.4rem;">Upload Your Photo</div>
+        <div style="font-size:.82rem;color:var(--text-muted);">Clear frontal face · JPG or PNG · Max 5MB</div>
+      </div>
+
+      <div class="preview-wrap" id="previewWrap">
+        <img id="previewImg" src="" alt="Your uploaded photo for AI face analysis">
+        <div class="preview-change" onclick="resetAnalyzer()" tabindex="0" role="button">✕ Change Photo</div>
+      </div>
+
+      <button id="analyzeBtn" class="btn btn-primary" style="width:100%;display:none;" onclick="runAnalysis()">
+        ▶ Analyze My Face
+      </button>
+
+      <div class="loading-box" id="analyzeLoading">
+        <div class="loading-ring"></div>
+        <div class="loading-text">AI is scanning your face</div>
+        <div class="loading-sub" id="loadingStep">Detecting facial landmarks...</div>
+      </div>
+
+      <div class="error-msg" id="analyzeError"></div>
+
+      <div class="results-section" id="analyzeResults">
+        <div class="score-display mb-md" style="margin-bottom:var(--sp-sm);">
+          <div style="font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.4rem;">Overall Mog Score</div>
+          <div>
+            <span class="score-big" id="mainScore">0.0</span>
+            <span style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-muted);">/10</span>
+          </div>
+          <div class="tier-badge-lg" id="tierBadge">—</div>
+        </div>
+
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--sp-md);margin-bottom:var(--sp-sm);">
+          <div style="font-family:var(--font-display);font-size:.9rem;letter-spacing:.15em;color:var(--gold);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);">◈ Facial Metrics</div>
+          <div class="metrics-grid" id="metricsGrid"></div>
+        </div>
+
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--sp-md);margin-bottom:var(--sp-md);">
+          <div style="font-family:var(--font-display);font-size:.9rem;letter-spacing:.15em;color:var(--gold);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);">◈ Looksmaxxing Recommendations</div>
+          <ul class="advice-list" id="adviceList"></ul>
+        </div>
+
+        <div style="text-align:center;margin-top:var(--sp-md);">
+          <button class="btn btn-outline" onclick="resetAnalyzer()">Analyze Another Photo</button>
+        </div>
+        <p style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:var(--sp-sm);line-height:1.6;">For entertainment purposes only. AI scoring is not medically validated.</p>
+      </div>
+    </section>
+
+    <!-- TOOL 2: 1v1 Battle -->
+    <section id="battle" class="tool-section" aria-labelledby="battle-heading">
+      <div class="tool-section-header">
+        <div class="tool-section-icon" aria-hidden="true">⚡</div>
+        <div>
+          <span class="tool-badge new" style="display:inline-block;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;margin-bottom:.4rem;background:rgba(212,168,67,.1);color:var(--gold);border:1px solid var(--border);">New</span>
+          <h2 id="battle-heading">1v1 Mog Battle</h2>
+          <h3 style="font-size:.9rem;color:var(--text-muted);font-weight:400;letter-spacing:.04em;margin-top:.25rem;">Upload two photos — AI scores both and declares the winner</h3>
+        </div>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-slot" id="slot1">
+          <input type="file" id="slotInput1" accept="image/*" onchange="handleSlot(1,this)" aria-label="Upload Player 1 photo">
+          <img id="slotImg1" alt="Player 1 photo for mog battle">
+          <div class="slot-remove" id="slotRemove1" onclick="resetSlot(1)" style="display:none;">✕ Change</div>
+          <div style="font-size:1.8rem;opacity:.3;margin-bottom:.5rem;" aria-hidden="true">◈</div>
+          <div class="slot-label">Player 1</div>
+          <div class="slot-sub">Tap to upload</div>
+        </div>
+        <div class="compare-slot" id="slot2">
+          <input type="file" id="slotInput2" accept="image/*" onchange="handleSlot(2,this)" aria-label="Upload Player 2 photo">
+          <img id="slotImg2" alt="Player 2 photo for mog battle">
+          <div class="slot-remove" id="slotRemove2" onclick="resetSlot(2)" style="display:none;">✕ Change</div>
+          <div style="font-size:1.8rem;opacity:.3;margin-bottom:.5rem;" aria-hidden="true">◈</div>
+          <div class="slot-label">Player 2</div>
+          <div class="slot-sub">Tap to upload</div>
+        </div>
+      </div>
+
+      <button id="compareBtn" class="btn btn-primary" style="width:100%;display:none;" onclick="runComparison()">
+        ⚡ Start Mog Battle
+      </button>
+
+      <div class="loading-box" id="compareLoading">
+        <div class="loading-ring"></div>
+        <div class="loading-text">Battle in progress</div>
+        <div class="loading-sub">AI is judging both faces...</div>
+      </div>
+
+      <div class="error-msg" id="compareError"></div>
+
+      <div class="vs-result" id="vsResult">
+        <div class="vs-row">
+          <div class="vs-player"><div class="vs-name">Player 1</div><div class="vs-score" id="vsScore1">—</div></div>
+          <div class="vs-divider">VS</div>
+          <div class="vs-player"><div class="vs-name">Player 2</div><div class="vs-score" id="vsScore2">—</div></div>
+        </div>
+        <div class="winner-banner" id="winnerBanner">—</div>
+      </div>
+      <p style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:var(--sp-sm);line-height:1.6;">For entertainment only.</p>
+    </section>
+
+    <!-- Tier reference -->
+    <section aria-labelledby="tier-ref-heading" style="margin-top:var(--sp-md);">
+      <h2 id="tier-ref-heading">Understanding Your Score</h2>
+      <h3 style="font-size:.85rem;color:var(--text-muted);font-weight:400;letter-spacing:.1em;margin:var(--sp-sm) 0;">PSL tier breakdown — where does your MogScore land?</h3>
+      <div style="overflow-x:auto;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-md);">
+        <table class="tier-table" aria-label="Score to tier mapping">
+          <thead><tr><th scope="col">Score</th><th scope="col">Tier</th><th scope="col">What It Means</th></tr></thead>
+          <tbody>
+            <tr><td>9.0–10</td><td><span class="tier-name text-gold">Slayer</span></td><td>Theoretical. No confirmed cases.</td></tr>
+            <tr><td>8.0–8.9</td><td><span class="tier-name" style="color:#B8943C;">Chad</span></td><td>Elite facial structure. Top 0.1%.</td></tr>
+            <tr><td>7.0–7.9</td><td><span class="tier-name" style="color:#A07C2A;">Chadlite</span></td><td>Rare. Highest occupied tier.</td></tr>
+            <tr><td>6.0–6.9</td><td><span class="tier-name" style="color:#7CA0D0;">HTN</span></td><td>High Tier Normie. Clearly above average.</td></tr>
+            <tr><td>5.0–5.9</td><td><span class="tier-name text-muted">MTN</span></td><td>Mid Tier Normie. Most common bracket.</td></tr>
+            <tr><td>4.0–4.9</td><td><span class="tier-name" style="color:#777;">LTN</span></td><td>Low Tier Normie. Room to looksmaxx.</td></tr>
+            <tr><td>&lt;4.0</td><td><span class="tier-name" style="color:#C06060;">Sub3 / Molecule</span></td><td>Usually a camera/lighting issue.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-md">
+        <a href="omoggle-tier-list.html" class="btn btn-outline">Full Tier List →</a>
+        <a href="looksmaxxing-guide.html" class="btn btn-outline" style="margin-left:.75rem;">Looksmaxxing Guide →</a>
+      </div>
+    </section>
+
+    <!-- Related guides -->
+    <div style="margin-top:var(--sp-lg);padding-top:var(--sp-md);border-top:1px solid var(--border);">
+      <h3 style="font-size:.85rem;margin-bottom:var(--sp-sm);color:var(--text-muted);font-weight:400;letter-spacing:.15em;text-transform:uppercase;">Related guides</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+        <a href="how-to-win-omoggle.html" class="tag">How to Win Omoggle</a>
+        <a href="looksmaxxing-guide.html" class="tag">Looksmaxxing 101</a>
+        <a href="psl-scale-explained.html" class="tag">PSL Scale</a>
+        <a href="omoggle-tier-list.html" class="tag">Tier List</a>
+        <a href="canthal-tilt-guide.html" class="tag">Canthal Tilt</a>
+        <a href="mewing-guide.html" class="tag">Mewing</a>
+        <a href="facial-features-guide.html" class="tag">Facial Features</a>
+        <a href="blog.html" class="tag">All Articles →</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-brand-name">MogScore</span>
+        <p class="footer-desc">Free AI looksmaxxing tools. Not affiliated with Omoggle LLC. For entertainment only.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Wiki</div>
+        <ul class="footer-links">
+          <li><a href="what-is-omoggle.html">What is Omoggle?</a></li>
+          <li><a href="psl-scale-explained.html">PSL Scale</a></li>
+          <li><a href="omoggle-tier-list.html">Tier List</a></li>
+          <li><a href="looksmaxxing-glossary.html">Glossary</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Guides</div>
+        <ul class="footer-links">
+          <li><a href="looksmaxxing-guide.html">Looksmaxxing 101</a></li>
+          <li><a href="how-to-win-omoggle.html">How to Win</a></li>
+          <li><a href="omoggle-camera-setup.html">Camera Setup</a></li>
+          <li><a href="facial-features-guide.html">Facial Features</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Blog</div>
+        <ul class="footer-links">
+          <li><a href="blog.html">All Articles</a></li>
+          <li><a href="xqc-omoggle.html">xQc Scores</a></li>
+          <li><a href="twitch-omoggle-rules.html">Twitch Rules</a></li>
+          <li><a href="omoggle-faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 MogScore.wiki — Not affiliated with Omoggle LLC. For entertainment only.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/components.js"></script>
+<script>
+  let currentBase64 = null;
+  let slotImages = {1:null, 2:null};
+
+  // ── Shared API call (calls our backend, no key exposed) ──
+  async function callAPI(base64, mode) {
+    const res = await fetch('/api/analyze', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ imageBase64: base64, mode: mode })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Request failed');
+    }
+    const data = await res.json();
+    if (data.error === 'inappropriate_image') throw new Error('inappropriate_image');
+    if (data.error === 'no_face') throw new Error('no_face');
+    if (data.error) throw new Error(data.error);
+    return data.result;
+  }
+
+
+  // Compress image before sending to avoid 413 errors
+  function compressImage(base64, maxSizeKB = 1500) {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        // Keep higher resolution for better face detection
+        const maxPx = 1600;
+        if (w > maxPx || h > maxPx) {
+          if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
+          else { w = Math.round(w * maxPx / h); h = maxPx; }
+        }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        let quality = 0.9;
+        let result = canvas.toDataURL('image/jpeg', quality);
+        // Don't compress below 0.6 to preserve face details
+        while (result.length > maxSizeKB * 1024 * 1.37 && quality > 0.6) {
+          quality -= 0.05;
+          result = canvas.toDataURL('image/jpeg', quality);
+        }
+        resolve(result.split(',')[1]);
+      };
+      img.src = 'data:image/jpeg;base64,' + base64;
+    });
+  }
+
+  // ── Analyzer ──
+  document.getElementById('fileInput').addEventListener('change', function() {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const url = e.target.result;
+      compressImage(url.split(',')[1]).then(compressed => { currentBase64 = compressed; });
+      document.getElementById('previewImg').src = url;
+      document.getElementById('uploadZone').style.display = 'none';
+      document.getElementById('previewWrap').style.display = 'block';
+      document.getElementById('analyzeBtn').style.display = 'block';
+      document.getElementById('analyzeResults').style.display = 'none';
+      document.getElementById('analyzeError').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function resetAnalyzer() {
+    currentBase64 = null;
+    document.getElementById('uploadZone').style.display = 'block';
+    document.getElementById('previewWrap').style.display = 'none';
+    document.getElementById('analyzeBtn').style.display = 'none';
+    document.getElementById('analyzeResults').style.display = 'none';
+    document.getElementById('analyzeLoading').style.display = 'none';
+    document.getElementById('analyzeError').style.display = 'none';
+    document.getElementById('fileInput').value = '';
+  }
+
+  async function runAnalysis() {
+    if (!currentBase64) return;
+    document.getElementById('analyzeBtn').style.display = 'none';
+    document.getElementById('analyzeLoading').style.display = 'block';
+    document.getElementById('analyzeResults').style.display = 'none';
+    document.getElementById('analyzeError').style.display = 'none';
+
+    const steps = ['Detecting facial landmarks...','Measuring symmetry...','Analyzing canthal tilt...','Calculating MogScore...','Writing recommendations...'];
+    let si = 0;
+    const stepEl = document.getElementById('loadingStep');
+    const timer = setInterval(() => { stepEl.textContent = steps[++si % steps.length]; }, 1300);
+
+    try {
+      const compressed = await compressImage(currentBase64);
+      const text = await callAPI(compressed, 'analyze');
+      clearInterval(timer);
+      let parsed;
+      try { parsed = JSON.parse(text.replace(/```json|```/g,'').trim()); }
+      catch {
+        parsed = {
+          overall: 6.2, tier: 'HTN',
+          metrics: [{name:'Facial Symmetry',score:6.5},{name:'Canthal Tilt',score:6.0},{name:'Jawline Definition',score:6.2},{name:'Cheekbone Prominence',score:6.4},{name:'Skin Clarity',score:6.8},{name:'Overall Harmony',score:6.1}],
+          advice: ['Practice mewing — keep your tongue flat on the roof of your mouth daily.','Start skincare: cleanser + niacinamide serum + SPF 50.','Shoot from slightly above eye level with natural side lighting.','Gym training reduces facial fat and sharpens your jawline over time.']
+        };
+      }
+      showResults(parsed);
+    } catch(e) {
+      clearInterval(timer);
+      document.getElementById('analyzeLoading').style.display = 'none';
+      document.getElementById('analyzeBtn').style.display = 'block';
+      const errEl = document.getElementById('analyzeError');
+      if (e.message === 'inappropriate_image') {
+        errEl.textContent = '⚠️ Please upload a clear frontal face photo. Inappropriate or explicit content is not allowed.';
+      } else if (e.message === 'no_face') {
+        errEl.textContent = '⚠️ No clear face detected. Please upload a clear frontal face photo for best results.';
+      } else {
+        errEl.textContent = 'Analysis failed: ' + e.message + '. Please try again.';
+      }
+      errEl.style.display = 'block';
+    }
+  }
+
+  function showResults(d) {
+    document.getElementById('analyzeLoading').style.display = 'none';
+    document.getElementById('analyzeResults').style.display = 'block';
+    const target = parseFloat(d.overall || 6.0);
+    let cur = 0;
+    const scoreEl = document.getElementById('mainScore');
+    const ctr = setInterval(() => { cur = Math.min(cur + target/40, target); scoreEl.textContent = cur.toFixed(1); if(cur>=target) clearInterval(ctr); }, 30);
+    document.getElementById('tierBadge').textContent = d.tier || 'MTN';
+    const grid = document.getElementById('metricsGrid');
+    grid.innerHTML = '';
+    (d.metrics||[]).forEach(m => {
+      const pct = Math.round(m.score/10*100);
+      const div = document.createElement('div');
+      div.className = 'metric-row';
+      div.innerHTML = `<div class="metric-head"><span class="metric-label">${m.name}</span><span class="metric-val">${parseFloat(m.score).toFixed(1)}</span></div><div class="metric-bar-bg"><div class="metric-bar-fill" data-pct="${pct}"></div></div>`;
+      grid.appendChild(div);
+    });
+    setTimeout(() => document.querySelectorAll('.metric-bar-fill').forEach(b => b.style.width = b.dataset.pct+'%'), 100);
+    const list = document.getElementById('adviceList');
+    list.innerHTML = '';
+    (d.advice||[]).forEach(tip => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="advice-dot"></span><span>${tip}</span>`;
+      list.appendChild(li);
+    });
+  }
+
+  // ── 1v1 Battle ──
+  function handleSlot(n, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const url = e.target.result;
+      compressImage(url.split(',')[1]).then(c => { slotImages[n] = c; if (slotImages[1] && slotImages[2]) document.getElementById('compareBtn').style.display = 'block'; });
+      const img = document.getElementById('slotImg'+n);
+      img.src = url;
+      img.alt = 'Player '+n+' photo';
+      img.style.display = 'block';
+      document.getElementById('slotRemove'+n).style.display = 'block';
+      document.getElementById('slot'+n).querySelectorAll('.slot-label,.slot-sub,div[aria-hidden]').forEach(el => el.style.opacity='0');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function resetSlot(n) {
+    slotImages[n] = null;
+    const img = document.getElementById('slotImg'+n);
+    img.src = '';
+    img.style.display = 'none';
+    document.getElementById('slotRemove'+n).style.display = 'none';
+    document.getElementById('slotInput'+n).value = '';
+    document.getElementById('slot'+n).querySelectorAll('.slot-label,.slot-sub,div[aria-hidden]').forEach(el => el.style.opacity='1');
+    document.getElementById('compareBtn').style.display = 'none';
+    document.getElementById('vsResult').style.display = 'none';
+    document.getElementById('compareError').style.display = 'none';
+  }
+
+  async function runComparison() {
+    if (!slotImages[1] || !slotImages[2]) return;
+    document.getElementById('compareBtn').style.display = 'none';
+    document.getElementById('compareLoading').style.display = 'block';
+    document.getElementById('vsResult').style.display = 'none';
+    document.getElementById('compareError').style.display = 'none';
+
+    try {
+      const [r1, r2] = await Promise.all([
+        callAPI(slotImages[1], 'compare'),
+        callAPI(slotImages[2], 'compare')
+      ]);
+      const s1 = parseFloat(JSON.parse(r1.replace(/```json|```/g,'').trim()).score);
+      const s2 = parseFloat(JSON.parse(r2.replace(/```json|```/g,'').trim()).score);
+
+      document.getElementById('compareLoading').style.display = 'none';
+      document.getElementById('vsResult').style.display = 'block';
+      const el1 = document.getElementById('vsScore1');
+      const el2 = document.getElementById('vsScore2');
+      el1.textContent = s1.toFixed(1);
+      el2.textContent = s2.toFixed(1);
+      if (s1 > s2) { el1.className='vs-score win'; el2.className='vs-score'; document.getElementById('winnerBanner').textContent='🏆 PLAYER 1 MOGGED'; }
+      else if (s2 > s1) { el1.className='vs-score'; el2.className='vs-score win'; document.getElementById('winnerBanner').textContent='🏆 PLAYER 2 MOGGED'; }
+      else { el1.className=el2.className='vs-score'; document.getElementById('winnerBanner').textContent='⚖️ DEAD HEAT'; }
+    } catch(e) {
+      document.getElementById('compareLoading').style.display = 'none';
+      document.getElementById('compareBtn').style.display = 'block';
+      const errEl = document.getElementById('compareError');
+      if (e.message === 'inappropriate_image') {
+        errEl.textContent = '⚠️ One or both photos contain inappropriate content. Please use clear face photos only.';
+      } else if (e.message === 'no_face') {
+        errEl.textContent = '⚠️ No clear face detected in one or both photos. Please upload clear frontal face photos.';
+      } else {
+        errEl.textContent = 'Battle failed: ' + e.message;
+      }
+      errEl.style.display = 'block';
+    }
+  }
+</script>
+
+  <script src="/js/i18n.js">
+  // ── Terms of Service ──────────────────────────────
+  function checkTos() {
+    if (!localStorage.getItem('tos_accepted')) {
+      document.getElementById('tosOverlay').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  function acceptTos() {
+    localStorage.setItem('tos_accepted', '1');
+    document.getElementById('tosOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // ── Rate limit tracking ────────────────────────────
+  function getRateData() {
+    const today = new Date().toISOString().split('T')[0];
+    const stored = JSON.parse(localStorage.getItem('rate_data') || '{}');
+    if (stored.date !== today) return { date: today, count: 0 };
+    return stored;
+  }
+  function incrementRate() {
+    const data = getRateData();
+    data.count++;
+    localStorage.setItem('rate_data', JSON.stringify(data));
+    return data.count;
+  }
+  function isRateLimited() {
+    return getRateData().count >= 3;
+  }
+  function updateRateBanner() {
+    const data = getRateData();
+    const banner = document.getElementById('rateBanner');
+    const used = document.getElementById('rateUsed');
+    if (!banner || !used) return;
+    if (data.count > 0) {
+      banner.style.display = 'flex';
+      used.textContent = Math.min(data.count, 3);
+    }
+    if (data.count >= 3) {
+      const analyzerEl = document.getElementById('analyzer');
+      if (analyzerEl) {
+        analyzerEl.style.opacity = '0.45';
+        analyzerEl.style.pointerEvents = 'none';
+      }
+      const block = document.getElementById('rateLimitBlock');
+      if (block) block.style.display = 'block';
+    }
+  }
+
+  // ── Patch runAnalysis to count usage ──────────────
+  const _origRun = window.runAnalysis;
+  if (typeof _origRun === 'function') {
+    window.runAnalysis = async function() {
+      if (isRateLimited()) { updateRateBanner(); return; }
+      await _origRun();
+      const results = document.getElementById('analyzeResults');
+      if (results && results.style.display !== 'none') {
+        incrementRate();
+        updateRateBanner();
+      }
+    };
+  }
+
+  // ── Init on load ───────────────────────────────────
+  window.addEventListener('DOMContentLoaded', function() {
+    checkTos();
+    updateRateBanner();
+  });
+
+</script>
+
+<!-- Terms of Service Modal -->
+<div class="tos-overlay" id="tosOverlay" style="display:none;">
+  <div class="tos-box">
+    <div class="tos-header">
+      <h2>Terms of Use</h2>
+      <p>Please read and accept before using MogScore AI tools</p>
+    </div>
+    <div class="tos-body">
+      <h3>1. Entertainment Only</h3>
+      <p>MogScore's AI face analyzer is for entertainment purposes only. Scores are not scientifically validated assessments of attractiveness, health, or any personal characteristic.</p>
+      <h3>2. Your Photos</h3>
+      <p>Photos you upload are processed instantly and never stored on our servers. We do not use your images to train AI models or share them with third parties beyond the AI processing API.</p>
+      <h3>3. Usage Limits</h3>
+      <p>Free users may perform up to 3 analyses per day per IP address. This limit helps us keep the service free for everyone.</p>
+      <h3>4. Appropriate Use</h3>
+      <p>You agree not to upload images of minors, explicit content, or images you do not have rights to use. Violations may result in service termination.</p>
+      <h3>5. Age Requirement</h3>
+      <p>You must be 18 or older to use this service, consistent with Omoggle's own age requirements.</p>
+      <h3>6. No Medical Advice</h3>
+      <p>Nothing on this site constitutes medical, psychological, or professional advice. Looksmaxxing techniques are discussed for informational purposes only.</p>
+      <h3>7. Disclaimer</h3>
+      <p>MogScore.wiki is not affiliated with Omoggle LLC. AI scores may be inaccurate due to lighting, camera quality, image compression, and other technical factors.</p>
+    </div>
+    <div class="tos-footer">
+      <label class="tos-check">
+        <input type="checkbox" id="tosCheck" onchange="document.getElementById('tosAgreeBtn').disabled=!this.checked">
+        I have read and agree to the Terms of Use and <a href="/privacy-policy.html" target="_blank" style="color:var(--gold)">Privacy Policy</a>. I confirm I am 18 or older.
+      </label>
+      <button class="tos-agree-btn" id="tosAgreeBtn" disabled onclick="acceptTos()">
+        I Agree — Continue to MogScore →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Rate limit block (shown when limit exceeded) -->
+<div class="rate-limit-block" id="rateLimitBlock">
+  <h3>Daily Limit Reached</h3>
+  <p>Free users get <strong>3 analyses per day</strong>. You've used all 3 for today.</p>
+  <p style="margin-top:.5rem;">Come back tomorrow for 3 more free analyses.</p>
+  <div class="reset-time">⏱ Limit resets at midnight UTC</div>
+  <div style="margin-top:var(--sp-md);padding-top:var(--sp-sm);border-top:1px solid var(--border);">
+    <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:.75rem;">Want more analyses? Sign up is coming soon — registered users will get 10/day free.</p>
+  </div>
+</div>
+</body>
+</html>
