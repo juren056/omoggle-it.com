@@ -1,14 +1,12 @@
-import { redirect } from 'next/navigation'
-
-export default function LangPage() {
-  // Serve the static HTML from public/pt/index.html via iframe-like approach
+export default function PTIndexPage() {
   return (
     <html>
       <head>
         <meta httpEquiv="refresh" content="0;url=/pt/index.html" />
+        <title>MogScore — Português</title>
       </head>
-      <body>
-        <p>Redirecting...</p>
+      <body style={{background:'#0D1117',color:'#E6E1D6',fontFamily:'sans-serif',display:'flex',alignItems:'center',justifyContent:'center',minHeight:'100vh',margin:0}}>
+        <p>Loading Português...</p>
       </body>
     </html>
   )

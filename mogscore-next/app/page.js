@@ -8,16 +8,16 @@ export const metadata = {
 }
 
 const featuredArticles = [
-  {href:'/what-is-omoggle',tag:'Wiki',title:'What is Omoggle? Complete 2026 Guide',desc:'The viral AI face-rating platform explained — how it works, tier list, streamers and how to win.'},
-  {href:'/psl-scale-explained',tag:'Reference',title:'PSL Scale Explained: Ranks 1–10',desc:"The 1–10 scale Omoggle uses as its AI scoring backbone. What each number means."},
-  {href:'/how-to-win-omoggle',tag:'Strategy',title:'How to Win on Omoggle: 7 Tips',desc:'Camera angle, lighting and background — setup factors that raise your score by 1.5–2 points.'},
-  {href:'/hunter-eyes-guide',tag:'Guide',title:'Hunter Eyes: What They Are and How to Get Them',desc:'The most discussed looksmaxxing feature — what you can realistically do to improve your eye area.'},
-  {href:'/face-fat-loss-guide',tag:'Guide',title:'Face Fat Loss: Reveal Your Jawline',desc:'Highest-ROI looksmaxxing intervention. Timeline and most effective approach.'},
-  {href:'/looksmaxxing-results-timeline',tag:'Guide',title:'Looksmaxxing Results Timeline',desc:'Honest timelines: Skincare 4–6 weeks. Face fat 8–16 weeks. Mewing months to years.'},
+  {href:'/what-is-omoggle',tag:'Wiki',img:'/images/what-is-omoggle.jpg',title:'What is Omoggle? Complete 2026 Guide',desc:'The viral AI face-rating platform explained — how it works, tier list, streamers and how to win.'},
+  {href:'/psl-scale-explained',tag:'Reference',img:'/images/psl-scale.jpg',title:'PSL Scale Explained: Ranks 1–10',desc:"The 1–10 scale Omoggle uses as its AI scoring backbone. What each number means."},
+  {href:'/how-to-win-omoggle',tag:'Strategy',img:'/images/how-to-win-omoggle.jpg',title:'How to Win on Omoggle: 7 Tips',desc:'Camera angle, lighting and background — setup factors that raise your score by 1.5–2 points.'},
+  {href:'/hunter-eyes-guide',tag:'Guide',img:'/images/canthal-tilt.jpg',title:'Hunter Eyes: What They Are and How to Get Them',desc:'The most discussed looksmaxxing feature — what you can realistically do to improve your eye area.'},
+  {href:'/face-fat-loss-guide',tag:'Guide',img:'/images/gym-face.jpg',title:'Face Fat Loss: Reveal Your Jawline',desc:'Highest-ROI looksmaxxing intervention. Timeline and most effective approach.'},
+  {href:'/looksmaxxing-results-timeline',tag:'Guide',img:'/images/looksmaxxing-guide.jpg',title:'Looksmaxxing Results Timeline',desc:'Honest timelines: Skincare 4–6 weeks. Face fat 8–16 weeks. Mewing months to years.'},
 ]
 
 const allArticles = [
-  {href:'/softmaxxing-vs-hardmaxxing',tag:'Guide',title:'Softmaxxing vs Hardmaxxing: Which First?',date:'May 17'},
+  {href:'/softmaxxing-vs-hardmaxxing',tag:'Guide',img:'/images/looksmaxxing-guide.jpg',title:'Softmaxxing vs Hardmaxxing: Which First?',date:'May 17'},
   {href:'/facial-symmetry-improvement',tag:'Guide',title:'How to Improve Facial Symmetry',date:'May 17'},
   {href:'/is-omoggle-ai',tag:'Investigation',title:"Is Omoggle Actually AI? Developer's Answer",date:'May 14'},
   {href:'/omoggle-fake-sites',tag:'Warning',title:'Fake Omoggle Sites: How to Spot Them',date:'May 14'},
@@ -100,6 +100,7 @@ export default function HomePage() {
           <div className="grid-3" style={{marginBottom:'var(--sp-lg)'}}>
             {featuredArticles.map(a => (
               <article className="card" key={a.href}>
+                {a.img && <img src={a.img} alt={a.title} className="card-img" width="600" height="338" loading="lazy" />}
                 <div className="card-body">
                   <span className="card-tag">{a.tag}</span>
                   <a href={a.href} className="card-title">{a.title}</a>

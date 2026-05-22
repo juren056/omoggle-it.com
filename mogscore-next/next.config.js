@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
-    // Redirect all old .html URLs to clean Next.js routes
-    const pages = [
+    const contentPages = [
       'agent00-omoggle','asmongold-omoggle','best-angle-for-photos',
       'canthal-tilt-guide','clavicular-mogged','contact',
       'face-fat-loss-guide','facial-features-guide','facial-symmetry-guide',
@@ -20,21 +19,49 @@ const nextConfig = {
       'twitch-omoggle-rules','what-is-mogging','xqc-omoggle',
     ]
 
-    const htmlRedirects = pages.map(slug => ({
+    // .html → clean URL redirects for English
+    const htmlRedirects = contentPages.map(slug => ({
       source: `/${slug}.html`,
       destination: `/${slug}`,
       permanent: true,
     }))
 
-    return [
-      // Core page redirects
+    // Core pages
+    const coreRedirects = [
       { source: '/index.html', destination: '/', permanent: true },
       { source: '/tools.html', destination: '/tools', permanent: true },
       { source: '/blog.html', destination: '/blog', permanent: true },
       { source: '/what-is-omoggle.html', destination: '/what-is-omoggle', permanent: true },
-      // Content page redirects
-      ...htmlRedirects,
     ]
+
+    // Multilingual content page redirects (slug → slug.html since they're static)
+    const i18nRedirects = []
+    const langs = ['ja', 'pt', 'ru']
+    langs.forEach(lang => {
+      contentPages.forEach(page => {
+        i18nRedirects.push({
+          source: `/${lang}/${page}`,
+          destination: `/${lang}/${page}.html`,
+          permanent: false,
+        })
+      })
+      // Special pages
+      ;['tools','blog'].forEach(p => {
+        i18nRedirects.push({
+          source: `/${lang}/${p}`,
+          destination: `/${lang}/${p}.html`,
+          permanent: false,
+        })
+      })
+      // what-is-omoggle for i18n
+      i18nRedirects.push({
+        source: `/${lang}/what-is-omoggle`,
+        destination: `/${lang}/what-is-omoggle.html`,
+        permanent: false,
+      })
+    })
+
+    return [...coreRedirects, ...htmlRedirects, ...i18nRedirects]
   },
 }
 
