@@ -1,13 +1,140 @@
-export default function PTIndexPage() {
+'use client'
+import Link from 'next/link'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+
+const featuredArticles = [
+  {tag:'Wiki',img:'/images/what-is-omoggle.jpg',title:'O que é Omoggle? Guia Completo 2026',desc:'A plataforma viral de avaliação de rostos explicada — como funciona, tier list, streamers e como vencer.'},
+{tag:'Referência',img:'/images/psl-scale.jpg',title:'PSL Scale Explicado: Ranks 1–10',desc:'A escala 1–10 que o Omoggle usa como base de pontuação de IA. O que cada número significa.'},
+{tag:'Estratégia',img:'/images/how-to-win-omoggle.jpg',title:'Como Vencer no Omoggle: 7 Dicas',desc:'Ângulo da câmera, iluminação e fundo — fatores de configuração que aumentam sua pontuação em 1,5–2 pontos.'},
+{tag:'Guia',img:'/images/canthal-tilt.jpg',title:'Hunter Eyes: O Que São e Como Conseguir',desc:'A característica de looksmaxxing mais discutida — o que você pode realisticamente fazer para melhorar a área dos olhos.'},
+{tag:'Guia',img:'/images/gym-face.jpg',title:'Perda de Gordura Facial: Revele sua Mandíbula',desc:'Intervenção de looksmaxxing com maior ROI. Linha do tempo e abordagem mais eficaz.'},
+{tag:'Guia',img:'/images/looksmaxxing-guide.jpg',title:'Linha do Tempo de Resultados de Looksmaxxing',desc:'Linhas do tempo honestas: Skincare 4–6 semanas. Gordura facial 8–16 semanas. Mewing meses a anos.'}
+]
+
+const allArticles = [
+  {tag:'Guia',img:'/images/looksmaxxing-guide.jpg',title:'Softmaxxing vs Hardmaxxing: Qual Primeiro?',date:'17 Mai'},
+{tag:'Guia',img:null,title:'Como Melhorar a Simetria Facial',date:'17 Mai'},
+{tag:'Investigação',img:null,title:'Omoggle é Realmente IA? Resposta do Desenvolvedor',date:'14 Mai'},
+{tag:'Aviso',img:null,title:'Sites Falsos do Omoggle: Como Identificar',date:'14 Mai'},
+{tag:'Atualizado',img:null,title:'Tier List 2026: Todos os 9 Ranks Incluindo Adam',date:'14 Mai'},
+{tag:'Notícias',img:null,title:'Agent00 Usou Testa Postiça e Ainda Venceu',date:'14 Mai'},
+{tag:'Notícias',img:null,title:'Jasontheween & CORE Boys no Omoggle',date:'14 Mai'},
+{tag:'Notícias',img:'/images/xqc-omoggle.jpg',title:'xQc Perdeu 6 Vezes Seguidas',date:'5 Mai'},
+{tag:'Notícias',img:'/images/asmongold-omoggle.jpg',title:'Pontuação e Destaques do Asmongold',date:'5 Mai'},
+{tag:'Notícias',img:'/images/clavicular-mogged.jpg',title:'Clavicular Abandonou Após Ser Mogado',date:'5 Mai'},
+{tag:'Wiki',img:'/images/elo-system.jpg',title:'Sistema ELO do Omoggle Explicado',date:'3 Mai'},
+{tag:'Wiki',img:'/images/omoggle-vs-omegle.jpg',title:'Omoggle vs Omegle: Qual a Diferença?',date:'3 Mai'},
+{tag:'Guia',img:'/images/looksmaxxing-guide.jpg',title:'Guia de Looksmaxxing para Iniciantes',date:'1 Mai'},
+{tag:'Guia',img:'/images/canthal-tilt.jpg',title:'Guia de Inclinação Canthal',date:'1 Mai'},
+{tag:'Guia',img:'/images/mewing-guide.jpg',title:'Guia de Mewing: Funciona de Verdade?',date:'1 Mai'},
+{tag:'Guia',img:'/images/jawline-gym.jpg',title:'Guia de Mandíbula: Como Ter um Maxilar Afiado',date:'1 Mai'},
+{tag:'Guia',img:'/images/skincare-looksmaxx.jpg',title:'Skincare para Looksmaxxing',date:'28 Abr'},
+{tag:'Guia',img:'/images/gym-face.jpg',title:'Guia Gym Face',date:'28 Abr'},
+{tag:'Guia',img:'/images/sleep-looksmaxxing.jpg',title:'Sono e Looksmaxxing: Por Que Importa',date:'28 Abr'},
+{tag:'Guia',img:'/images/haircut-looksmaxxing.jpg',title:'Melhor Corte de Cabelo para Looksmaxxing',date:'25 Abr'}
+]
+
+const stats = [
+  ['50K+','Visitantes Mensais'],
+  ['54','Guias & Artigos'],
+  ['9','Tiers ELO Explicados'],
+  ['Grátis','Analisador de Rosto IA']
+]
+
+export default function PTHomePage() {
   return (
-    <html>
-      <head>
-        <meta httpEquiv="refresh" content="0;url=/pt/index.html" />
-        <title>MogScore — Português</title>
-      </head>
-      <body style={{background:'#0D1117',color:'#E6E1D6',fontFamily:'sans-serif',display:'flex',alignItems:'center',justifyContent:'center',minHeight:'100vh',margin:0}}>
-        <p>Loading Português...</p>
-      </body>
-    </html>
+    <>
+      <Navbar />
+      <header className="hero">
+        <div className="container">
+          <span className="hero-eyebrow">🔥 Viral na Twitch em 2026</span>
+          <h1>Your Ultimate Guide to <em>Omoggle</em>,<br/>Mogging & Looksmaxxing</h1>
+          <p className="hero-sub">Analisador de rosto IA gratuito, PSL Scale explicado, rankings e dicas de especialistas para vencer no Omoggle.</p>
+          <div className="hero-actions">
+            <Link href="/pt/tools" className="btn btn-primary">Analisar Meu Rosto com IA</Link>
+            <Link href="/pt/what-is-omoggle" className="btn btn-outline">O que é Omoggle? →</Link>
+          </div>
+        </div>
+      </header>
+
+      <section className="section-alt section">
+        <div className="container">
+          <div className="stats-row">
+            {stats.map(([num, label]) => (
+              <div className="stat-item" key={label}>
+                <span className="stat-num">{num}</span>
+                <span className="stat-label">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-label">Ferramentas Gratuitas</span>
+            <h2>Ferramentas de Looksmaxxing com IA</h2>
+          </div>
+          <div className="grid-2">
+            <article className="tool-card">
+              <div className="tool-icon">◈</div>
+              <span className="tool-badge free">Grátis</span>
+              <h3>Analisador de Rosto IA</h3>
+              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>Envie sua foto e obtenha um MogScore detalhado com avaliações de 6 métricas faciais e dicas personalizadas.</p>
+              <Link href="/pt/tools" className="btn btn-primary" style={{textAlign:'center',marginTop:'1rem'}}>Analisar Meu Rosto →</Link>
+            </article>
+            <article className="tool-card">
+              <div className="tool-icon">⚡</div>
+              <span className="tool-badge new">Novo</span>
+              <h3>Batalha Mog 1v1</h3>
+              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>Envie duas fotos e deixe a IA decidir quem moga quem. Perfeito para resolver disputas com amigos.</p>
+              <Link href="/pt/tools#battle" className="btn btn-outline" style={{textAlign:'center',marginTop:'1rem'}}>Iniciar Batalha →</Link>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-label">Últimos Artigos</span>
+            <h2>Guias em Destaque & Notícias</h2>
+          </div>
+          <div className="grid-3" style={{marginBottom:'var(--sp-lg)'}}>
+            {featuredArticles.map((a, i) => (
+              <article className="card" key={i}>
+                {a.img && <img src={a.img} alt={a.title} className="card-img" width="600" height="338" loading="lazy" />}
+                <div className="card-body">
+                  <span className="card-tag">{a.tag}</span>
+                  <a href={`/pt/${['what-is-omoggle','psl-scale-explained','how-to-win-omoggle','hunter-eyes-guide','face-fat-loss-guide','looksmaxxing-results-timeline'][i]}`} className="card-title">{a.title}</a>
+                  <p className="card-excerpt">{a.desc}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div style={{display:'flex',flexDirection:'column',gap:'8px',marginBottom:'var(--sp-lg)'}}>
+            {allArticles.map((a, i) => (
+              <a href={`/pt/${['softmaxxing-vs-hardmaxxing','facial-symmetry-improvement','is-omoggle-ai','omoggle-fake-sites','omoggle-tier-list-2026','agent00-omoggle','jasontheween-omoggle','xqc-omoggle','asmongold-omoggle','clavicular-mogged','omoggle-elo-system','omoggle-vs-omegle','looksmaxxing-guide','canthal-tilt-guide','mewing-guide','jawline-guide','skincare-looksmaxxing','gym-face-guide','sleep-looksmaxxing','haircut-looksmaxxing'][i]}`} key={i} className="article-row-item">
+                <div style={{display:'flex',alignItems:'center',gap:'.75rem',minWidth:0}}>
+                  {a.img && <img src={a.img} alt={a.title} style={{width:60,height:42,objectFit:'cover',borderRadius:'var(--r-sm)',flexShrink:0}} loading="lazy" />}
+                  <div style={{minWidth:0}}>
+                    <span className="card-tag" style={{marginBottom:'.25rem',display:'inline-block'}}>{a.tag}</span>
+                    <div style={{fontSize:'.9rem',color:'var(--text)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{a.title}</div>
+                  </div>
+                </div>
+                <span style={{fontSize:'.78rem',color:'var(--text-dim)',flexShrink:0}}>{a.date}</span>
+              </a>
+            ))}
+          </div>
+          <div style={{textAlign:'center'}}>
+            <Link href="/pt/blog" className="btn btn-outline">Ver Todos os Artigos →</Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </>
   )
 }
