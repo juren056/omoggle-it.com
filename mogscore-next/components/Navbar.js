@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SignInButton, SignUpButton, SignOutButton, useUser } from '@clerk/nextjs'
 import { useState, useEffect } from 'react'
+import PointsDashboard from './PointsDashboard'
 
 const LANGS = [
   { code: 'en', label: 'EN', path: '' },
@@ -17,6 +18,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const { isSignedIn, user } = useUser()
   const [currentLang, setCurrentLang] = useState('en')
+  const [showPoints, setShowPoints] = useState(false)
 
   useEffect(() => {
     const parts = pathname.split('/').filter(Boolean)
@@ -39,6 +41,7 @@ export default function Navbar() {
   }
 
   return (
+    <>
     <nav className="navbar">
       <div className="navbar-inner">
         <Link href="/" className="navbar-logo">MogScore<span>.wiki</span></Link>
@@ -68,6 +71,13 @@ export default function Navbar() {
           </div>
           {isSignedIn ? (
             <>
+              <button onClick={() => setShowPoints(true)} style={{
+                fontSize:'.75rem',background:'rgba(212,168,67,.1)',border:'1px solid var(--border-md)',
+                color:'var(--gold)',padding:'3px 10px',borderRadius:'99px',cursor:'pointer',
+                fontFamily:'var(--font-body)',letterSpacing:'.05em'
+              }}>
+                ◈ 积分
+              </button>
               <span className="user-limit-badge">10/day ✓</span>
               <span style={{fontSize:'.82rem',color:'var(--text-muted)'}}>
                 {user?.firstName || 'User'}
@@ -98,5 +108,7 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    {showPoints && <PointsDashboard onClose={() => setShowPoints(false)} />}
+    </>
   )
 }
