@@ -8,203 +8,259 @@ function getSupabase() {
   )
 }
 
-async function getUserId(req) {
+async function getUserId() {
   try {
     const { auth } = await import('@clerk/nextjs/server')
-    const { userId } = await auth()
-    return userId || null
-  } catch { return null }
+    const session = await auth()
+    return session?.userId || null
+  } catch (e) {
+    console.error('Auth error:', e)
+    return null
+  }
 }
 
-// GET /api/points — get user points & stats
-export async function GET(req) {
-  const userId = await getUserId(req)
-  if (!userId) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
-
-  const supabase = getSupabase()
-
-  // Get or create user points record
-  let { data, error } = await supabase
+async function ensureUserExists(supabase, userId, userEmail, userName) {
+  const { data, error } = await supabase
     .from('user_points')
     .select('*')
     .eq('user_id', userId)
     .single()
 
   if (error && error.code === 'PGRST116') {
-    // User doesn't exist yet, create
     const { data: newData, error: createErr } = await supabase
       .from('user_points')
-      .insert({ user_id: userId, points: 0, total_earned: 0, extra_uses: 0 })
+      .insert({
+        user_id: userId,
+        points: 0,
+        total_earned: 0,
+        extra_uses: 0,
+        email: userEmail || null,
+        display_name: userName || null,
+      })
       .select()
       .single()
-    if (createErr) return NextResponse.json({ error: createErr.message }, { status: 500 })
-    data = newData
-  } else if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    if (createErr) throw new Error(createErr.message)
+    return newData
   }
-
-  // Get recent log
-  const { data: logs } = await supabase
-    .from('points_log')
-    .select('*')
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false })
-    .limit(10)
-
-  // Check today's checkin
-  const today = new Date().toISOString().split('T')[0]
-  const { data: checkin } = await supabase
-    .from('daily_checkins')
-    .select('id')
-    .eq('user_id', userId)
-    .eq('checkin_date', today)
-    .single()
-
-  return NextResponse.json({
-    points: data.points || 0,
-    total_earned: data.total_earned || 0,
-    extra_uses: data.extra_uses || 0,
-    logs: logs || [],
-    checked_in_today: !!checkin,
-  })
+  if (error) throw new Error(error.message)
+  return data
 }
 
-// POST /api/points — perform action to earn points
-export async function POST(req) {
-  const userId = await getUserId(req)
-  if (!userId) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+// GET /api/points
+export async function GET(req) {
+  const userId = await getUserId()
+  if (!userId) {
+    return NextResponse.json({ error: 'Not authenticated', code: 'AUTH_REQUIRED' }, { status: 401 })
+  }
 
-  const { action } = await req.json()
+  try {
+    const supabase = getSupabase()
+    const data = await ensureUserExists(supabase, userId, null, null)
+
+    const { data: logs } = await supabase
+      .from('points_log')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+      .limit(20)
+
+    const today = new Date().toISOString().split('T')[0]
+    const { data: checkin } = await supabase
+      .from('daily_checkins')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('checkin_date', today)
+      .maybeSingle()
+
+    // Check completed one-time tasks
+    const { data: completedTasks } = await supabase
+      .from('tasks_completed')
+      .select('task_id')
+      .eq('user_id', userId)
+
+    const completedTaskIds = (completedTasks || []).map(t => t.task_id)
+
+    // Check if profile is complete
+    const profileComplete = completedTaskIds.includes('complete_profile')
+
+    // Check if shared today
+    const sharedToday = completedTaskIds.includes(`share_${today}`)
+
+    return NextResponse.json({
+      points: data.points || 0,
+      total_earned: data.total_earned || 0,
+      extra_uses: data.extra_uses || 0,
+      display_name: data.display_name || null,
+      email: data.email || null,
+      logs: logs || [],
+      checked_in_today: !!checkin,
+      shared_today: sharedToday,
+      profile_complete: profileComplete,
+    })
+  } catch (err) {
+    console.error('GET /api/points error:', err)
+    return NextResponse.json({ error: err.message }, { status: 500 })
+  }
+}
+
+// POST /api/points
+export async function POST(req) {
+  const userId = await getUserId()
+  if (!userId) {
+    return NextResponse.json({ error: 'Not authenticated', code: 'AUTH_REQUIRED' }, { status: 401 })
+  }
+
+  let body
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+  }
+
+  const { action, payload } = body
   const supabase = getSupabase()
   const today = new Date().toISOString().split('T')[0]
 
-  let pointsToAdd = 0
-  let description = ''
-  let taskId = null
+  try {
+    // Ensure user record exists
+    const userData = await ensureUserExists(supabase, userId, null, null)
 
-  switch (action) {
-    case 'daily_checkin':
-      // Check if already checked in today
-      const { data: existing } = await supabase
-        .from('daily_checkins')
-        .select('id')
-        .eq('user_id', userId)
-        .eq('checkin_date', today)
-        .single()
-      
-      if (existing) return NextResponse.json({ error: 'Already checked in today' }, { status: 400 })
-      
-      // Record checkin
-      await supabase.from('daily_checkins').insert({ user_id: userId, checkin_date: today })
-      pointsToAdd = 5
-      description = '每日签到 +5分'
-      break
+    let pointsToAdd = 0
+    let description = ''
 
-    case 'share_result':
-      // Can share once per day
-      taskId = `share_${today}`
-      const { data: sharedToday } = await supabase
-        .from('tasks_completed')
-        .select('id')
-        .eq('user_id', userId)
-        .eq('task_id', taskId)
-        .single()
-      
-      if (sharedToday) return NextResponse.json({ error: 'Already shared today' }, { status: 400 })
-      
-      await supabase.from('tasks_completed').insert({ user_id: userId, task_id: taskId })
-      pointsToAdd = 10
-      description = '分享结果 +10分'
-      break
+    switch (action) {
 
-    case 'complete_profile':
-      // One-time task
-      taskId = 'complete_profile'
-      const { data: profileDone } = await supabase
-        .from('tasks_completed')
-        .select('id')
-        .eq('user_id', userId)
-        .eq('task_id', taskId)
-        .single()
-      
-      if (profileDone) return NextResponse.json({ error: 'Already completed' }, { status: 400 })
-      
-      await supabase.from('tasks_completed').insert({ user_id: userId, task_id: taskId })
-      pointsToAdd = 10
-      description = '完善个人资料 +10分（一次性）'
-      break
+      // ── Daily checkin ───────────────────────────────────────────
+      case 'daily_checkin': {
+        const { data: existing } = await supabase
+          .from('daily_checkins')
+          .select('id')
+          .eq('user_id', userId)
+          .eq('checkin_date', today)
+          .maybeSingle()
 
-    case 'redeem_use':
-      // Spend 10 points for 1 extra use
-      const { data: userData } = await supabase
-        .from('user_points')
-        .select('points, extra_uses')
-        .eq('user_id', userId)
-        .single()
-      
-      if (!userData || userData.points < 10) {
-        return NextResponse.json({ error: 'Insufficient points (need 10)' }, { status: 400 })
+        if (existing) {
+          return NextResponse.json({ error: '今天已经签到过了', code: 'ALREADY_DONE' }, { status: 400 })
+        }
+
+        await supabase.from('daily_checkins').insert({ user_id: userId, checkin_date: today })
+        pointsToAdd = 5
+        description = '每日签到 +5分'
+        break
       }
-      
-      await supabase
-        .from('user_points')
-        .update({ 
-          points: userData.points - 10,
-          extra_uses: (userData.extra_uses || 0) + 1,
-          updated_at: new Date().toISOString()
+
+      // ── Share result ────────────────────────────────────────────
+      case 'share_result': {
+        const taskId = `share_${today}`
+        const { data: existing } = await supabase
+          .from('tasks_completed')
+          .select('id')
+          .eq('user_id', userId)
+          .eq('task_id', taskId)
+          .maybeSingle()
+
+        if (existing) {
+          return NextResponse.json({ error: '今天已经分享过了', code: 'ALREADY_DONE' }, { status: 400 })
+        }
+
+        await supabase.from('tasks_completed').insert({ user_id: userId, task_id: taskId })
+        pointsToAdd = 10
+        description = '分享分析结果 +10分'
+        break
+      }
+
+      // ── Complete profile ────────────────────────────────────────
+      case 'complete_profile': {
+        const { data: existing } = await supabase
+          .from('tasks_completed')
+          .select('id')
+          .eq('user_id', userId)
+          .eq('task_id', 'complete_profile')
+          .maybeSingle()
+
+        if (existing) {
+          return NextResponse.json({ error: '已经完成过了', code: 'ALREADY_DONE' }, { status: 400 })
+        }
+
+        // Validate payload
+        const { display_name } = payload || {}
+        if (!display_name || display_name.trim().length < 2) {
+          return NextResponse.json({ error: '请输入至少2个字符的昵称', code: 'INVALID_INPUT' }, { status: 400 })
+        }
+
+        // Save display name
+        await supabase
+          .from('user_points')
+          .update({ display_name: display_name.trim(), updated_at: new Date().toISOString() })
+          .eq('user_id', userId)
+
+        await supabase.from('tasks_completed').insert({ user_id: userId, task_id: 'complete_profile' })
+        pointsToAdd = 10
+        description = '完善个人资料 +10分（一次性）'
+        break
+      }
+
+      // ── Redeem use ──────────────────────────────────────────────
+      case 'redeem_use': {
+        if ((userData.points || 0) < 10) {
+          return NextResponse.json({ error: '积分不足（需要10分）', code: 'INSUFFICIENT_POINTS' }, { status: 400 })
+        }
+
+        await supabase
+          .from('user_points')
+          .update({
+            points: userData.points - 10,
+            extra_uses: (userData.extra_uses || 0) + 1,
+            updated_at: new Date().toISOString()
+          })
+          .eq('user_id', userId)
+
+        await supabase.from('points_log').insert({
+          user_id: userId,
+          points: -10,
+          action: 'redeem_use',
+          description: '兑换1次额外分析（-10分）'
         })
-        .eq('user_id', userId)
-      
-      await supabase.from('points_log').insert({
-        user_id: userId,
-        points: -10,
-        action: 'redeem_use',
-        description: '兑换1次额外分析（-10分）'
-      })
-      
-      return NextResponse.json({ success: true, action: 'redeemed', message: '兑换成功！获得1次额外分析' })
 
-    default:
-      return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
-  }
+        return NextResponse.json({
+          success: true,
+          action: 'redeemed',
+          message: '✅ 兑换成功！获得1次额外分析次数',
+          new_extra_uses: (userData.extra_uses || 0) + 1,
+        })
+      }
 
-  if (pointsToAdd > 0) {
-    // Get current points
-    let { data: current } = await supabase
-      .from('user_points')
-      .select('points, total_earned')
-      .eq('user_id', userId)
-      .single()
+      default:
+        return NextResponse.json({ error: '无效的操作', code: 'INVALID_ACTION' }, { status: 400 })
+    }
 
-    if (!current) {
-      // Create user record
-      await supabase.from('user_points').insert({
-        user_id: userId, points: pointsToAdd, 
-        total_earned: pointsToAdd, extra_uses: 0
-      })
-    } else {
+    if (pointsToAdd > 0) {
       await supabase
         .from('user_points')
         .update({
-          points: (current.points || 0) + pointsToAdd,
-          total_earned: (current.total_earned || 0) + pointsToAdd,
+          points: (userData.points || 0) + pointsToAdd,
+          total_earned: (userData.total_earned || 0) + pointsToAdd,
           updated_at: new Date().toISOString()
         })
         .eq('user_id', userId)
+
+      await supabase.from('points_log').insert({
+        user_id: userId,
+        points: pointsToAdd,
+        action,
+        description
+      })
     }
 
-    // Log the action
-    await supabase.from('points_log').insert({
-      user_id: userId,
-      points: pointsToAdd,
-      action,
-      description
+    return NextResponse.json({
+      success: true,
+      points_earned: pointsToAdd,
+      description,
+      message: `✅ ${description}`,
     })
-  }
 
-  return NextResponse.json({ 
-    success: true, 
-    points_earned: pointsToAdd,
-    description 
-  })
+  } catch (err) {
+    console.error('POST /api/points error:', err)
+    return NextResponse.json({ error: err.message }, { status: 500 })
+  }
 }
