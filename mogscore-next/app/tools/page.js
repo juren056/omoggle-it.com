@@ -93,6 +93,27 @@ export default function ToolsPage() {
     reader.readAsDataURL(file)
   }
 
+  async function handleShare() {
+    const text = `I just got my MogScore on the free AI Face Analyzer! Check yours 👀`
+    const url = 'https://omoggle-it.com/tools'
+    if (navigator.share) {
+      try { await navigator.share({ title: 'My MogScore', text, url }) }
+      catch (e) {
+        if (e.name !== 'AbortError') window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text+' '+url)}`, '_blank')
+      }
+    } else {
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text+' '+url)}`, '_blank')
+    }
+    // Award points
+    try {
+      await fetch('/api/points', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({action:'share_result'})
+      })
+    } catch {}
+  }
+
   async function runAnalysis() {
     if (!currentBase64 || rateLimited) return
     setAnalyzeState('loading'); setAnalyzeError(''); setResults(null)
@@ -269,8 +290,11 @@ export default function ToolsPage() {
                     ))}
                   </ul>
                 </div>
-                <div style={{textAlign:'center'}}>
+                <div style={{display:'flex',gap:'.75rem',justifyContent:'center',flexWrap:'wrap'}}>
                   <button onClick={resetAnalyzer} className="btn btn-outline">Analyze Another Photo</button>
+                  <button onClick={handleShare} className="btn btn-primary" style={{background:'var(--bg3)',border:'1px solid var(--border-md)',color:'var(--gold)'}}>
+                    🔗 Share Result (+10pts)
+                  </button>
                 </div>
                 <p style={{fontSize:'.72rem',color:'var(--text-dim)',textAlign:'center',marginTop:'var(--sp-sm)'}}>For entertainment purposes only. AI scoring is not medically validated.</p>
               </div>
