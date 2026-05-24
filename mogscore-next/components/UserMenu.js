@@ -104,11 +104,11 @@ export default function UserMenu() {
 
       {/* Profile Edit Modal */}
       {showProfileEdit && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.8)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,.85)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}
           onClick={() => setShowProfileEdit(false)}>
-          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border-md)', borderRadius: 'var(--r-lg)', maxWidth: 400, width: '100%', padding: '1.5rem' }}
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border-md)', borderRadius: 'var(--r-lg)', maxWidth: 480, width: '100%', padding: '2rem' }}
             onClick={e => e.stopPropagation()}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--gold)', marginBottom: '1.25rem' }}>👤 编辑资料</h2>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--gold)', marginBottom: '1.5rem', letterSpacing: '.05em' }}>👤 编辑资料</h2>
 
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ fontSize: '.82rem', color: 'var(--text-muted)', display: 'block', marginBottom: '.4rem' }}>昵称</label>
@@ -118,7 +118,7 @@ export default function UserMenu() {
                 onChange={e => setDisplayName(e.target.value)}
                 placeholder="输入你的昵称（2-20字）"
                 maxLength={20}
-                style={{ width: '100%', padding: '.65rem .85rem', background: 'var(--bg)', border: '1px solid var(--border-md)', borderRadius: 'var(--r-sm)', color: 'var(--text)', fontSize: '.9rem', outline: 'none', boxSizing: 'border-box' }}
+                style={{ width: '100%', padding: '.85rem 1rem', background: 'var(--bg)', border: '1px solid var(--border-md)', borderRadius: 'var(--r-sm)', color: 'var(--text)', fontSize: '1rem', outline: 'none', boxSizing: 'border-box' }}
               />
             </div>
 
@@ -135,14 +135,14 @@ export default function UserMenu() {
               </div>
             )}
 
-            <div style={{ display: 'flex', gap: '.75rem' }}>
+            <div style={{ display: 'flex', gap: '.75rem', marginTop: '.5rem' }}>
               <button onClick={() => setShowProfileEdit(false)}
-                style={{ flex: 1, padding: '.7rem', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 'var(--r-sm)', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '.88rem' }}>
+                style={{ flex: 1, padding: '.9rem', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 'var(--r-sm)', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '1rem' }}>
                 取消
               </button>
               <button onClick={saveProfile}
                 disabled={saving || displayName.trim().length < 2}
-                style={{ flex: 1, padding: '.7rem', background: displayName.trim().length < 2 ? 'var(--bg3)' : 'var(--gold)', border: 'none', borderRadius: 'var(--r-sm)', cursor: displayName.trim().length < 2 ? 'not-allowed' : 'pointer', color: displayName.trim().length < 2 ? 'var(--text-muted)' : '#0D1117', fontSize: '.88rem', fontFamily: 'var(--font-display)', letterSpacing: '.1em' }}>
+                style={{ flex: 1, padding: '.9rem', background: displayName.trim().length < 2 ? 'var(--bg3)' : 'var(--gold)', border: 'none', borderRadius: 'var(--r-sm)', cursor: displayName.trim().length < 2 ? 'not-allowed' : 'pointer', color: displayName.trim().length < 2 ? 'var(--text-muted)' : '#0D1117', fontSize: '1rem', fontFamily: 'var(--font-display)', letterSpacing: '.1em' }}>
                 {saving ? '保存中...' : '保存'}
               </button>
             </div>

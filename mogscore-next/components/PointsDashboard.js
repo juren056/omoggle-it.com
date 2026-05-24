@@ -120,7 +120,7 @@ export default function PointsDashboard({ onClose }) {
             <div style={S.pointsCard}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '.72rem', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '.4rem' }}>当前积分</div>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: '3.5rem', color: 'var(--gold)', lineHeight: 1 }}>{data?.points ?? 0}</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '4.5rem', color: 'var(--gold)', lineHeight: 1 }}>{data?.points ?? 0}</div>
                 <div style={{ fontSize: '.8rem', color: 'var(--text-muted)', marginTop: '.3rem' }}>累计获得 {data?.total_earned ?? 0} 分</div>
               </div>
               <div style={S.divider} />
@@ -255,14 +255,14 @@ export default function PointsDashboard({ onClose }) {
 }
 
 const S = {
-  overlay: { position: 'fixed', inset: 0, background: 'rgba(0,0,0,.8)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' },
-  box: { background: 'var(--bg2)', border: '1px solid var(--border-md)', borderRadius: 'var(--r-lg)', width: '100%', maxWidth: '460px', maxHeight: '92vh', display: 'flex', flexDirection: 'column' },
-  header: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.25rem 1.25rem 1rem', borderBottom: '1px solid var(--border)' },
-  title: { fontFamily: 'var(--font-display)', fontSize: '1.5rem', letterSpacing: '.05em', color: 'var(--gold)', margin: 0 },
-  closeBtn: { background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: '1.2rem', cursor: 'pointer', padding: '.25rem .5rem' },
+  overlay: { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,.85)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', overflowY: 'auto' },
+  box: { background: 'var(--bg2)', border: '1px solid var(--border-md)', borderRadius: 'var(--r-lg)', width: '100%', maxWidth: '520px', maxHeight: '88vh', display: 'flex', flexDirection: 'column', margin: 'auto' },
+  header: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem 1.5rem 1.1rem', borderBottom: '1px solid var(--border)' },
+  title: { fontFamily: 'var(--font-display)', fontSize: '1.9rem', letterSpacing: '.05em', color: 'var(--gold)', margin: 0 },
+  closeBtn: { background: 'none', border: '1px solid var(--border)', borderRadius: 'var(--r-sm)', color: 'var(--text-muted)', fontSize: '1.1rem', cursor: 'pointer', padding: '.3rem .7rem', lineHeight: 1 },
   pointsCard: { background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 'var(--r-lg)', padding: '1.25rem', marginBottom: '1rem' },
   divider: { height: '1px', background: 'var(--border)', margin: '1rem 0' },
-  btn: { padding: '.8rem', background: 'var(--gold)', color: '#0D1117', border: 'none', borderRadius: 'var(--r-sm)', fontFamily: 'var(--font-display)', fontSize: '1rem', letterSpacing: '.1em', cursor: 'pointer', textAlign: 'center' },
-  taskRow: { display: 'flex', alignItems: 'center', gap: '.75rem', padding: '.85rem', background: 'var(--bg3)', borderRadius: 'var(--r-md)', marginBottom: '.5rem' },
-  taskBtn: { padding: '.32rem .8rem', border: 'none', borderRadius: 'var(--r-sm)', fontSize: '.8rem', fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap' },
+  btn: { padding: '1rem', background: 'var(--gold)', color: '#0D1117', border: 'none', borderRadius: 'var(--r-sm)', fontFamily: 'var(--font-display)', fontSize: '1.1rem', letterSpacing: '.1em', cursor: 'pointer', textAlign: 'center' },
+  taskRow: { display: 'flex', alignItems: 'center', gap: '.85rem', padding: '1rem', background: 'var(--bg3)', borderRadius: 'var(--r-md)', marginBottom: '.6rem' },
+  taskBtn: { padding: '.45rem 1rem', border: 'none', borderRadius: 'var(--r-sm)', fontSize: '.88rem', fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap' },
 }

@@ -96,22 +96,40 @@ export default function ToolsPage() {
   async function handleShare() {
     const text = `I just got my MogScore on the free AI Face Analyzer! Check yours 👀`
     const url = 'https://omoggle-it.com/tools'
+    let shared = false
+
     if (navigator.share) {
-      try { await navigator.share({ title: 'My MogScore', text, url }) }
-      catch (e) {
-        if (e.name !== 'AbortError') window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text+' '+url)}`, '_blank')
+      try {
+        await navigator.share({ title: 'My MogScore', text, url })
+        // navigator.share resolves only after user completes sharing
+        shared = true
+      } catch (e) {
+        if (e.name !== 'AbortError') {
+          // Error (not cancel) - fall back to Twitter
+          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text+' '+url)}`, '_blank')
+          // For Twitter fallback: show confirmation dialog
+          shared = window.confirm('分享后点击确认领取10积分')
+        }
+        // If AbortError (user cancelled), don't award points
       }
     } else {
       window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text+' '+url)}`, '_blank')
+      // For desktop Twitter: show confirmation
+      shared = window.confirm('已经发推了吗？确认后领取10积分')
     }
-    // Award points
-    try {
-      await fetch('/api/points', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({action:'share_result'})
-      })
-    } catch {}
+
+    if (shared) {
+      try {
+        const res = await fetch('/api/points', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({action:'share_result'})
+        })
+        const data = await res.json()
+        if (res.ok) alert('✅ 已获得10积分！')
+        else if (data.error) alert(data.error)
+      } catch {}
+    }
   }
 
   async function runAnalysis() {
