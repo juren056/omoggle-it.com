@@ -1,140 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Is Omoggle Actually AI? The Developer's Answer (2026) | MogScore</title>
-  <meta name="description" content="Omoggle's developer Pablo Rogers clarified that the platform uses computer vision and facial landmark analysis — not LLMs. Here's what that means for your score.">
+  <title>Is Omoggle Actually AI? MediaPipe, NSFW.js and How It Works | MogScore</title>
+  <meta name="description" content="Omoggle uses MediaPipe for facial landmark detection and NSFW.js for content moderation — not an LLM. Full technical breakdown of how the scoring actually works.">
   <meta name="robots" content="index, follow">
-  <link rel="icon" type="image/png" href="images/favicon.png">
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="canonical" href="https://omoggle-it.com/is-omoggle-ai.html">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Is Omoggle Actually AI? The Developer's Answer (2026) | MogScore">
-  <meta property="og:description" content="Omoggle's developer Pablo Rogers clarified that the platform uses computer vision and facial landmark analysis — not LLMs. Here's what that means for your score.">
-  <meta property="og:url" content="https://omoggle-it.com/is-omoggle-ai.html">
-  <meta property="og:image" content="https://omoggle-it.com/images/og-blog.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Is Omoggle Actually AI? The Developer's Answer (2026) | MogScore">
-  <meta name="twitter:description" content="Omoggle's developer Pablo Rogers clarified that the platform uses computer vision and facial landmark analysis — not LLMs. Here's what that means for your score.">
-  <meta name="twitter:image" content="https://omoggle-it.com/images/og-blog.jpg">
+  <link rel="canonical" href="https://omoggle-it.com/is-omoggle-ai">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Is Omoggle Actually AI? MediaPipe, NSFW.js and How It Works | MogScore">
+  <meta property="og:description" content="Omoggle uses MediaPipe for facial landmark detection and NSFW.js for content moderation — not an LLM. Full technical breakdown of how the scoring actually works.">
+  <meta property="og:image" content="https://omoggle-it.com/images/what-is-omoggle.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YC3XR4ZRC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-6YC3XR4ZRC');
-  </script>
-  <!-- Google AdSense -->
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6YC3XR4ZRC');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2031710024449901" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap">
-  <link rel="stylesheet" href="css/style.css">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Article","headline":"Is Omoggle Actually AI? The Developer Finally Answered","description":"Omoggle's developer Pablo Rogers clarified that the platform uses computer vision and facial landmark analysis — not LLMs. Here's what that means for your score.","url":"https://omoggle-it.com/is-omoggle-ai.html","datePublished":"2026-05-14","dateModified":"2026-05-14","publisher":{"@type":"Organization","name":"MogScore","url":"https://omoggle-it.com"}}
-  </script>
-</head>
-<body>
-<nav class="navbar" aria-label="Main navigation">
-  <div class="navbar-inner">
-    <a href="index.html" class="navbar-logo">MogScore<span>.wiki</span></a>
-    <ul class="navbar-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="tools.html">Tools</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="what-is-omoggle.html">Wiki</a></li>
-      <li><a href="tools.html" class="nav-cta">Try AI Tool →</a></li>
-    </ul>
-  </div>
-</nav>
-<header role="banner" style="padding:var(--sp-lg) 0 var(--sp-sm);border-bottom:1px solid var(--border);">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Is Omoggle Actually AI? The Full Technical Breakdown","url":"https://omoggle-it.com/is-omoggle-ai","dateModified":"2026-05-31","publisher":{"@type":"Organization","name":"MogScore"}}
+</script>
+</head><body>
+<nav class="navbar"><div class="navbar-inner">
+  <a href="/" class="navbar-logo">MogScore<span>.wiki</span></a>
+  <ul class="navbar-nav">
+    <li><a href="/">Home</a></li><li><a href="/tools">Tools</a></li>
+    <li><a href="/blog">Blog</a></li><li><a href="/what-is-omoggle">Wiki</a></li>
+    <li><a href="/tools" class="nav-cta">Try AI →</a></li>
+  </ul>
+</div></nav>
+<header style="padding:var(--sp-lg) 0 var(--sp-sm);border-bottom:1px solid var(--border);">
   <div class="container-sm">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="index.html">Home</a><span>›</span><a href="blog.html">Blog</a><span>›</span><span>News</span>
-    </nav>
-    <span class="card-tag" style="display:inline-block;margin-bottom:.75rem;">News</span>
-    <h1>Is Omoggle Actually AI? The Developer Finally Answered</h1>
-    <p style="color:var(--text-muted);font-size:.85rem;margin-top:.5rem;">Updated May 14, 2026</p>
+    <nav class="breadcrumb"><a href="/">Home</a><span>›</span><a href="/blog">Blog</a><span>›</span><span>Investigation</span></nav>
+    <span class="card-tag" style="display:inline-block;margin-bottom:.75rem;">Investigation</span>
+    <h1>Is Omoggle Actually AI? The Full Technical Breakdown</h1>
+    <p style="color:var(--text-muted);font-size:.85rem;margin-top:.5rem;">Updated May 31, 2026</p>
   </div>
 </header>
-<main class="section" role="main">
+<main class="section">
   <div class="container-sm">
     <article class="article-content">
+      <img src="/images/what-is-omoggle.jpg" alt="Is Omoggle Actually AI? The Full Technical Breakdown" width="900" height="500" style="width:100%;border-radius:var(--r-lg);margin-bottom:var(--sp-md);border:1px solid var(--border);" loading="eager">
 
-      <img src="images/what-is-omoggle.jpg" alt="Omoggle face scoring interface showing AI analysis" width="900" height="500" style="width:100%;border-radius:var(--r-lg);margin-bottom:var(--sp-md);border:1px solid var(--border);" loading="eager">
+      <p>The short answer: Omoggle uses computer vision and facial landmark detection, not a large language model. The developer has made several public clarifications about the underlying technology since the platform went viral in May 2026.</p>
 
-      <h2>The Short Answer: Sort Of</h2>
-      <p>Omoggle's developer <strong>Pablo Rogers</strong> broke his silence in May 2026, clarifying exactly what technology powers the platform's face scoring — and it's not what most people assumed.</p>
+      <h2>What Omoggle Actually Uses</h2>
+      <p>Omoggle uses two distinct AI systems for two different purposes:</p>
 
-      <blockquote>"Omoggle is not an AI chatbot or generative AI product in the way people typically use that term today. The platform uses computer vision and facial landmark analysis to power parts of the gameplay and scoring system, but it does not use large language models to generate conversations or interactions between users."</blockquote>
+      <h3>1. MediaPipe for facial analysis</h3>
+      <p>The scoring system uses MediaPipe, Google's open-source computer vision framework, to map facial landmarks in real time from the webcam feed. This processes data client-side — on your device — and measures geometric relationships between facial points to generate scores for symmetry, canthal tilt, jawline definition, cheekbone prominence, skin clarity, and overall harmony.</p>
+      <p>This is not a "thinking" AI. It is a measurement system that maps specific landmark coordinates and calculates ratios against reference values. The scores are mathematical outputs, not subjective judgments.</p>
 
-      <h2>Computer Vision vs. Generative AI: What's the Difference?</h2>
-      <p>Most people hear "AI" and think of ChatGPT or Claude — large language models that generate text. Omoggle uses something different: <strong>computer vision</strong>, a branch of machine learning that processes and analyzes images and video frames.</p>
+      <h3>2. NSFW.js for content moderation</h3>
+      <p>Separately, Omoggle uses NSFW.js, an open-source machine learning model, to evaluate whether nudity is present in players' video feeds. This is the moderation layer — it detects prohibited content and can end or flag a match if triggered.</p>
 
-      <h3>What Omoggle actually does</h3>
-      <p>When you enter a mog battle, Omoggle's system:</p>
-      <ul>
-        <li>Captures a frame from your webcam during the 10-15 second window</li>
-        <li>Runs facial landmark detection to map key points on your face</li>
-        <li>Measures distances and ratios between landmarks (symmetry, canthal tilt, jawline angle)</li>
-        <li>Outputs a composite score from 0–10</li>
-      </ul>
-      <p>This is why the AI is "notoriously glitchy" as Dexerto reported — a fast computer vision model processing low-quality webcam frames in real time is inherently unstable. Camera angle, lighting, props, and even partial face obstruction can swing scores wildly.</p>
+      <h2>Developer Clarifications (May 2026)</h2>
+      <p>Developer Pablo Rogers made two rounds of public clarifications following the platform's viral surge:</p>
+      <p><strong>On data privacy:</strong> Facial landmark processing runs entirely on the user's device via MediaPipe. The raw video feed and facial mesh data are not transmitted to Omoggle's servers. Rogers stated: "Our intent is not to collect and sell user data, or to maintain broad archives of private user sessions."</p>
+      <p><strong>On advertising:</strong> Despite the above, Omoggle's privacy policy reserves the right to use "match-related content, including clips, screenshots, gameplay visuals, audio, usernames, display names, profile images, rankings, and match results" for advertising. Rogers has not fully reconciled this with the data privacy statements.</p>
 
-      <h2>Why Does This Matter for Your Score?</h2>
-      <p>Understanding that Omoggle uses computer vision (not a sophisticated AI judge) explains a lot:</p>
-      <h3>It's measuring landmarks, not attractiveness</h3>
-      <p>The system measures geometric relationships between mapped points on your face. It cannot account for subjective attractiveness — only the measurable distances it's been trained to score.</p>
-      <h3>Setup matters more than your face</h3>
-      <p>A computer vision model is highly sensitive to input quality. This is why our <a href="omoggle-camera-setup.html">camera setup guide</a> produces real results — you're optimizing the input to a landmark detection system, not trying to look more attractive to a human judge.</p>
+      <h2>Why Scores Are Inconsistent</h2>
+      <p>Because Omoggle uses geometric measurement rather than holistic AI judgment, small changes in input conditions produce large changes in output scores. Camera angle, distance, lighting direction, and even webcam quality all affect how MediaPipe maps facial landmarks — and therefore what scores it generates. This is why the same person can score 5.2 in one session and 6.8 in the next.</p>
+      <p>This also explains why camera angle optimization is the single most effective way to improve your Omoggle score. You are not changing your face — you are optimizing the geometric inputs to a landmark detection system. See: <a href="/how-to-win-omoggle">How to Win on Omoggle</a>.</p>
 
-      <h2>Privacy: Face Data Stays on Your Device</h2>
-      <p>Omoggle's official site states: <em>"Your face data stays on your device. Omoggle does not sell it, store it, or use it to train AI models. Face scanning is processed locally."</em></p>
-      <p>This is consistent with how client-side computer vision typically works — the processing happens in your browser, not on a remote server storing your facial data.</p>
+      <h2>Is It Actually Fair?</h2>
+      <p>No, not in any meaningful sense. Omoggle measures how well your face is captured by a specific computer vision system under specific conditions — not how attractive you are, not what your PSL score "really" is, and not anything that translates reliably to real-world perception. It is entertainment that uses the vocabulary of looksmaxxing, not a validated measurement of anything.</p>
 
-      <div class="highlight-box"><p>Want to understand your score better? Try our <a href="tools.html"><strong>free AI Face Analyzer</strong></a> — it scores the same 6 metrics Omoggle measures and gives you detailed breakdown plus looksmaxxing tips.</p></div>
-
+      <div class="highlight-box"><p>Test the same AI system offline — use our <a href="/tools"><strong>free AI Face Analyzer</strong></a>, which uses the same 6-metric scoring approach as Omoggle without requiring a live opponent.</p></div>
     </article>
     <aside style="margin-top:var(--sp-lg);padding-top:var(--sp-md);border-top:1px solid var(--border);">
       <h2 style="font-size:1.2rem;margin-bottom:var(--sp-sm);">Related Articles</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
-        <a href="what-is-omoggle.html" class="tag">What Is Omoggle</a>
-        <a href="omoggle-camera-setup.html" class="tag">Omoggle Camera Setup</a>
-        <a href="psl-scale-explained.html" class="tag">Psl Scale Explained</a>
-        <a href="how-to-win-omoggle.html" class="tag">How To Win Omoggle</a>
-        <a href="tools.html" class="tag">Tools</a>
-      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;"><a href="/what-is-omoggle" class="tag">What is Omoggle</a> <a href="/how-to-win-omoggle" class="tag">How to Win</a> <a href="/psl-scale-explained" class="tag">PSL Scale</a> <a href="/tools" class="tag">AI Tool →</a> </div>
     </aside>
   </div>
 </main>
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-grid">
-      <div><span class="footer-brand-name">MogScore</span><p class="footer-desc">Your #1 Omoggle resource. Not affiliated with Omoggle LLC. For entertainment only.</p></div>
-      <div><div class="footer-col-title">Wiki</div><ul class="footer-links">
-        <li><a href="what-is-omoggle.html">What is Omoggle?</a></li>
-        <li><a href="psl-scale-explained.html">PSL Scale</a></li>
-        <li><a href="omoggle-tier-list.html">Tier List</a></li>
-        <li><a href="looksmaxxing-glossary.html">Glossary</a></li>
-      </ul></div>
-      <div><div class="footer-col-title">Legal</div><ul class="footer-links">
-        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul></div>
-      <div><div class="footer-col-title">Tools</div><ul class="footer-links">
-        <li><a href="tools.html">AI Face Analyzer</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="omoggle-faq.html">FAQ</a></li>
-      </ul></div>
-    </div>
-    <div class="footer-bottom">
-      <span class="footer-copy">© 2026 MogScore.wiki — Not affiliated with Omoggle LLC. For entertainment only.</span>
-      <span class="footer-copy"><a href="privacy-policy.html">Privacy Policy</a> · <a href="contact.html">Contact</a> · <a href="sitemap.xml">Sitemap</a></span>
-    </div>
+<footer class="footer"><div class="container">
+  <div class="footer-grid">
+    <div><span class="footer-brand-name">MogScore</span><p class="footer-desc">Your #1 Omoggle resource. Not affiliated with Omoggle LLC.</p></div>
+    <div><div class="footer-col-title">Wiki</div><ul class="footer-links">
+      <li><a href="/what-is-omoggle">What is Omoggle?</a></li>
+      <li><a href="/psl-scale-explained">PSL Scale</a></li>
+      <li><a href="/omoggle-tier-list-2026">Tier List 2026</a></li>
+    </ul></div>
+    <div><div class="footer-col-title">Guides</div><ul class="footer-links">
+      <li><a href="/how-to-win-omoggle">How to Win</a></li>
+      <li><a href="/looksmaxxing-guide">Looksmaxxing 101</a></li>
+      <li><a href="/hunter-eyes-guide">Hunter Eyes</a></li>
+    </ul></div>
+    <div><div class="footer-col-title">Legal</div><ul class="footer-links">
+      <li><a href="/privacy-policy">Privacy Policy</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul></div>
   </div>
-</footer>
-<script src="js/components.js"></script>
-</body>
-</html>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 MogScore.wiki — For entertainment only.</span>
+  </div>
+</div></footer>
+<script src="/js/components.js"></script>
+</body></html>
