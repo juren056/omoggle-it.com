@@ -1,7 +1,16 @@
-'use client'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+
+export const metadata = {
+  title: 'Blog — Omoggle Guides, Looksmaxxing & PSL News | MogScore',
+  description: 'Latest Omoggle news, looksmaxxing guides, PSL Scale analysis and streamer scores. Updated weekly.',
+  openGraph: {
+    title: 'MogScore Blog — Omoggle & Looksmaxxing Guides',
+    description: 'Omoggle guides, looksmaxxing tips, PSL Scale analysis and streamer news.',
+  },
+}
+
 
 const articles = [
   { href:'/what-is-omoggle', tag:'Wiki', title:'What is Omoggle? Complete 2026 Guide', desc:'The viral AI face-rating platform where strangers compete webcam-to-webcam. Everything you need to know.', date:'May 17, 2026' },

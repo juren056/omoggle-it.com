@@ -3,8 +3,11 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata = {
-  title: 'MogScore — Omoggle Guide, Looksmaxxing & PSL Scale Wiki',
-  description: 'Free AI face analyzer, PSL Scale explained, Omoggle tier rankings and tips to win. Used by 10,000+ looksmaxxers worldwide.',
+  title: 'Free PSL Scale Test, Omoggle Guide & Looksmaxxing Wiki',
+  description: 'Free AI PSL Scale test and face analyzer. Score your face on 6 metrics — symmetry, canthal tilt, jawline, cheekbones and skin. #1 Omoggle guide and looksmaxxing tips.',
+  alternates: {
+    canonical: 'https://omoggle-it.com/',
+  },
 }
 
 const featuredArticles = [
