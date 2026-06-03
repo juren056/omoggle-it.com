@@ -29,6 +29,7 @@ const nextConfig = {
     // Core pages
     const coreRedirects = [
       { source: '/index.html', destination: '/', permanent: true },
+      { source: '/psl-scale-test.html', destination: '/psl-scale-test', permanent: true },
       { source: '/tools.html', destination: '/tools', permanent: true },
       { source: '/blog.html', destination: '/blog', permanent: true },
       { source: '/what-is-omoggle.html', destination: '/what-is-omoggle', permanent: true },
