@@ -28,6 +28,11 @@ const nextConfig = {
 
     // Core pages
     const coreRedirects = [
+      { source: '/omegle-alternative-2026.html', destination: '/omegle-alternative-2026', permanent: true },
+      { source: '/looksmaxxing-for-women-guide.html', destination: '/looksmaxxing-for-women-guide', permanent: true },
+      { source: '/omoggle-camera-angle.html', destination: '/omoggle-camera-angle', permanent: true },
+      { source: '/looksmaxxing-supplements.html', destination: '/looksmaxxing-supplements', permanent: true },
+      { source: '/mogging-meaning.html', destination: '/mogging-meaning', permanent: true },
       { source: '/index.html', destination: '/', permanent: true },
       { source: '/psl-scale-test.html', destination: '/psl-scale-test', permanent: true },
       { source: '/tools.html', destination: '/tools', permanent: true },

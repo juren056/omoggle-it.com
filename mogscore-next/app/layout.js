@@ -17,7 +17,19 @@ export const metadata = {
     card: 'summary_large_image',
     site: '@mogscore',
   },
-  icons: { icon: '/favicon.ico' },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.ico', type: 'image/x-icon' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180' },
+    ],
+    other: [
+      { rel: 'mask-icon', url: '/favicon.ico' },
+    ],
+  },
+  manifest: "/site.webmanifest",
   robots: {
     index: true,
     follow: true,
