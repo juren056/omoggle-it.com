@@ -45,23 +45,27 @@ export default function ToolsPage() {
     if (count >= dailyLimit) setRateLimited(true)
   }
 
-  async function compressImage(base64, maxKB = 1500) {
+  async function compressImage(base64, maxKB = 1200) {
     return new Promise(resolve => {
       const img = new Image()
       img.onload = () => {
         const canvas = document.createElement('canvas')
         let w = img.width, h = img.height
-        const maxPx = 1600
+        const maxPx = 1280
         if (w > maxPx || h > maxPx) {
           if (w > h) { h = Math.round(h * maxPx / w); w = maxPx }
           else { w = Math.round(w * maxPx / h); h = maxPx }
         }
         canvas.width = w; canvas.height = h
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h)
-        let q = 0.9, result = canvas.toDataURL('image/jpeg', q)
-        while (result.length > maxKB * 1024 * 1.37 && q > 0.6) { q -= 0.05; result = canvas.toDataURL('image/jpeg', q) }
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = '#ffffff'
+        ctx.fillRect(0, 0, w, h)
+        ctx.drawImage(img, 0, 0, w, h)
+        let q = 0.88, result = canvas.toDataURL('image/jpeg', q)
+        while (result.length > maxKB * 1024 * 1.37 && q > 0.55) { q -= 0.05; result = canvas.toDataURL('image/jpeg', q) }
         resolve(result.split(',')[1])
       }
+      img.onerror = () => resolve(base64)
       img.src = 'data:image/jpeg;base64,' + base64
     })
   }
@@ -82,14 +86,22 @@ export default function ToolsPage() {
   }
 
   function handleFileSelect(e) {
-    const file = e.target.files[0]; if (!file) return
+    const file = e.target.files[0]
+    if (!file) return
+    // Reset input so same file can be selected again
+    e.target.value = ''
     const reader = new FileReader()
     reader.onload = ev => {
       const url = ev.target.result
       setPreviewUrl(url)
-      compressImage(url.split(',')[1]).then(c => setCurrentBase64(c))
-      setAnalyzeState('idle'); setResults(null); setAnalyzeError('')
+      setAnalyzeState('idle')
+      setResults(null)
+      setAnalyzeError('')
+      // Compress in background
+      const b64 = url.split(',')[1]
+      compressImage(b64).then(c => setCurrentBase64(c))
     }
+    reader.onerror = () => setAnalyzeError('Could not read image. Please try another photo.')
     reader.readAsDataURL(file)
   }
 
@@ -236,23 +248,43 @@ export default function ToolsPage() {
             </div>
 
             {!previewUrl ? (
-              <div className="upload-zone">
-                <input type="file" accept="image/*" onChange={handleFileSelect} disabled={rateLimited} />
-                <div style={{fontSize:'2rem',opacity:.35,marginBottom:'.75rem'}}>◈</div>
-                <div style={{fontFamily:'var(--font-display)',fontSize:'1.4rem',letterSpacing:'.1em',color:'var(--gold)',marginBottom:'.4rem'}}>
-                  {rateLimited ? 'Daily Limit Reached' : 'Upload Your Photo'}
+              <label htmlFor="fileInputMain" style={{display:'block',cursor:rateLimited?'not-allowed':'pointer'}}>
+                <div className="upload-zone" style={{cursor:rateLimited?'not-allowed':'pointer',opacity:rateLimited?.6:1}}>
+                  <input
+                    id="fileInputMain"
+                    type="file"
+                    accept="image/*,image/heic,image/heif"
+                    onChange={handleFileSelect}
+                    disabled={rateLimited}
+                    style={{display:'none'}}
+                  />
+                  <div style={{fontSize:'2.5rem',marginBottom:'.75rem'}}>📷</div>
+                  <div style={{fontFamily:'var(--font-display)',fontSize:'1.4rem',letterSpacing:'.1em',color:'var(--gold)',marginBottom:'.4rem'}}>
+                    {rateLimited ? 'Daily Limit Reached' : 'Tap to Upload Photo'}
+                  </div>
+                  <div style={{fontSize:'.85rem',color:'var(--text-muted)',marginBottom:'1rem'}}>
+                    {rateLimited
+                      ? (isSignedIn ? 'Come back tomorrow for more analyses' : 'Sign up for 10 free analyses/day')
+                      : 'From camera roll or take a new photo'}
+                  </div>
+                  {!rateLimited && (
+                    <span style={{display:'inline-block',padding:'.65rem 1.75rem',background:'var(--gold)',color:'#0D1117',borderRadius:'var(--r-sm)',fontFamily:'var(--font-display)',fontSize:'1rem',letterSpacing:'.15em',pointerEvents:'none'}}>
+                      Choose Photo →
+                    </span>
+                  )}
+                  {rateLimited && !isSignedIn && (
+                    <a href="/sign-up" className="btn btn-primary" style={{marginTop:'.5rem',display:'inline-block'}} onClick={e=>e.stopPropagation()}>
+                      Sign Up Free — 10/day →
+                    </a>
+                  )}
                 </div>
-                <div style={{fontSize:'.82rem',color:'var(--text-muted)'}}>
-                  {rateLimited ? (isSignedIn ? 'Come back tomorrow for more free analyses' : 'Sign up for 10 free analyses per day') : 'Clear frontal face · JPG or PNG · Max 5MB'}
-                </div>
-                {rateLimited && !isSignedIn && (
-                  <a href="/sign-up" className="btn btn-primary" style={{marginTop:'1rem',display:'inline-block'}}>Sign Up Free — 10/day →</a>
-                )}
-              </div>
+              </label>
             ) : (
-              <div style={{position:'relative',marginBottom:'var(--sp-sm)',borderRadius:'var(--r-md)',overflow:'hidden',border:'1px solid var(--border)'}}>
-                <img src={previewUrl} alt="Preview" style={{width:'100%',maxHeight:380,objectFit:'cover',display:'block'}} />
-                <button onClick={resetAnalyzer} style={{position:'absolute',top:'.75rem',right:'.75rem',background:'rgba(0,0,0,.7)',border:'1px solid var(--border)',borderRadius:'var(--r-sm)',padding:'.35rem .75rem',fontSize:'.72rem',letterSpacing:'.1em',textTransform:'uppercase',color:'var(--gold)',cursor:'pointer'}}>
+              <div style={{marginBottom:'var(--sp-sm)'}}>
+                <div style={{position:'relative',borderRadius:'var(--r-md)',overflow:'hidden',border:'1px solid var(--border)',marginBottom:'.75rem'}}>
+                  <img src={previewUrl} alt="Your uploaded photo for analysis" style={{width:'100%',maxHeight:320,objectFit:'cover',display:'block'}} />
+                </div>
+                <button onClick={resetAnalyzer} style={{width:'100%',padding:'.6rem',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:'var(--r-sm)',fontSize:'.85rem',color:'var(--text-muted)',cursor:'pointer'}}>
                   ✕ Change Photo
                 </button>
               </div>
@@ -339,7 +371,8 @@ export default function ToolsPage() {
                     </>
                   ) : (
                     <>
-                      <input type="file" accept="image/*" onChange={e => handleSlot(n, e)} style={{position:'absolute',inset:0,opacity:0,cursor:'pointer',width:'100%',height:'100%'}} />
+                      <label htmlFor={`slotInput-${n}`} style={{position:'absolute',inset:0,cursor:'pointer',zIndex:5}} />
+                      <input id={`slotInput-${n}`} type="file" accept="image/*,image/heic,image/heif" onChange={e => handleSlot(n, e)} style={{display:'none'}} />
                       <div style={{fontSize:'1.8rem',opacity:.3,marginBottom:'.5rem'}}>◈</div>
                       <div style={{fontFamily:'var(--font-display)',fontSize:'.9rem',letterSpacing:'.15em',color:'var(--gold)'}}>Player {n}</div>
                       <div style={{fontSize:'.75rem',color:'var(--text-dim)',marginTop:'.25rem'}}>Tap to upload</div>
