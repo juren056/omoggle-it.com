@@ -308,9 +308,9 @@ export default function ToolsPage() {
                     ))}
                   </ul>
                 </div>
-                <div style={{display:'flex',gap:'.75rem',justifyContent:'center',flexWrap:'wrap'}}>
-                  <button onClick={resetAnalyzer} className="btn btn-outline">Analyze Another Photo</button>
-                  <button onClick={handleShare} className="btn btn-primary" style={{background:'var(--bg3)',border:'1px solid var(--border-md)',color:'var(--gold)'}}>
+                <div style={{display:'flex',gap:'.75rem',justifyContent:'center',flexWrap:'wrap',flexDirection:'column'}}>
+                  <button onClick={resetAnalyzer} className="btn btn-outline" style={{width:'100%'}}>Analyze Another Photo</button>
+                  <button onClick={handleShare} className="btn btn-primary" style={{background:'var(--bg3)',border:'1px solid var(--border-md)',color:'var(--gold)',width:'100%'}}>
                     🔗 Share Result (+10pts)
                   </button>
                 </div>
@@ -329,7 +329,7 @@ export default function ToolsPage() {
                 <p style={{fontSize:'.9rem',color:'var(--text-muted)',marginBottom:0}}>Upload two photos — AI scores both and declares the winner</p>
               </div>
             </div>
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1rem',marginBottom:'1rem'}}>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))',gap:'1rem',marginBottom:'1rem'}}>
               {[1,2].map(n => (
                 <div key={n} style={{border:'1px dashed rgba(212,168,67,.4)',borderRadius:'var(--r-md)',minHeight:180,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',position:'relative',overflow:'hidden',background:'rgba(212,168,67,.02)',textAlign:'center',padding:'1.25rem',cursor:'pointer'}}>
                   {slotPreviews[n] ? (

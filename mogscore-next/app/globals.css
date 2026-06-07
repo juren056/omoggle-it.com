@@ -109,3 +109,134 @@ p{margin-bottom:1rem;color:var(--text)}
 .article-row-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;transition:border-color .15s}
 .article-row-item:hover{border-color:var(--border-md)}
 .article-row-item:hover span{color:var(--gold)}
+
+/* ── Mobile Optimization ────────────────────────────────────────── */
+
+/* Navbar mobile */
+.navbar-inner { flex-wrap: wrap; gap: .5rem; }
+.navbar-mobile-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-muted);
+  padding: .4rem .7rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.navbar-nav.mobile-open {
+  display: flex !important;
+  flex-direction: column;
+  width: 100%;
+  padding: .5rem 0;
+  border-top: 1px solid var(--border);
+  gap: 0;
+}
+.navbar-nav.mobile-open li a {
+  display: block;
+  padding: .65rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .95rem;
+}
+.navbar-nav.mobile-open .nav-cta {
+  margin-top: .5rem;
+  text-align: center;
+  display: block;
+  padding: .65rem 1rem !important;
+}
+
+/* Hero mobile */
+@media(max-width:768px) {
+  .hero { padding: var(--sp-lg) 0 var(--sp-md); }
+  .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
+  .hero-sub { font-size: 1rem; }
+  .hero-actions { flex-direction: column; align-items: center; gap: .75rem; }
+  .hero-actions .btn { width: 100%; max-width: 320px; text-align: center; }
+
+  /* Stats */
+  .stats-row { gap: var(--sp-md); padding: var(--sp-md) 0; }
+  .stat-num { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+
+  /* Tool cards */
+  .grid-2 { grid-template-columns: 1fr; }
+  .tool-card { padding: var(--sp-sm); }
+
+  /* Article */
+  .article-content h2 { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+  .article-content h3 { font-size: clamp(1.1rem, 4vw, 1.4rem); }
+  .article-content img { border-radius: var(--r-md); }
+  .article-content table { font-size: .82rem; }
+  .article-content th, .article-content td { padding: .6rem .75rem; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-md); }
+  .footer-brand-name { font-size: 1.5rem; }
+
+  /* Tools page */
+  .tool-section { padding: var(--sp-md); }
+  .upload-zone { padding: 2rem 1rem; }
+  .score-big { font-size: clamp(3.5rem, 18vw, 6rem); }
+
+  /* Rate banner */
+  .rate-banner { flex-direction: column; align-items: flex-start; gap: .5rem; }
+
+  /* Buttons */
+  .btn { padding: .75rem 1.5rem; font-size: .95rem; }
+
+  /* Navbar */
+  .navbar-mobile-toggle { display: block; }
+  .navbar-nav { display: none; }
+  .navbar-inner { position: relative; }
+
+  /* Section headers */
+  .section-header h2 { font-size: clamp(1.5rem, 6vw, 2rem); }
+
+  /* Container */
+  .container { padding: 0 var(--sp-sm); }
+  .container-sm { padding: 0 var(--sp-sm); }
+
+  /* Sign in/up auth buttons in navbar */
+  .nav-auth-wrap { gap: .4rem; }
+  .nav-auth-wrap button { font-size: .78rem; padding: .35rem .7rem; }
+}
+
+@media(max-width:480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  /* Blog list items */
+  .article-row-item { flex-direction: column; align-items: flex-start; gap: .5rem; }
+  .article-row-item > span { font-size: .75rem; }
+
+  /* PSL test table */
+  .psl-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Cards */
+  .card-title { font-size: 1.1rem; }
+
+  /* Points dashboard */
+  .score-big { font-size: 4rem; }
+}
+
+/* Touch targets — minimum 44px */
+@media(max-width:768px) {
+  button, a.btn, .nav-cta, .tag {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar-nav a { min-height: 44px; }
+  input[type="file"] { min-height: 44px; }
+}
+
+/* Smooth scroll for mobile */
+html { -webkit-overflow-scrolling: touch; }
+
+/* Prevent zoom on input focus (iOS) */
+input, select, textarea { font-size: 16px !important; }
+
+@media(max-width:768px) {
+  .lang-switcher-desktop { display: none !important; }
+}
