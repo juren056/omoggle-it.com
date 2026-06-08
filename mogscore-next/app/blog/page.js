@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'Blog — Omoggle Guides, Looksmaxxing & PSL News | MogScore',
-  description: 'Latest Omoggle news, looksmaxxing guides, PSL Scale analysis and streamer scores. Updated weekly.',
+  description: 'Omoggle guides, looksmaxxing tips, PSL Scale analysis, streamer scores and the latest news from the looksmaxxing community. Updated weekly with fresh content.',
   openGraph: {
     title: 'MogScore Blog — Omoggle & Looksmaxxing Guides',
     description: 'Omoggle guides, looksmaxxing tips, PSL Scale analysis and streamer news.',

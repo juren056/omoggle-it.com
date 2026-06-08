@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'What is Omoggle? Complete 2026 Guide | MogScore',
-  description: 'Omoggle is the viral AI face-rating platform where strangers compete webcam-to-webcam on the PSL Scale. Complete guide: how it works, tiers, streamers, and how to win.',
+  description: 'Omoggle is the viral AI face-rating platform where strangers compete on the PSL Scale. 2026 guide: how it works, Twitch ban reversal, tier list and how to win.',
 }
 
 export default function WhatIsOmoggle() {

@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'Free PSL Scale Test, Omoggle Guide & Looksmaxxing Wiki',
-  description: 'Free AI PSL Scale test and face analyzer. Score your face on 6 metrics — symmetry, canthal tilt, jawline, cheekbones and skin. #1 Omoggle guide and looksmaxxing tips.',
+  description: 'Free AI PSL Scale test and face analyzer. Score 6 facial metrics from your photo. Complete Omoggle guide, looksmaxxing tips and full PSL Scale explained.',
   alternates: {
     canonical: 'https://omoggle-it.com/',
   },
