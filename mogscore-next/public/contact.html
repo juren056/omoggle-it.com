@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -78,25 +78,25 @@
         <h2>Get In Touch</h2>
       <h3>General Inquiries</h3>
         <p>Questions about our tools, content, or anything else.</p>
-        <a href="mailto:support@omoggle-it.com">support@omoggle-it.com</a>
+        <a href="#" data-env-contact-email>__CONTACT_EMAIL__</a>
       </div>
       <div class="contact-card">
         <span class="contact-icon">💼</span>
         <h3>Advertising & Partnerships</h3>
         <p>Interested in advertising or collaborating with MogScore?</p>
-        <a href="mailto:support@omoggle-it.com">support@omoggle-it.com</a>
+        <a href="#" data-env-contact-email>__CONTACT_EMAIL__</a>
       </div>
       <div class="contact-card">
         <span class="contact-icon">🔒</span>
         <h3>Privacy & Data</h3>
         <p>Questions about your data, privacy policy, or GDPR requests.</p>
-        <a href="mailto:support@omoggle-it.com">support@omoggle-it.com</a>
+        <a href="#" data-env-contact-email>__CONTACT_EMAIL__</a>
       </div>
       <div class="contact-card">
         <span class="contact-icon">✍️</span>
         <h3>Content Submissions</h3>
         <p>Want to contribute a guide, article, or streamer score update?</p>
-        <a href="mailto:support@omoggle-it.com">support@omoggle-it.com</a>
+        <a href="#" data-env-contact-email>__CONTACT_EMAIL__</a>
       </div>
     </div>
 
@@ -168,13 +168,34 @@
     </div>
     <div class="footer-bottom">
       <span class="footer-copy">© 2026 MogScore.wiki — Not affiliated with Omoggle LLC. For entertainment only.</span>
-      <span class="footer-copy"><a href="privacy-policy.html">Privacy Policy</a> · <a href="contact.html">Contact</a> · <a href="sitemap.xml">Sitemap</a></span>
+      <span class="footer-copy"><a href="#" data-env-contact-email>__CONTACT_EMAIL__</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="contact.html">Contact</a> · <a href="sitemap.xml">Sitemap</a></span>
     </div>
   </div>
 </footer>
 <script src="js/components.js"></script>
 <script>
-function handleSubmit(e) {
+const SUBJECT_LABELS = {
+  general: 'General Question',
+  tool: 'AI Tool Issue',
+  content: 'Content / Article Feedback',
+  advertising: 'Advertising Inquiry',
+  privacy: 'Privacy / Data Request',
+  other: 'Other',
+};
+
+async function resolveContactEmail() {
+  if (window.__SITE_CONTACT_EMAIL__) return window.__SITE_CONTACT_EMAIL__;
+  if (window.__CONTACT_EMAIL__) return window.__CONTACT_EMAIL__;
+  try {
+    var res = await fetch('/api/site-config');
+    var data = await res.json();
+    return data.contactEmail || '';
+  } catch (_) {
+    return '';
+  }
+}
+
+async function handleSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -186,13 +207,23 @@ function handleSubmit(e) {
     return;
   }
 
-  // Since we don't have a backend form handler, show success message
-  // In production, replace this with a real form service like Formspree or EmailJS
+  const contactEmail = await resolveContactEmail();
+  if (!contactEmail) {
+    alert('Contact email is not configured.');
+    return;
+  }
+
+  const label = SUBJECT_LABELS[subject] || subject;
+  const mailSubject = encodeURIComponent('[MogScore] ' + label);
+  const mailBody = encodeURIComponent(
+    'Name: ' + name + '\nReply-to: ' + email + '\n\n' + message
+  );
+  window.location.href = 'mailto:' + contactEmail + '?subject=' + mailSubject + '&body=' + mailBody;
+
   document.getElementById('contactForm').style.opacity = '0.5';
   document.getElementById('contactForm').style.pointerEvents = 'none';
   document.getElementById('successMsg').style.display = 'block';
 
-  // Track form submission in GA
   if (typeof gtag !== 'undefined') {
     gtag('event', 'contact_form_submit', {
       'event_category': 'engagement',

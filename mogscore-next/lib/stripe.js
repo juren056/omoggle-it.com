@@ -56,4 +56,4 @@ export const PLANS = {
   },
 }
 
-export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'support@omoggle-it.com'
+export { CONTACT_EMAIL, SUPPORT_EMAIL, mailtoLink } from './contact'

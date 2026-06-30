@@ -5,9 +5,10 @@ import { useUser } from '@clerk/nextjs'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PricingCards from '@/components/PricingCards'
-import { SUPPORT_EMAIL } from '@/lib/stripe'
+import { getContactEmail } from '@/lib/contact'
 
 export default function PricingContent() {
+  const supportEmail = getContactEmail()
   const { isSignedIn } = useUser()
   const searchParams = useSearchParams()
   const [subscription, setSubscription] = useState(null)
@@ -69,7 +70,12 @@ export default function PricingContent() {
             <h2>Support</h2>
             <p>
               Questions about billing? Email{' '}
-              <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or visit our{' '}
+              {supportEmail ? (
+                <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+              ) : (
+                <em>support email not configured</em>
+              )}{' '}
+              or visit our{' '}
               <a href="/contact">Contact page</a>. We respond within 3 business days.
             </p>
 

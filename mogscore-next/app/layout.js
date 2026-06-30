@@ -1,5 +1,6 @@
 import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
+import { getContactEmail } from '@/lib/contact'
 
 export const metadata = {
   title: {
@@ -37,6 +38,7 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const contactEmail = getContactEmail()
   return (
     <ClerkProvider>
       <html lang="en">
@@ -44,6 +46,9 @@ export default function RootLayout({ children }) {
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YC3XR4ZRC"></script>
           <script dangerouslySetInnerHTML={{__html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6YC3XR4ZRC');`}} />
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2031710024449901" crossOrigin="anonymous"></script>
+          {contactEmail ? (
+            <script dangerouslySetInnerHTML={{ __html: `window.__SITE_CONTACT_EMAIL__=${JSON.stringify(contactEmail)};` }} />
+          ) : null}
         </head>
         <body>{children}</body>
       </html>

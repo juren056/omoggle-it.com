@@ -6,6 +6,12 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 import { IMAGE_CACHE_VERSION } from '@/lib/images'
+import { injectContactEmail } from '@/lib/contact'
+
+function prepareHtmlContent(html) {
+  if (!html) return html
+  return injectContactEmail(fixArticleImagePaths(html))
+}
 
 function fixArticleImagePaths(html) {
   if (!html) return html
@@ -42,7 +48,7 @@ const LANG_UI = {
 
 const ALL_SLUGS = [
   'agent00-omoggle','asmongold-omoggle','best-angle-for-photos',
-  'canthal-tilt-guide','clavicular-mogged','contact',
+  'canthal-tilt-guide','clavicular-mogged',
   'face-fat-loss-guide','facial-features-guide','facial-symmetry-guide',
   'facial-symmetry-improvement','gym-face-guide','haircut-looksmaxxing',
   'how-to-win-omoggle','hunter-eyes-guide','is-omoggle-ai',
@@ -101,7 +107,7 @@ export default async function LangSlugPage({ params }) {
   const ui = LANG_UI[lang]
 
   // Extract content
-  const articleContent = fixArticleImagePaths(
+  const articleContent = prepareHtmlContent(
     $('article.article-content, .article-content').first().html()
     || $('main .container-sm').first().html()
     || '<p>Content not found.</p>'

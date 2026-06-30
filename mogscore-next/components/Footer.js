@@ -1,4 +1,7 @@
+import { getContactEmail } from '@/lib/contact'
+
 export default function Footer() {
+  const email = getContactEmail()
   return (
     <footer className="footer">
       <div className="container">
@@ -39,6 +42,12 @@ export default function Footer() {
         <div className="footer-bottom">
           <span className="footer-copy">© 2026 MogScore.wiki — Not affiliated with Omoggle LLC. For entertainment only.</span>
           <span className="footer-copy">
+            {email ? (
+              <>
+                <a href={`mailto:${email}`}>{email}</a>
+                {' · '}
+              </>
+            ) : null}
             <a href="/pricing">Pricing</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms-of-service">Terms</a> · <a href="/contact">Contact</a>
           </span>
         </div>

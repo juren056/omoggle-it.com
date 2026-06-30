@@ -1,5 +1,5 @@
 import LegalLayout from '@/components/LegalLayout'
-import { SUPPORT_EMAIL } from '@/lib/stripe'
+import { getContactEmail } from '@/lib/contact'
 
 export const metadata = {
   title: 'Terms of Service',
@@ -8,6 +8,7 @@ export const metadata = {
 }
 
 export default function TermsOfServicePage() {
+  const supportEmail = getContactEmail()
   return (
     <LegalLayout title="Terms of Service" updated="June 30, 2026">
       <p>
@@ -90,7 +91,11 @@ export default function TermsOfServicePage() {
       <h2>11. Contact</h2>
       <div className="highlight-box">
         <p>
-          📧 <strong>Support:</strong> <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a><br />
+          📧 <strong>Support:</strong> {supportEmail ? (
+            <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+          ) : (
+            <em>Not configured — set SUPPORT_EMAIL in environment variables</em>
+          )}<br />
           🌐 <strong>Website:</strong> <a href="https://omoggle-it.com">omoggle-it.com</a><br />
           📋 <strong>Contact form:</strong> <a href="/contact">Contact Us</a>
         </p>

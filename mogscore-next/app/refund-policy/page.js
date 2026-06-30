@@ -1,5 +1,5 @@
 import LegalLayout from '@/components/LegalLayout'
-import { SUPPORT_EMAIL } from '@/lib/stripe'
+import { getContactEmail } from '@/lib/contact'
 
 export const metadata = {
   title: 'Refund Policy',
@@ -8,6 +8,7 @@ export const metadata = {
 }
 
 export default function RefundPolicyPage() {
+  const supportEmail = getContactEmail()
   return (
     <LegalLayout title="Refund Policy" updated="June 30, 2026">
       <p>
@@ -39,7 +40,11 @@ export default function RefundPolicyPage() {
       </p>
 
       <h2>3. How to Request a Refund</h2>
-      <p>Email us at <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> with:</p>
+      <p>Email us at {supportEmail ? (
+        <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+      ) : (
+        <em>support email not configured</em>
+      )} with:</p>
       <ul>
         <li>Your account email address</li>
         <li>Date of purchase</li>
@@ -58,7 +63,11 @@ export default function RefundPolicyPage() {
       <h2>6. Contact</h2>
       <div className="highlight-box">
         <p>
-          📧 <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a><br />
+          📧 {supportEmail ? (
+            <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+          ) : (
+            <em>Not configured</em>
+          )}<br />
           📋 <a href="/contact">Contact form</a>
         </p>
       </div>

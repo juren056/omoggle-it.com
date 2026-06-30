@@ -6,6 +6,12 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 import { IMAGE_CACHE_VERSION } from '@/lib/images'
+import { injectContactEmail } from '@/lib/contact'
+
+function prepareHtmlContent(html) {
+  if (!html) return html
+  return injectContactEmail(fixArticleImagePaths(html))
+}
 
 function fixArticleImagePaths(html) {
   if (!html) return html
@@ -21,7 +27,6 @@ const STATIC_PAGES = [
   'best-angle-for-photos',
   'canthal-tilt-guide',
   'clavicular-mogged',
-  'contact',
   'face-fat-loss-guide',
   'facial-features-guide',
   'facial-symmetry-guide',
@@ -102,7 +107,7 @@ export default async function SlugPage({ params }) {
   const $ = cheerio.load(html)
 
   // Extract just the main content area
-  const articleContent = fixArticleImagePaths(
+  const articleContent = prepareHtmlContent(
     $('article.article-content, main .container-sm article, .article-content').first().html()
     || $('main').first().html()
     || '<p>Content not found.</p>'

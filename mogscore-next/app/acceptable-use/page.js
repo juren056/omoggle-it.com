@@ -1,5 +1,5 @@
 import LegalLayout from '@/components/LegalLayout'
-import { SUPPORT_EMAIL } from '@/lib/stripe'
+import { getContactEmail } from '@/lib/contact'
 
 export const metadata = {
   title: 'Acceptable Use Policy',
@@ -8,6 +8,7 @@ export const metadata = {
 }
 
 export default function AcceptableUsePage() {
+  const supportEmail = getContactEmail()
   return (
     <LegalLayout title="Acceptable Use Policy" updated="June 30, 2026">
       <p>
@@ -64,7 +65,11 @@ export default function AcceptableUsePage() {
 
       <h2>7. Reporting Violations</h2>
       <p>
-        To report abuse, contact <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+        To report abuse, contact {supportEmail ? (
+          <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+        ) : (
+          <em>support email not configured</em>
+        )}.
       </p>
 
       <h2>8. Changes</h2>
