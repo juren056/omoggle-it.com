@@ -5,6 +5,11 @@ import * as cheerio from 'cheerio'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
+function fixArticleImagePaths(html) {
+  if (!html) return html
+  return html.replace(/\bsrc="images\//g, 'src="/images/')
+}
+
 const SUPPORTED_LANGS = ['ja', 'pt', 'ru']
 
 const LANG_UI = {
@@ -92,9 +97,11 @@ export default async function LangSlugPage({ params }) {
   const ui = LANG_UI[lang]
 
   // Extract content
-  const articleContent = $('article.article-content, .article-content').first().html()
+  const articleContent = fixArticleImagePaths(
+    $('article.article-content, .article-content').first().html()
     || $('main .container-sm').first().html()
     || '<p>Content not found.</p>'
+  )
 
   const cat = $('.card-tag').first().text() || 'Guide'
   const h1 = $('h1').first().text() || slug.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase())

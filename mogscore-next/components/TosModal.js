@@ -36,14 +36,17 @@ export default function TosModal() {
           <p>You agree not to upload images of minors, explicit content, or images you do not have rights to use.</p>
           <h3 style={{fontFamily:'var(--font-display)',color:'var(--text)',margin:'1rem 0 .35rem',fontSize:'1rem'}}>5. Age Requirement</h3>
           <p>You must be 18 or older to use this service.</p>
-          <h3 style={{fontFamily:'var(--font-display)',color:'var(--text)',margin:'1rem 0 .35rem',fontSize:'1rem'}}>6. Disclaimer</h3>
+          <h3 style={{fontFamily:'var(--font-display)',color:'var(--text)',margin:'1rem 0 .35rem',fontSize:'1rem'}}>6. Paid Plans</h3>
+          <p>Pro subscriptions are billed via Stripe. See our <a href="/pricing" target="_blank" rel="noopener" style={{color:'var(--gold)'}}>Pricing</a>, <a href="/refund-policy" target="_blank" rel="noopener" style={{color:'var(--gold)'}}>Refund Policy</a>, and <a href="/terms-of-service" target="_blank" rel="noopener" style={{color:'var(--gold)'}}>Terms of Service</a>.</p>
+          <h3 style={{fontFamily:'var(--font-display)',color:'var(--text)',margin:'1rem 0 .35rem',fontSize:'1rem'}}>7. Disclaimer</h3>
           <p>MogScore.wiki is not affiliated with Omoggle LLC. AI scores may be inaccurate due to lighting, camera quality, and other technical factors.</p>
+          <p style={{fontSize:'.8rem',marginTop:'1rem'}}>Full policies: <a href="/terms-of-service" target="_blank" rel="noopener" style={{color:'var(--gold)'}}>Terms</a> · <a href="/privacy-policy" target="_blank" rel="noopener" style={{color:'var(--gold)'}}>Privacy</a> · <a href="/acceptable-use" target="_blank" rel="noopener" style={{color:'var(--gold)'}}>Acceptable Use</a></p>
         </div>
         <div style={{padding:'1rem 1.5rem',borderTop:'1px solid var(--border)'}}>
           <label style={{display:'flex',alignItems:'flex-start',gap:'.75rem',cursor:'pointer',fontSize:'.83rem',color:'var(--text-muted)',marginBottom:'.75rem'}}>
             <input type="checkbox" checked={checked} onChange={e => setChecked(e.target.checked)}
               style={{width:16,height:16,marginTop:2,accentColor:'var(--gold)',flexShrink:0,cursor:'pointer'}} />
-            I have read and agree to the Terms of Use and Privacy Policy. I confirm I am 18 or older.
+            I have read and agree to the <a href="/terms-of-service" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Terms of Service</a>, <a href="/privacy-policy" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Privacy Policy</a>, and <a href="/acceptable-use" target="_blank" rel="noopener" style={{ color: 'var(--gold)' }}>Acceptable Use Policy</a>. I confirm I am 18 or older.
           </label>
           <button onClick={accept} disabled={!checked}
             style={{width:'100%',padding:'.85rem',background:checked?'var(--gold)':'var(--bg3)',color:checked?'#0D1117':'var(--text-muted)',border:'none',borderRadius:'var(--r-sm)',fontFamily:'var(--font-display)',fontSize:'1rem',letterSpacing:'.15em',cursor:checked?'pointer':'not-allowed',transition:'all .2s'}}>

@@ -28,16 +28,18 @@ export default function Footer() {
           <div>
             <div className="footer-col-title">Legal</div>
             <ul className="footer-links">
+              <li><a href="/terms-of-service">Terms of Service</a></li>
               <li><a href="/privacy-policy">Privacy Policy</a></li>
+              <li><a href="/refund-policy">Refund Policy</a></li>
+              <li><a href="/acceptable-use">Acceptable Use</a></li>
               <li><a href="/contact">Contact</a></li>
-              <li><a href="/sitemap.xml">Sitemap</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <span className="footer-copy">© 2026 MogScore.wiki — Not affiliated with Omoggle LLC. For entertainment only.</span>
           <span className="footer-copy">
-            <a href="/privacy-policy">Privacy</a> · <a href="/contact">Contact</a>
+            <a href="/pricing">Pricing</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms-of-service">Terms</a> · <a href="/contact">Contact</a>
           </span>
         </div>
       </div>

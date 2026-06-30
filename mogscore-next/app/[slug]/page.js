@@ -5,6 +5,11 @@ import * as cheerio from 'cheerio'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
+function fixArticleImagePaths(html) {
+  if (!html) return html
+  return html.replace(/\bsrc="images\//g, 'src="/images/')
+}
+
 // All static pages that should be served via Next.js
 const STATIC_PAGES = [
   'agent00-omoggle',
@@ -93,9 +98,11 @@ export default async function SlugPage({ params }) {
   const $ = cheerio.load(html)
 
   // Extract just the main content area
-  const articleContent = $('article.article-content, main .container-sm article, .article-content').first().html()
+  const articleContent = fixArticleImagePaths(
+    $('article.article-content, main .container-sm article, .article-content').first().html()
     || $('main').first().html()
     || '<p>Content not found.</p>'
+  )
 
   // Extract breadcrumb category
   const cat = $('.card-tag, .breadcrumb span:last-child').first().text() || 'Guide'

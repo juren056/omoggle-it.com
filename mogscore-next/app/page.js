@@ -21,25 +21,25 @@ const featuredArticles = [
 
 const allArticles = [
   {href:'/softmaxxing-vs-hardmaxxing',tag:'Guide',img:'/images/looksmaxxing-guide.jpg',title:'Softmaxxing vs Hardmaxxing: Which First?',date:'May 17'},
-  {href:'/facial-symmetry-improvement',tag:'Guide',title:'How to Improve Facial Symmetry',date:'May 17'},
-  {href:'/is-omoggle-ai',tag:'Investigation',title:"Is Omoggle Actually AI? Developer's Answer",date:'May 14'},
-  {href:'/omoggle-fake-sites',tag:'Warning',title:'Fake Omoggle Sites: How to Spot Them',date:'May 14'},
-  {href:'/omoggle-tier-list-2026',tag:'Updated',title:'Full Tier List 2026: All 9 Ranks Including Adam',date:'May 14'},
-  {href:'/agent00-omoggle',tag:'News',title:'Agent00 Wore a Prosthetic Forehead and Still Won',date:'May 14'},
-  {href:'/jasontheween-omoggle',tag:'News',title:'Jasontheween & CORE Boys Omoggle Battles',date:'May 14'},
-  {href:'/xqc-omoggle',tag:'News',title:'xQc on Omoggle: He Lost 6 in a Row',date:'May 5'},
-  {href:'/asmongold-omoggle',tag:'News',title:'Asmongold Omoggle Score & Highlights',date:'May 5'},
-  {href:'/clavicular-mogged',tag:'News',title:'Clavicular Ragequit After Getting Mogged',date:'May 5'},
-  {href:'/omoggle-elo-system',tag:'Wiki',title:'Omoggle ELO System Explained',date:'May 3'},
-  {href:'/omoggle-vs-omegle',tag:'Wiki',title:'Omoggle vs Omegle: What is the Difference?',date:'May 3'},
-  {href:'/looksmaxxing-guide',tag:'Guide',title:'Looksmaxxing Guide for Beginners',date:'May 1'},
-  {href:'/canthal-tilt-guide',tag:'Guide',title:'Canthal Tilt Guide: What It Is and How to Improve',date:'May 1'},
-  {href:'/mewing-guide',tag:'Guide',title:'Mewing Guide: Does It Actually Work?',date:'May 1'},
-  {href:'/jawline-guide',tag:'Guide',title:'Jawline Guide: How to Get a Sharper Jaw',date:'May 1'},
-  {href:'/skincare-looksmaxxing',tag:'Guide',title:'Skincare for Looksmaxxing: Complete Routine',date:'Apr 28'},
-  {href:'/gym-face-guide',tag:'Guide',title:'Gym Face Guide: How Training Changes Your Face',date:'Apr 28'},
-  {href:'/sleep-looksmaxxing',tag:'Guide',title:'Sleep and Looksmaxxing: Why It Matters',date:'Apr 28'},
-  {href:'/haircut-looksmaxxing',tag:'Guide',title:'Best Haircut for Looksmaxxing',date:'Apr 25'},
+  {href:'/facial-symmetry-improvement',tag:'Guide',img:'/images/facial-symmetry.jpg',title:'How to Improve Facial Symmetry',date:'May 17'},
+  {href:'/is-omoggle-ai',tag:'Investigation',img:'/images/what-is-omoggle.jpg',title:"Is Omoggle Actually AI? Developer's Answer",date:'May 14'},
+  {href:'/omoggle-fake-sites',tag:'Warning',img:'/images/omoggle-updates.jpg',title:'Fake Omoggle Sites: How to Spot Them',date:'May 14'},
+  {href:'/omoggle-tier-list-2026',tag:'Updated',img:'/images/tier-list.jpg',title:'Full Tier List 2026: All 9 Ranks Including Adam',date:'May 14'},
+  {href:'/agent00-omoggle',tag:'News',img:'/images/viral-moments.jpg',title:'Agent00 Wore a Prosthetic Forehead and Still Won',date:'May 14'},
+  {href:'/jasontheween-omoggle',tag:'News',img:'/images/viral-moments.jpg',title:'Jasontheween & CORE Boys Omoggle Battles',date:'May 14'},
+  {href:'/xqc-omoggle',tag:'News',img:'/images/xqc-omoggle.jpg',title:'xQc on Omoggle: He Lost 6 in a Row',date:'May 5'},
+  {href:'/asmongold-omoggle',tag:'News',img:'/images/asmongold-omoggle.jpg',title:'Asmongold Omoggle Score & Highlights',date:'May 5'},
+  {href:'/clavicular-mogged',tag:'News',img:'/images/clavicular-mogged.jpg',title:'Clavicular Ragequit After Getting Mogged',date:'May 5'},
+  {href:'/omoggle-elo-system',tag:'Wiki',img:'/images/elo-system.jpg',title:'Omoggle ELO System Explained',date:'May 3'},
+  {href:'/omoggle-vs-omegle',tag:'Wiki',img:'/images/omoggle-vs-omegle.jpg',title:'Omoggle vs Omegle: What is the Difference?',date:'May 3'},
+  {href:'/looksmaxxing-guide',tag:'Guide',img:'/images/looksmaxxing-guide.jpg',title:'Looksmaxxing Guide for Beginners',date:'May 1'},
+  {href:'/canthal-tilt-guide',tag:'Guide',img:'/images/canthal-tilt.jpg',title:'Canthal Tilt Guide: What It Is and How to Improve',date:'May 1'},
+  {href:'/mewing-guide',tag:'Guide',img:'/images/mewing-guide.jpg',title:'Mewing Guide: Does It Actually Work?',date:'May 1'},
+  {href:'/jawline-guide',tag:'Guide',img:'/images/jawline-gym.jpg',title:'Jawline Guide: How to Get a Sharper Jaw',date:'May 1'},
+  {href:'/skincare-looksmaxxing',tag:'Guide',img:'/images/skincare-looksmaxx.jpg',title:'Skincare for Looksmaxxing: Complete Routine',date:'Apr 28'},
+  {href:'/gym-face-guide',tag:'Guide',img:'/images/gym-face.jpg',title:'Gym Face Guide: How Training Changes Your Face',date:'Apr 28'},
+  {href:'/sleep-looksmaxxing',tag:'Guide',img:'/images/sleep-looksmaxxing.jpg',title:'Sleep and Looksmaxxing: Why It Matters',date:'Apr 28'},
+  {href:'/haircut-looksmaxxing',tag:'Guide',img:'/images/haircut-looksmaxxing.jpg',title:'Best Haircut for Looksmaxxing',date:'Apr 25'},
 ]
 
 export default function HomePage() {
@@ -114,14 +114,16 @@ export default function HomePage() {
           </div>
           <div style={{display:'flex',flexDirection:'column',gap:'8px',marginBottom:'var(--sp-lg)'}}>
             {allArticles.map(a => (
-              <div key={a.href} style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'.75rem 1rem',display:'flex',justifyContent:'space-between',alignItems:'center',gap:'1rem'}}>
+              <Link href={a.href} key={a.href} className="article-row-item">
                 <div style={{display:'flex',alignItems:'center',gap:'.75rem',minWidth:0}}>
-                  <span className="card-tag" style={{marginBottom:0,flexShrink:0}}>{a.tag}</span>
-                  <a href={a.href} style={{fontSize:'.9rem',color:'var(--text)',textDecoration:'none',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}
->{a.title}</a>
+                  {a.img && <img src={a.img} alt={a.title} className="list-card-img" loading="lazy" />}
+                  <div style={{minWidth:0}}>
+                    <span className="card-tag" style={{marginBottom:'.25rem',display:'inline-block'}}>{a.tag}</span>
+                    <div style={{fontSize:'.9rem',color:'var(--text)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{a.title}</div>
+                  </div>
                 </div>
                 <span style={{fontSize:'.78rem',color:'var(--text-dim)',flexShrink:0}}>{a.date}</span>
-              </div>
+              </Link>
             ))}
           </div>
           <div style={{textAlign:'center'}}>

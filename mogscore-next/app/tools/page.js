@@ -232,6 +232,9 @@ export default function ToolsPage() {
                 {!isSignedIn && rateLimited && (
                   <a href="/sign-up" className="btn btn-primary" style={{fontSize:'.75rem',padding:'.3rem .8rem'}}>Sign Up for 10/day →</a>
                 )}
+                {isSignedIn && rateLimited && (
+                  <a href="/pricing" className="btn btn-primary" style={{fontSize:'.75rem',padding:'.3rem .8rem'}}>Upgrade to Pro →</a>
+                )}
               </div>
             </div>
           )}
@@ -275,6 +278,11 @@ export default function ToolsPage() {
                   {rateLimited && !isSignedIn && (
                     <a href="/sign-up" className="btn btn-primary" style={{marginTop:'.5rem',display:'inline-block'}} onClick={e=>e.stopPropagation()}>
                       Sign Up Free — 10/day →
+                    </a>
+                  )}
+                  {rateLimited && isSignedIn && (
+                    <a href="/pricing" className="btn btn-primary" style={{marginTop:'.5rem',display:'inline-block'}} onClick={e=>e.stopPropagation()}>
+                      Upgrade to Pro — Unlimited →
                     </a>
                   )}
                 </div>

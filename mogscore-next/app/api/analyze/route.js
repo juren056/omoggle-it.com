@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { getSubscription, isProActive } from '@/lib/subscription'
 
 const ipStore = new Map()
 
@@ -38,6 +39,11 @@ async function getUserId() {
 }
 
 async function checkUserRateLimit(userId, supabase) {
+  const subscription = await getSubscription(userId)
+  if (isProActive(subscription)) {
+    return { allowed: true, used: 0, limit: null, remaining: null, extraUses: 0, isPro: true }
+  }
+
   const today = getToday()
   
   // Get user points record
@@ -74,7 +80,7 @@ async function checkUserRateLimit(userId, supabase) {
   })
 
   return { allowed: true, used: usedToday + 1, limit: totalLimit, 
-           remaining: totalLimit - (usedToday + 1), extraUses }
+           remaining: totalLimit - (usedToday + 1), extraUses, isPro: false }
 }
 
 export async function POST(req) {
@@ -105,6 +111,7 @@ export async function POST(req) {
       limit: rateLimit.limit,
       isLoggedIn,
       extraUses: rateLimit.extraUses || 0,
+      isPro: rateLimit.isPro || false,
       resetAt: 'midnight UTC'
     }, { status: 429 })
   }
@@ -159,6 +166,7 @@ export async function POST(req) {
       limit: rateLimit.limit,
       isLoggedIn,
       extraUses: rateLimit.extraUses || 0,
+      isPro: rateLimit.isPro || false,
     })
 
   } catch (err) {

@@ -82,6 +82,7 @@ export default function UserMenu() {
   const [showPoints, setShowPoints] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [userPoints, setUserPoints] = useState(0)
+  const [subscription, setSubscription] = useState(null)
   const menuRef = useRef(null)
 
   const email = user?.emailAddresses?.[0]?.emailAddress || ''
@@ -92,7 +93,8 @@ export default function UserMenu() {
     fetch('/api/points').then(r => r.json()).then(d => {
       if (d.points !== undefined) setUserPoints(d.points)
     }).catch(() => {})
-  }, [showPoints])
+    fetch('/api/subscription').then(r => r.json()).then(setSubscription).catch(() => {})
+  }, [showPoints, open])
 
   useEffect(() => {
     function handleClick(e) {
@@ -101,6 +103,17 @@ export default function UserMenu() {
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
+
+  async function openBilling() {
+    setOpen(false)
+    if (subscription?.isPro || subscription?.hasBillingAccount) {
+      const res = await fetch('/api/stripe/portal', { method: 'POST' })
+      const data = await res.json()
+      if (data.url) window.location.href = data.url
+    } else {
+      window.location.href = '/pricing'
+    }
+  }
 
   return (
     <>
@@ -114,11 +127,16 @@ export default function UserMenu() {
 
         {open && (
           <div style={{ position: 'absolute', right: 0, top: 'calc(100% + 6px)', background: 'var(--bg2)', border: '1px solid var(--border-md)', borderRadius: 'var(--r-lg)', minWidth: 200, zIndex: 500, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,.4)' }}>
-            <div style={{ padding: '.85rem 1rem', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '.82rem', color: 'var(--text-muted)' }}>积分</span>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: 'var(--gold)' }}>{userPoints}</span>
+            <div style={{ padding: '.85rem 1rem', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '.82rem', color: 'var(--text-muted)' }}>{subscription?.isPro ? 'Pro' : '积分'}</span>
+              {subscription?.isPro ? (
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', color: 'var(--green)' }}>PRO ✓</span>
+              ) : (
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: 'var(--gold)' }}>{userPoints}</span>
+              )}
             </div>
             {[
+              { label: subscription?.isPro ? '⚙ Manage Subscription' : '⭐ Upgrade to Pro', fn: openBilling },
               { label: '◈ 积分中心', fn: () => { setShowPoints(true); setOpen(false) } },
               { label: '👤 编辑资料', fn: () => { setShowProfile(true); setOpen(false) } },
             ].map(item => (

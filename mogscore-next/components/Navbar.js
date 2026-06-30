@@ -15,6 +15,7 @@ const LANGS = [
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/tools', label: 'Tools' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/blog', label: 'Blog' },
   { href: '/what-is-omoggle', label: 'Wiki' },
   { href: '/psl-scale-test', label: 'PSL Test' },
