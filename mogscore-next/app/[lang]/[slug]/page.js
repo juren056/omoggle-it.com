@@ -5,9 +5,13 @@ import * as cheerio from 'cheerio'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
+import { IMAGE_CACHE_VERSION } from '@/lib/images'
+
 function fixArticleImagePaths(html) {
   if (!html) return html
-  return html.replace(/\bsrc="images\//g, 'src="/images/')
+  return html
+    .replace(/\bsrc="images\//g, 'src="/images/')
+    .replace(/\bsrc="\/images\/([^"?]+)(?:\?[^"]*)?"/g, (_, name) => `src="/images/${name}?v=${IMAGE_CACHE_VERSION}"`)
 }
 
 const SUPPORTED_LANGS = ['ja', 'pt', 'ru']

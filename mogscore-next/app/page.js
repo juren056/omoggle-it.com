@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { imageUrl } from '@/lib/images'
 
 export const metadata = {
   title: 'Free PSL Scale Test, Omoggle Guide & Looksmaxxing Wiki',
@@ -103,7 +104,7 @@ export default function HomePage() {
           <div className="grid-3" style={{marginBottom:'var(--sp-lg)'}}>
             {featuredArticles.map(a => (
               <article className="card" key={a.href}>
-                {a.img && <img src={a.img} alt={a.title} className="card-img" width="600" height="338" loading="lazy" />}
+                {a.img && <img src={imageUrl(a.img)} alt={a.title} className="card-img" width="600" height="338" loading="lazy" />}
                 <div className="card-body">
                   <span className="card-tag">{a.tag}</span>
                   <a href={a.href} className="card-title">{a.title}</a>
@@ -116,7 +117,7 @@ export default function HomePage() {
             {allArticles.map(a => (
               <Link href={a.href} key={a.href} className="article-row-item">
                 <div style={{display:'flex',alignItems:'center',gap:'.75rem',minWidth:0}}>
-                  {a.img && <img src={a.img} alt={a.title} className="list-card-img" loading="lazy" />}
+                  {a.img && <img src={imageUrl(a.img)} alt={a.title} className="list-card-img" loading="lazy" />}
                   <div style={{minWidth:0}}>
                     <span className="card-tag" style={{marginBottom:'.25rem',display:'inline-block'}}>{a.tag}</span>
                     <div style={{fontSize:'.9rem',color:'var(--text)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{a.title}</div>
