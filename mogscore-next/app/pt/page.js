@@ -41,7 +41,7 @@ const allArticles = [
 ]
 
 const stats = [
-  ['50K+','Visitantes Mensais'],
+  ['6','Métricas Analisadas'],
   ['54','Guias & Artigos'],
   ['9','Tiers ELO'],
   ['Grátis','Analisador IA']

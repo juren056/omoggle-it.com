@@ -87,7 +87,7 @@ export default function WhatIsOmoggle() {
             </div>
 
             <h2>Is Omoggle Free?</h2>
-            <p>Basic access is free. Omoggle Pro ($10/month) unlocks analytics and priority matchmaking. The platform had 209,000+ monthly visits as of May 2026.</p>
+            <p>Basic access is free. Omoggle Pro ($10/month) unlocks analytics and priority matchmaking.</p>
 
             <div className="highlight-box">
               <p>Practice without a live opponent — use our <Link href="/tools"><strong>free AI Face Analyzer</strong></Link> to score all 6 metrics and get personalized looksmaxxing tips.</p>

@@ -51,7 +51,7 @@ export default function HomePage() {
         <div className="container">
           <span className="hero-eyebrow">🔥 Trending on Twitch 2026</span>
           <h1>Your Ultimate Guide to <em>Omoggle</em>,<br/>Mogging & Looksmaxxing</h1>
-          <p className="hero-sub">Free AI face analyzer, complete PSL Scale wiki, tier rankings, and expert tips to win on Omoggle. Used by 10,000+ looksmaxxers worldwide.</p>
+          <p className="hero-sub">Free AI face analyzer for looksmaxxing enthusiasts — complete PSL Scale wiki, tier rankings, and expert tips to win on Omoggle.</p>
           <div className="hero-actions">
             <Link href="/tools" className="btn btn-primary">Try AI Face Analyzer</Link>
             <Link href="/what-is-omoggle" className="btn btn-outline">What is Omoggle? →</Link>
@@ -62,7 +62,7 @@ export default function HomePage() {
       <section className="section-alt section">
         <div className="container">
           <div className="stats-row">
-            <div className="stat-item"><span className="stat-num">50K+</span><span className="stat-label">Monthly Visitors</span></div>
+            <div className="stat-item"><span className="stat-num">6</span><span className="stat-label">Metrics Analyzed</span></div>
             <div className="stat-item"><span className="stat-num">54</span><span className="stat-label">Guides & Articles</span></div>
             <div className="stat-item"><span className="stat-num">9</span><span className="stat-label">ELO Tiers Explained</span></div>
             <div className="stat-item"><span className="stat-num">Free</span><span className="stat-label">AI Face Analyzer</span></div>
