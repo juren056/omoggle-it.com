@@ -4,13 +4,19 @@ export async function getSubscription(userId) {
   const supabase = getSupabase()
   if (!supabase || !userId) return null
 
-  const { data } = await supabase
-    .from('subscriptions')
-    .select('*')
-    .eq('user_id', userId)
-    .maybeSingle()
+  try {
+    const { data } = await supabase
+      .from('subscriptions')
+      .select('*')
+      .eq('user_id', userId)
+      .abortSignal(AbortSignal.timeout(8000))
+      .maybeSingle()
 
-  return data
+    return data
+  } catch {
+    // Supabase unreachable/paused: fail fast instead of hanging the request
+    return null
+  }
 }
 
 export function isProActive(subscription) {

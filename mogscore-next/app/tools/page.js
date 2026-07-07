@@ -120,14 +120,14 @@ export default function ToolsPage() {
           // Error (not cancel) - fall back to Twitter
           window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text+' '+url)}`, '_blank')
           // For Twitter fallback: show confirmation dialog
-          shared = window.confirm('分享后点击确认领取10积分')
+          shared = window.confirm('Click OK after sharing to claim your points')
         }
         // If AbortError (user cancelled), don't award points
       }
     } else {
       window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text+' '+url)}`, '_blank')
       // For desktop Twitter: show confirmation
-      shared = window.confirm('已经发推了吗？确认后领取10积分')
+      shared = window.confirm('Did you post it? Click OK to claim 10 points')
     }
 
     if (shared) {
@@ -138,7 +138,7 @@ export default function ToolsPage() {
           body: JSON.stringify({action:'share_result'})
         })
         const data = await res.json()
-        if (res.ok) alert('✅ 已获得10积分！')
+        if (res.ok) alert('✅ You earned 10 points!')
         else if (data.error) alert(data.error)
       } catch {}
     }

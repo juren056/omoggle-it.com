@@ -111,39 +111,39 @@ export async function POST(req) {
       case 'daily_checkin': {
         const { data: ex } = await supabase.from('daily_checkins').select('id')
           .eq('user_id', userId).eq('checkin_date', today).maybeSingle()
-        if (ex) return NextResponse.json({ error: '今天已经签到过了' }, { status: 400 })
+        if (ex) return NextResponse.json({ error: 'You already checked in today' }, { status: 400 })
         await supabase.from('daily_checkins').insert({ user_id: userId, checkin_date: today })
         pointsToAdd = 5
-        description = '每日签到 +5分'
+        description = 'Daily check-in +5 pts'
         break
       }
       case 'share_result': {
         const taskId = `share_${today}`
         const { data: ex } = await supabase.from('tasks_completed').select('id')
           .eq('user_id', userId).eq('task_id', taskId).maybeSingle()
-        if (ex) return NextResponse.json({ error: '今天已经分享过了' }, { status: 400 })
+        if (ex) return NextResponse.json({ error: 'You already shared today' }, { status: 400 })
         await supabase.from('tasks_completed').insert({ user_id: userId, task_id: taskId })
         pointsToAdd = 10
-        description = '分享分析结果 +10分'
+        description = 'Shared analysis result +10 pts'
         break
       }
       case 'complete_profile': {
         const { data: ex } = await supabase.from('tasks_completed').select('id')
           .eq('user_id', userId).eq('task_id', 'complete_profile').maybeSingle()
-        if (ex) return NextResponse.json({ error: '已经完成过了' }, { status: 400 })
+        if (ex) return NextResponse.json({ error: 'Already completed' }, { status: 400 })
         const name = (payload?.display_name || '').trim()
-        if (name.length < 2) return NextResponse.json({ error: '昵称至少2个字符' }, { status: 400 })
+        if (name.length < 2) return NextResponse.json({ error: 'Name must be at least 2 characters' }, { status: 400 })
         await supabase.from('user_points')
           .update({ display_name: name, updated_at: new Date().toISOString() })
           .eq('user_id', userId)
         await supabase.from('tasks_completed').insert({ user_id: userId, task_id: 'complete_profile' })
         pointsToAdd = 10
-        description = '完善个人资料 +10分'
+        description = 'Completed profile +10 pts'
         break
       }
       case 'redeem_use': {
         if ((userData.points || 0) < 10) {
-          return NextResponse.json({ error: '积分不足（需要10分）' }, { status: 400 })
+          return NextResponse.json({ error: 'Not enough points (10 required)' }, { status: 400 })
         }
         await supabase.from('user_points').update({
           points: userData.points - 10,
@@ -151,12 +151,12 @@ export async function POST(req) {
           updated_at: new Date().toISOString(),
         }).eq('user_id', userId)
         await supabase.from('points_log').insert({
-          user_id: userId, points: -10, action: 'redeem_use', description: '兑换1次额外分析（-10分）',
+          user_id: userId, points: -10, action: 'redeem_use', description: 'Redeemed 1 extra analysis (-10 pts)',
         })
-        return NextResponse.json({ success: true, message: '✅ 兑换成功！获得1次额外分析' })
+        return NextResponse.json({ success: true, message: '✅ Redeemed! You got 1 extra analysis' })
       }
       default:
-        return NextResponse.json({ error: '无效操作' }, { status: 400 })
+        return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
     }
 
     if (pointsToAdd > 0) {

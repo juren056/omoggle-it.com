@@ -76,7 +76,7 @@ async function checkUserRateLimit(userId, supabase) {
     user_id: userId,
     points: 0,
     action: 'analyze_use',
-    description: `分析使用 (${usedToday + 1}/${totalLimit})`
+    description: `Analysis use (${usedToday + 1}/${totalLimit})`
   })
 
   return { allowed: true, used: usedToday + 1, limit: totalLimit, 
