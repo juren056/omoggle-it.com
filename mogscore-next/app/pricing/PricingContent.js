@@ -12,6 +12,8 @@ export default function PricingContent() {
   const { isSignedIn } = useUser()
   const searchParams = useSearchParams()
   const [subscription, setSubscription] = useState(null)
+  const success = searchParams.get('success')
+  const canceled = searchParams.get('canceled')
 
   useEffect(() => {
     fetch('/api/subscription')
@@ -37,9 +39,6 @@ export default function PricingContent() {
     }, 2000)
     return () => clearInterval(poll)
   }, [success, isSignedIn])
-
-  const success = searchParams.get('success')
-  const canceled = searchParams.get('canceled')
 
   return (
     <>
