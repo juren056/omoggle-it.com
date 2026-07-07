@@ -1,23 +1,29 @@
+import Stripe from 'stripe'
 import { NextResponse } from 'next/server'
-import { getStripe } from '@/lib/stripe'
-import { upsertSubscription, getSubscriptionByStripeSubscriptionId } from '@/lib/subscription'
+import { getStripe, planFromSubscription } from '@/lib/stripe'
+import {
+  upsertSubscription,
+  getSubscriptionByStripeSubscriptionId,
+  getSubscriptionByStripeCustomer,
+} from '@/lib/subscription'
 
 export const runtime = 'nodejs'
 
-function planFromPriceId(priceId) {
-  if (priceId === process.env.STRIPE_PRICE_ID_MONTHLY) return 'pro_monthly'
-  if (priceId === process.env.STRIPE_PRICE_ID_YEARLY) return 'pro_yearly'
-  return null
+function clerkUserIdFromSession(session) {
+  return session.metadata?.clerk_user_id || session.client_reference_id || null
+}
+
+function clerkUserIdFromSubscription(stripeSub) {
+  return stripeSub.metadata?.clerk_user_id || null
 }
 
 async function syncSubscription(stripeSub, clerkUserId) {
-  const priceId = stripeSub.items?.data?.[0]?.price?.id
   await upsertSubscription({
     user_id: clerkUserId,
     stripe_customer_id: typeof stripeSub.customer === 'string' ? stripeSub.customer : stripeSub.customer?.id,
     stripe_subscription_id: stripeSub.id,
     status: stripeSub.status,
-    plan: planFromPriceId(priceId),
+    plan: planFromSubscription(stripeSub),
     current_period_end: new Date(stripeSub.current_period_end * 1000).toISOString(),
     cancel_at_period_end: stripeSub.cancel_at_period_end,
   })
@@ -26,7 +32,7 @@ async function syncSubscription(stripeSub, clerkUserId) {
 export async function POST(req) {
   const stripe = getStripe()
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
-  if (!stripe || !webhookSecret) {
+  if (!webhookSecret) {
     return NextResponse.json({ error: 'Webhook not configured' }, { status: 503 })
   }
 
@@ -36,7 +42,11 @@ export async function POST(req) {
 
   let event
   try {
-    event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+    if (stripe) {
+      event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+    } else {
+      event = Stripe.webhooks.constructEvent(body, sig, webhookSecret)
+    }
   } catch (err) {
     console.error('Stripe webhook signature failed:', err.message)
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
@@ -47,16 +57,33 @@ export async function POST(req) {
       case 'checkout.session.completed': {
         const session = event.data.object
         if (session.mode !== 'subscription' || !session.subscription) break
-        const clerkUserId = session.metadata?.clerk_user_id
+
+        const customerId = typeof session.customer === 'string' ? session.customer : session.customer?.id
+        let clerkUserId = clerkUserIdFromSession(session)
+        if (!clerkUserId && customerId) {
+          const existing = await getSubscriptionByStripeCustomer(customerId)
+          clerkUserId = existing?.user_id
+        }
         if (!clerkUserId) break
-        const stripeSub = await stripe.subscriptions.retrieve(session.subscription)
-        await syncSubscription(stripeSub, clerkUserId)
+
+        if (stripe) {
+          const stripeSub = await stripe.subscriptions.retrieve(session.subscription)
+          await syncSubscription(stripeSub, clerkUserId)
+        } else {
+          await upsertSubscription({
+            user_id: clerkUserId,
+            stripe_customer_id: customerId,
+            stripe_subscription_id: session.subscription,
+            status: 'active',
+          })
+        }
         break
       }
+      case 'customer.subscription.created':
       case 'customer.subscription.updated':
       case 'customer.subscription.deleted': {
         const stripeSub = event.data.object
-        let clerkUserId = stripeSub.metadata?.clerk_user_id
+        let clerkUserId = clerkUserIdFromSubscription(stripeSub)
         if (!clerkUserId) {
           const existing = await getSubscriptionByStripeSubscriptionId(stripeSub.id)
           clerkUserId = existing?.user_id
@@ -68,7 +95,7 @@ export async function POST(req) {
             stripe_customer_id: typeof stripeSub.customer === 'string' ? stripeSub.customer : stripeSub.customer?.id,
             stripe_subscription_id: stripeSub.id,
             status: 'canceled',
-            plan: planFromPriceId(stripeSub.items?.data?.[0]?.price?.id),
+            plan: planFromSubscription(stripeSub),
             current_period_end: new Date(stripeSub.current_period_end * 1000).toISOString(),
             cancel_at_period_end: true,
           })

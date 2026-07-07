@@ -20,6 +20,24 @@ export default function PricingContent() {
       .catch(() => {})
   }, [isSignedIn])
 
+  // Payment Link returns before webhook finishes — poll until Pro is active
+  useEffect(() => {
+    if (!success || !isSignedIn) return undefined
+    let attempts = 0
+    const poll = setInterval(async () => {
+      try {
+        const r = await fetch('/api/subscription')
+        const data = await r.json()
+        setSubscription(data)
+        if (data.isPro || ++attempts >= 15) clearInterval(poll)
+      } catch {
+        attempts += 1
+        if (attempts >= 15) clearInterval(poll)
+      }
+    }, 2000)
+    return () => clearInterval(poll)
+  }, [success, isSignedIn])
+
   const success = searchParams.get('success')
   const canceled = searchParams.get('canceled')
 

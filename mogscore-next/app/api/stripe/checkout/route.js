@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { auth, currentUser } from '@clerk/nextjs/server'
-import { getStripe, PLANS } from '@/lib/stripe'
+import { getStripe, PLANS, getPaymentLink, buildPaymentLinkUrl } from '@/lib/stripe'
 import { getSubscription, upsertSubscription } from '@/lib/subscription'
 
 export async function POST(req) {
@@ -10,18 +10,22 @@ export async function POST(req) {
   }
 
   const stripe = getStripe()
-  if (!stripe) {
-    return NextResponse.json({ error: 'Payments not configured' }, { status: 503 })
-  }
 
   let body
   try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid body' }, { status: 400 }) }
 
   const planId = body.plan === 'yearly' ? 'pro_yearly' : 'pro_monthly'
   const plan = PLANS[planId]
+  const planKey = body.plan === 'yearly' ? 'yearly' : 'monthly'
   const priceId = process.env[plan.priceEnvKey]
-  if (!priceId) {
-    return NextResponse.json({ error: 'Price not configured' }, { status: 503 })
+  const paymentLink = getPaymentLink(planKey)
+  const checkoutMode = process.env.STRIPE_CHECKOUT_MODE || 'auto'
+  const usePaymentLink = paymentLink && (
+    checkoutMode === 'payment_link' || (checkoutMode === 'auto' && !priceId)
+  )
+
+  if (!usePaymentLink && !priceId) {
+    return NextResponse.json({ error: 'Payments not configured' }, { status: 503 })
   }
 
   const existing = await getSubscription(userId)
@@ -31,6 +35,16 @@ export async function POST(req) {
 
   const user = await currentUser()
   const email = user?.emailAddresses?.[0]?.emailAddress
+
+  // Sandbox Payment Links — redirect with Clerk user id for webhook sync
+  if (usePaymentLink) {
+    const url = buildPaymentLinkUrl(paymentLink, { userId, email })
+    return NextResponse.json({ url })
+  }
+
+  if (!stripe) {
+    return NextResponse.json({ error: 'Payments not configured' }, { status: 503 })
+  }
 
   let customerId = existing?.stripe_customer_id
   if (!customerId) {
