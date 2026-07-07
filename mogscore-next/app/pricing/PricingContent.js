@@ -7,22 +7,22 @@ import Footer from '@/components/Footer'
 import PricingCards from '@/components/PricingCards'
 import { getContactEmail } from '@/lib/contact'
 
-export default function PricingContent({ initialSubscription = null, checkoutConfig = null }) {
+export default function PricingContent({ checkoutConfig = null }) {
   const supportEmail = getContactEmail()
-  const { isSignedIn } = useUser()
+  const { isSignedIn, isLoaded } = useUser()
   const searchParams = useSearchParams()
-  const [subscription, setSubscription] = useState(initialSubscription)
+  const [subscription, setSubscription] = useState(null)
   const success = searchParams.get('success')
   const canceled = searchParams.get('canceled')
-  const hasServerSub = initialSubscription?.status !== 'guest'
 
+  // Load subscription status on the client (page shell renders immediately).
   useEffect(() => {
-    if (success || hasServerSub || !isSignedIn) return
+    if (!isLoaded || !isSignedIn) return
     fetch('/api/subscription')
       .then(r => r.json())
       .then(setSubscription)
       .catch(() => {})
-  }, [isSignedIn, success, hasServerSub])
+  }, [isLoaded, isSignedIn])
 
   // Payment Link returns before webhook finishes — poll until Pro is active
   useEffect(() => {

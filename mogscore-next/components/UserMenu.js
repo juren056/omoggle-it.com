@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { SignOutButton, useUser } from '@clerk/nextjs'
 import { createPortal } from 'react-dom'
 import PointsDashboard from './PointsDashboard'
+import SubscriptionDashboard from './SubscriptionDashboard'
 
 function ProfileModal({ onClose, user }) {
   const [displayName, setDisplayName] = useState('')
@@ -81,6 +82,7 @@ export default function UserMenu() {
   const [open, setOpen] = useState(false)
   const [showPoints, setShowPoints] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [showSubscription, setShowSubscription] = useState(false)
   const [userPoints, setUserPoints] = useState(0)
   const [subscription, setSubscription] = useState(null)
   const menuRef = useRef(null)
@@ -136,6 +138,7 @@ export default function UserMenu() {
               )}
             </div>
             {[
+              { label: '💳 套餐状态', fn: () => { setShowSubscription(true); setOpen(false) } },
               { label: subscription?.isPro ? '⚙ Manage Subscription' : '⭐ Upgrade to Pro', fn: openBilling },
               { label: '◈ 积分中心', fn: () => { setShowPoints(true); setOpen(false) } },
               { label: '👤 编辑资料', fn: () => { setShowProfile(true); setOpen(false) } },
@@ -158,6 +161,7 @@ export default function UserMenu() {
         )}
       </div>
 
+      {showSubscription && <SubscriptionDashboard onClose={() => setShowSubscription(false)} />}
       {showPoints && <PointsDashboard onClose={() => setShowPoints(false)} />}
       {showProfile && <ProfileModal onClose={() => setShowProfile(false)} user={user} />}
     </>
