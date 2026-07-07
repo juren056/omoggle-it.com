@@ -30,19 +30,24 @@ export default function PricingCards({ subscription, checkoutConfig, compact = f
   const isPro = subscription?.isPro
   const hasBilling = subscription?.hasBillingAccount
 
+  const hasDirectPaymentLinks = Boolean(
+    checkoutConfig?.paymentLinks?.monthly && checkoutConfig?.paymentLinks?.yearly
+  )
+
   function redirectToPaymentLink(plan) {
     const link = plan === 'yearly'
       ? checkoutConfig.paymentLinks.yearly
       : checkoutConfig.paymentLinks.monthly
     const email = user?.emailAddresses?.[0]?.emailAddress
-    window.location.assign(buildPaymentLinkUrl(link, { userId: user.id, email }))
+    window.location.assign(buildPaymentLinkUrl(link, { userId: user?.id, email }))
   }
 
   async function handleUpgrade(plan) {
     setError('')
 
-    // Payment Link: instant client redirect — no API round-trip
-    if (checkoutConfig?.usePaymentLink && user?.id) {
+    // Any available Payment Link should redirect immediately.
+    // This avoids slow API fallback when env mode is mis-set or user hydration lags.
+    if (hasDirectPaymentLinks) {
       redirectToPaymentLink(plan)
       return
     }
