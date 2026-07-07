@@ -7,7 +7,7 @@ import Footer from '@/components/Footer'
 import PricingCards from '@/components/PricingCards'
 import { getContactEmail } from '@/lib/contact'
 
-export default function PricingContent({ initialSubscription = null }) {
+export default function PricingContent({ initialSubscription = null, checkoutConfig = null }) {
   const supportEmail = getContactEmail()
   const { isSignedIn } = useUser()
   const searchParams = useSearchParams()
@@ -68,7 +68,7 @@ export default function PricingContent({ initialSubscription = null }) {
             </div>
           )}
 
-          <PricingCards subscription={subscription} />
+          <PricingCards subscription={subscription} checkoutConfig={checkoutConfig} />
 
           <div className="article-content" style={{ marginTop: 'var(--sp-xl)' }}>
             <h2>What You Get</h2>

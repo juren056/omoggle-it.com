@@ -1,7 +1,8 @@
 import Stripe from 'stripe'
 import { PLANS } from './plans'
+import { buildPaymentLinkUrl } from './checkout-url'
 
-export { PLANS }
+export { PLANS, buildPaymentLinkUrl }
 
 let stripeClient = null
 
@@ -18,13 +19,6 @@ export function getStripe() {
 export function getPaymentLink(plan) {
   const envKey = plan === 'yearly' ? 'STRIPE_PAYMENT_LINK_YEARLY' : 'STRIPE_PAYMENT_LINK_MONTHLY'
   return process.env[envKey] || null
-}
-
-export function buildPaymentLinkUrl(linkUrl, { userId, email }) {
-  const url = new URL(linkUrl)
-  if (userId) url.searchParams.set('client_reference_id', userId)
-  if (email) url.searchParams.set('prefilled_email', email)
-  return url.toString()
 }
 
 export function planFromSubscription(stripeSub) {

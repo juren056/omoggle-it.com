@@ -43,6 +43,8 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <head>
+          <link rel="dns-prefetch" href="https://buy.stripe.com" />
+          <link rel="preconnect" href="https://buy.stripe.com" crossOrigin="anonymous" />
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YC3XR4ZRC"></script>
           <script dangerouslySetInnerHTML={{__html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6YC3XR4ZRC');`}} />
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2031710024449901" crossOrigin="anonymous"></script>

@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { auth } from '@clerk/nextjs/server'
+import { getCheckoutConfig } from '@/lib/checkout-config'
 import { getSubscriptionSnapshot } from '@/lib/subscription-snapshot'
 import PricingContent from './PricingContent'
 
@@ -11,11 +12,14 @@ export const metadata = {
 
 export default async function PricingPage() {
   const { userId } = await auth()
-  const initialSubscription = await getSubscriptionSnapshot(userId)
+  const [initialSubscription, checkoutConfig] = await Promise.all([
+    getSubscriptionSnapshot(userId),
+    Promise.resolve(getCheckoutConfig()),
+  ])
 
   return (
     <Suspense fallback={<div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>Loading pricing…</div>}>
-      <PricingContent initialSubscription={initialSubscription} />
+      <PricingContent initialSubscription={initialSubscription} checkoutConfig={checkoutConfig} />
     </Suspense>
   )
 }

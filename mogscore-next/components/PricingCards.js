@@ -2,8 +2,9 @@
 import { useState } from 'react'
 import { useUser, SignInButton } from '@clerk/nextjs'
 import { PLANS } from '@/lib/plans'
+import { buildPaymentLinkUrl } from '@/lib/checkout-url'
 
-async function startCheckout(plan) {
+async function startCheckoutSession(plan) {
   const res = await fetch('/api/stripe/checkout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -21,19 +22,34 @@ async function openPortal() {
   else throw new Error(data.error || 'Could not open billing portal')
 }
 
-export default function PricingCards({ subscription, compact = false }) {
-  const { isSignedIn } = useUser()
+export default function PricingCards({ subscription, checkoutConfig, compact = false }) {
+  const { isSignedIn, user } = useUser()
   const [loading, setLoading] = useState('')
   const [error, setError] = useState('')
 
   const isPro = subscription?.isPro
   const hasBilling = subscription?.hasBillingAccount
 
+  function redirectToPaymentLink(plan) {
+    const link = plan === 'yearly'
+      ? checkoutConfig.paymentLinks.yearly
+      : checkoutConfig.paymentLinks.monthly
+    const email = user?.emailAddresses?.[0]?.emailAddress
+    window.location.assign(buildPaymentLinkUrl(link, { userId: user.id, email }))
+  }
+
   async function handleUpgrade(plan) {
     setError('')
+
+    // Payment Link: instant client redirect — no API round-trip
+    if (checkoutConfig?.usePaymentLink && user?.id) {
+      redirectToPaymentLink(plan)
+      return
+    }
+
     setLoading(plan)
     try {
-      await startCheckout(plan)
+      await startCheckoutSession(plan)
     } catch (e) {
       setError(e.message)
       setLoading('')

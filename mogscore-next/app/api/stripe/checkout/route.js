@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
-import { getStripe, getPaymentLink, buildPaymentLinkUrl } from '@/lib/stripe'
+import { getStripe, getPaymentLink } from '@/lib/stripe'
+import { buildPaymentLinkUrl } from '@/lib/checkout-url'
 import { PLANS } from '@/lib/plans'
 import { getSubscription, upsertSubscription } from '@/lib/subscription'
 
