@@ -1,6 +1,7 @@
-import Stripe from 'stripe'
 import { NextResponse } from 'next/server'
+import Stripe from 'stripe'
 import { getStripe, planFromSubscription } from '@/lib/stripe'
+import { subscriptionPayload } from '@/lib/stripe-subscription-utils'
 import {
   upsertSubscription,
   getSubscriptionByStripeSubscriptionId,
@@ -18,15 +19,7 @@ function clerkUserIdFromSubscription(stripeSub) {
 }
 
 async function syncSubscription(stripeSub, clerkUserId) {
-  await upsertSubscription({
-    user_id: clerkUserId,
-    stripe_customer_id: typeof stripeSub.customer === 'string' ? stripeSub.customer : stripeSub.customer?.id,
-    stripe_subscription_id: stripeSub.id,
-    status: stripeSub.status,
-    plan: planFromSubscription(stripeSub),
-    current_period_end: new Date(stripeSub.current_period_end * 1000).toISOString(),
-    cancel_at_period_end: stripeSub.cancel_at_period_end,
-  })
+  await upsertSubscription(subscriptionPayload(stripeSub, clerkUserId, planFromSubscription(stripeSub)))
 }
 
 export async function POST(req) {
@@ -91,12 +84,8 @@ export async function POST(req) {
         if (!clerkUserId) break
         if (event.type === 'customer.subscription.deleted') {
           await upsertSubscription({
-            user_id: clerkUserId,
-            stripe_customer_id: typeof stripeSub.customer === 'string' ? stripeSub.customer : stripeSub.customer?.id,
-            stripe_subscription_id: stripeSub.id,
+            ...subscriptionPayload(stripeSub, clerkUserId, planFromSubscription(stripeSub)),
             status: 'canceled',
-            plan: planFromSubscription(stripeSub),
-            current_period_end: new Date(stripeSub.current_period_end * 1000).toISOString(),
             cancel_at_period_end: true,
           })
         } else {

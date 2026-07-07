@@ -1,15 +1,20 @@
 import { NextResponse } from 'next/server'
-import { auth, currentUser } from '@clerk/nextjs/server'
-import { getStripe, PLANS, getPaymentLink, buildPaymentLinkUrl } from '@/lib/stripe'
+import { auth } from '@clerk/nextjs/server'
+import { getStripe, getPaymentLink, buildPaymentLinkUrl } from '@/lib/stripe'
+import { PLANS } from '@/lib/plans'
 import { getSubscription, upsertSubscription } from '@/lib/subscription'
 
+function emailFromSessionClaims(sessionClaims) {
+  if (!sessionClaims) return undefined
+  const email = sessionClaims.email ?? sessionClaims.primary_email_address
+  return typeof email === 'string' ? email : undefined
+}
+
 export async function POST(req) {
-  const { userId } = await auth()
+  const { userId, sessionClaims } = await auth()
   if (!userId) {
     return NextResponse.json({ error: 'Sign in required' }, { status: 401 })
   }
-
-  const stripe = getStripe()
 
   let body
   try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid body' }, { status: 400 }) }
@@ -28,28 +33,29 @@ export async function POST(req) {
     return NextResponse.json({ error: 'Payments not configured' }, { status: 503 })
   }
 
+  // Payment Link: instant redirect — no Supabase/Clerk API round-trips
+  if (usePaymentLink) {
+    const url = buildPaymentLinkUrl(paymentLink, {
+      userId,
+      email: emailFromSessionClaims(sessionClaims),
+    })
+    return NextResponse.json({ url })
+  }
+
+  const stripe = getStripe()
+  if (!stripe) {
+    return NextResponse.json({ error: 'Payments not configured' }, { status: 503 })
+  }
+
   const existing = await getSubscription(userId)
   if (existing?.status === 'active' && existing?.stripe_subscription_id) {
     return NextResponse.json({ error: 'You already have an active subscription. Manage it from your account.' }, { status: 400 })
   }
 
-  const user = await currentUser()
-  const email = user?.emailAddresses?.[0]?.emailAddress
-
-  // Sandbox Payment Links — redirect with Clerk user id for webhook sync
-  if (usePaymentLink) {
-    const url = buildPaymentLinkUrl(paymentLink, { userId, email })
-    return NextResponse.json({ url })
-  }
-
-  if (!stripe) {
-    return NextResponse.json({ error: 'Payments not configured' }, { status: 503 })
-  }
-
   let customerId = existing?.stripe_customer_id
   if (!customerId) {
     const customer = await stripe.customers.create({
-      email: email || undefined,
+      email: emailFromSessionClaims(sessionClaims),
       metadata: { clerk_user_id: userId },
     })
     customerId = customer.id

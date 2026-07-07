@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useUser, SignInButton } from '@clerk/nextjs'
-import { PLANS } from '@/lib/stripe'
+import { PLANS } from '@/lib/plans'
 
 async function startCheckout(plan) {
   const res = await fetch('/api/stripe/checkout', {
