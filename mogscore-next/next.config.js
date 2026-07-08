@@ -42,16 +42,35 @@ const nextConfig = {
         permanent: true,
       })
 
+      // Legacy ".html" locale URLs 301 to the clean canonical URL.
       for (const slug of LANG_STATIC_HTML_SLUGS) {
         langRedirects.push({
-          source: `/${lang}/${slug}`,
-          destination: `/${lang}/${slug}.html`,
-          permanent: false,
+          source: `/${lang}/${slug}.html`,
+          destination: `/${lang}/${slug}`,
+          permanent: true,
         })
       }
     }
 
     return [...coreRedirects, ...htmlRedirects, ...langRedirects]
+  },
+
+  async rewrites() {
+    // Serve the pre-built static locale HTML at the CLEAN URL via an internal
+    // rewrite (HTTP 200) instead of a redirect. This keeps sitemap URLs like
+    // /ja/tools from being flagged as "Page with redirect" in Search Console.
+    // Rewrite destinations are not re-run through redirects, so there is no loop
+    // with the /{lang}/{slug}.html -> /{lang}/{slug} redirect above.
+    const langRewrites = []
+    for (const lang of SUPPORTED_LANGS) {
+      for (const slug of LANG_STATIC_HTML_SLUGS) {
+        langRewrites.push({
+          source: `/${lang}/${slug}`,
+          destination: `/${lang}/${slug}.html`,
+        })
+      }
+    }
+    return { beforeFiles: langRewrites }
   },
 }
 

@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import { IMAGE_CACHE_VERSION } from '@/lib/images'
 import { injectContactEmail } from '@/lib/contact'
 import { LANG_MIRROR_SLUGS } from '@/lib/i18n-routes'
+import { cleanInternalHtmlLinks, cleanHref } from '@/lib/html-links'
 
 function fixArticleImagePaths(html) {
   if (!html) return html
@@ -17,7 +18,7 @@ function fixArticleImagePaths(html) {
 
 function prepareHtmlContent(html) {
   if (!html) return html
-  return injectContactEmail(fixArticleImagePaths(html))
+  return cleanInternalHtmlLinks(injectContactEmail(fixArticleImagePaths(html)))
 }
 
 const LANG_UI = {
@@ -91,7 +92,7 @@ export function createI18nSlugPage(lang) {
 
     const related = []
     $('aside a.tag').each((_, el) => {
-      related.push({ href: $(el).attr('href'), text: $(el).text() })
+      related.push({ href: cleanHref($(el).attr('href')), text: $(el).text() })
     })
 
     return (

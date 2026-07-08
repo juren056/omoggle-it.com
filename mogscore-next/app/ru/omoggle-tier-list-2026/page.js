@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar'
+import { cleanInternalHtmlLinks } from '@/lib/html-links'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 
@@ -56,7 +57,7 @@ export default function Page() {
       </header>
       <main className="section">
         <div className="container-sm">
-          <article className="article-content" dangerouslySetInnerHTML={{ __html: articleContent }} />
+          <article className="article-content" dangerouslySetInnerHTML={{ __html: cleanInternalHtmlLinks(articleContent) }} />
           <aside style={{marginTop:'var(--sp-lg)',paddingTop:'var(--sp-md)',borderTop:'1px solid var(--border)'}}>
             <div style={{display:'flex',flexWrap:'wrap',gap:'.5rem'}}>
               <Link href="/ru" className="tag">Home</Link>

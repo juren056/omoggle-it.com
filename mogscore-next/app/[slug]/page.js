@@ -7,10 +7,11 @@ import Footer from '@/components/Footer'
 
 import { IMAGE_CACHE_VERSION } from '@/lib/images'
 import { injectContactEmail } from '@/lib/contact'
+import { cleanInternalHtmlLinks, cleanHref } from '@/lib/html-links'
 
 function prepareHtmlContent(html) {
   if (!html) return html
-  return injectContactEmail(fixArticleImagePaths(html))
+  return cleanInternalHtmlLinks(injectContactEmail(fixArticleImagePaths(html)))
 }
 
 function fixArticleImagePaths(html) {
@@ -66,7 +67,7 @@ export default async function SlugPage({ params }) {
   // Extract related tags
   const related = []
   $('aside a.tag').each((_, el) => {
-    related.push({ href: $(el).attr('href'), text: $(el).text() })
+    related.push({ href: cleanHref($(el).attr('href')), text: $(el).text() })
   })
 
   return (
