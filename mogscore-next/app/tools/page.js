@@ -400,18 +400,18 @@ export default function ToolsPage() {
             )}
             {compareError && <div style={{background:'rgba(248,81,73,.1)',border:'1px solid rgba(248,81,73,.3)',borderRadius:'var(--r-md)',padding:'1rem',textAlign:'center',color:'#F85149',fontSize:'.9rem'}}>{compareError}</div>}
             {compareResult && (
-              <div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'2rem',textAlign:'center'}}>
-                <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'2rem',marginBottom:'1.5rem'}}>
+              <div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'clamp(1.25rem,5vw,2rem)',textAlign:'center'}}>
+                <div className="battle-scores" style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'2rem',marginBottom:'1.5rem'}}>
                   {[1,2].map(n => (
-                    <div key={n} style={{flex:1}}>
-                      <div style={{fontSize:'.72rem',letterSpacing:'.2em',textTransform:'uppercase',color:'var(--text-muted)',marginBottom:'.5rem'}}>Player {n}</div>
-                      <div style={{fontFamily:'var(--font-display)',fontSize:'3.5rem',lineHeight:1,color:compareResult.winner===n?'var(--gold)':'#444'}}>
+                    <div key={n} style={{flex:1,minWidth:0}}>
+                      <div style={{fontSize:'.72rem',letterSpacing:'.15em',textTransform:'uppercase',color:'var(--text-muted)',marginBottom:'.5rem'}}>Player {n}</div>
+                      <div style={{fontFamily:'var(--font-display)',fontSize:'clamp(2.5rem,13vw,3.5rem)',lineHeight:1,color:compareResult.winner===n?'var(--gold)':'#444'}}>
                         {n===1?compareResult.s1.toFixed(1):compareResult.s2.toFixed(1)}
                       </div>
                     </div>
                   ))}
                 </div>
-                <div style={{display:'inline-block',padding:'.5rem 2rem',border:'1px solid var(--gold)',background:'rgba(212,168,67,.08)',borderRadius:2,fontFamily:'var(--font-display)',fontSize:'1.4rem',letterSpacing:'.3em',color:'var(--gold)'}}>
+                <div style={{display:'inline-block',padding:'.5rem clamp(1rem,4vw,2rem)',border:'1px solid var(--gold)',background:'rgba(212,168,67,.08)',borderRadius:2,fontFamily:'var(--font-display)',fontSize:'clamp(1.1rem,4vw,1.4rem)',letterSpacing:'.2em',color:'var(--gold)'}}>
                   {compareResult.winner === 0 ? '⚖️ DEAD HEAT' : `🏆 PLAYER ${compareResult.winner} MOGGED`}
                 </div>
               </div>

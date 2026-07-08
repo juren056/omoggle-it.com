@@ -1,6 +1,28 @@
 import { ClerkProvider } from '@clerk/nextjs'
+import { Bebas_Neue, DM_Sans } from 'next/font/google'
 import './globals.css'
 import { getContactEmail } from '@/lib/contact'
+
+const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-bebas',
+  display: 'swap',
+})
+
+const dmSans = DM_Sans({
+  weight: ['300', '400', '500'],
+  subsets: ['latin'],
+  variable: '--font-dm',
+  display: 'swap',
+})
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#0D1117',
+}
 
 export const metadata = {
   title: {
@@ -41,7 +63,7 @@ export default function RootLayout({ children }) {
   const contactEmail = getContactEmail()
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" className={`${bebasNeue.variable} ${dmSans.variable}`}>
         <head>
           <link rel="dns-prefetch" href="https://buy.stripe.com" />
           <link rel="preconnect" href="https://buy.stripe.com" crossOrigin="anonymous" />

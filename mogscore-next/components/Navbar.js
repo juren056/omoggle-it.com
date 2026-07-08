@@ -86,7 +86,7 @@ export default function Navbar() {
           {isSignedIn ? (
             <UserMenu />
           ) : (
-            <>
+            <div className="nav-guest-actions" style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
               <SignInButton mode="modal">
                 <button style={{ fontSize: '.8rem', color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>
                   Sign In
@@ -97,10 +97,10 @@ export default function Navbar() {
                   Sign Up
                 </button>
               </SignUpButton>
-            </>
+            </div>
           )}
 
-          <Link href="/tools" className="btn btn-primary nav-cta" style={{ fontSize: '.8rem', padding: '.4rem .85rem' }}>
+          <Link href="/tools" className="btn btn-primary nav-cta nav-cta-desktop" style={{ fontSize: '.8rem', padding: '.4rem .85rem' }}>
             Try AI →
           </Link>
 
@@ -125,6 +125,11 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            <li style={{ padding: '.75rem 0 .5rem' }}>
+              <Link href="/tools" className="btn btn-primary" style={{ display: 'block', width: '100%', textAlign: 'center' }}>
+                Try AI →
+              </Link>
+            </li>
             {/* Language switcher in mobile menu */}
             <li style={{ display: 'flex', gap: '.4rem', padding: '.65rem 0', borderBottom: '1px solid var(--border)' }}>
               {LANGS.map(l => (

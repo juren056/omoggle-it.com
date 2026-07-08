@@ -14,35 +14,11 @@ export default function Modal({ onClose, children, maxWidth = 520 }) {
   if (!mounted) return null
 
   return createPortal(
-    <div
-      onClick={onClose}
-      style={{
-        position: 'fixed',
-        top: 0, left: 0, right: 0, bottom: 0,
-        width: '100vw', height: '100vh',
-        background: 'rgba(0,0,0,.85)',
-        zIndex: 999999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '1rem',
-        boxSizing: 'border-box',
-      }}
-    >
+    <div className="modal-overlay" onClick={onClose}>
       <div
+        className="modal-content"
         onClick={e => e.stopPropagation()}
-        style={{
-          background: 'var(--bg2)',
-          border: '1px solid var(--border-md)',
-          borderRadius: 'var(--r-lg)',
-          width: '100%',
-          maxWidth: maxWidth,
-          maxHeight: '88vh',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          overflowY: 'auto',
-        }}
+        style={{ maxWidth }}
       >
         {children}
       </div>
