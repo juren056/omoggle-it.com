@@ -11,7 +11,7 @@
 
 const OWN_DOMAIN = 'omoggle-it.com'
 
-/** Convert a single href to its clean, root-relative canonical form. */
+/** Convert a single href to its clean canonical form. */
 export function cleanHref(href) {
   if (!href || typeof href !== 'string') return href
 
@@ -37,7 +37,7 @@ export function cleanHref(href) {
   let wasAbsoluteOwnDomain = false
   if (urlMatch) {
     const host = urlMatch[2].toLowerCase()
-    if (!host.endsWith(OWN_DOMAIN)) return href // external link — leave alone
+    if (host !== OWN_DOMAIN && !host.endsWith(`.${OWN_DOMAIN}`)) return href // external link — leave alone
     wasAbsoluteOwnDomain = true
     pathPart = urlMatch[3] || '/'
   }
@@ -56,12 +56,13 @@ export function cleanHref(href) {
   // Strip trailing ".html"
   pathPart = pathPart.replace(/\.html$/i, '')
 
-  // Ensure root-relative so it never resolves against the current path.
-  if (!pathPart.startsWith('/')) pathPart = '/' + pathPart
+  // Preserve relative-link semantics. This is important for localized pages:
+  // `tools.html` on `/ja/an-article` must become `tools` (=> `/ja/tools`),
+  // not `/tools` (the English route).
+  if (pathPart === '') pathPart = './'
 
   // Collapse a trailing slash (except for the bare root).
-  if (pathPart.length > 1) pathPart = pathPart.replace(/\/+$/, '')
-  if (pathPart === '') pathPart = '/'
+  if (pathPart !== './' && pathPart.length > 1) pathPart = pathPart.replace(/\/+$/, '')
 
   // For own-domain absolute links, return canonical absolute https URL.
   if (wasAbsoluteOwnDomain) {

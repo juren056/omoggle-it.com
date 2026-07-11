@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:html-links": "node scripts/test-html-links.mjs && node scripts/clean-static-html-links.mjs --check"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.3.5",
