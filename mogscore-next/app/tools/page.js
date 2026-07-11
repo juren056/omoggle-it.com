@@ -213,7 +213,7 @@ export default function ToolsPage() {
       <header style={{padding:'var(--sp-lg) 0 var(--sp-sm)',borderBottom:'1px solid var(--border)'}}>
         <div className="container">
           <h1>Free Looksmaxxing Tools</h1>
-          <p style={{color:'var(--text-muted)',marginTop:'.5rem'}}>AI-powered face analysis and 1v1 battles. Upload your photo and get an instant MogScore.</p>
+          <p style={{color:'var(--text-muted)',marginTop:'.5rem'}}>AI-powered face analysis and 1v1 battles. Upload your photo and get an instant MogScore. Free to use — 3 analyses/day as a guest, 10 when signed in.</p>
         </div>
       </header>
 
@@ -244,7 +244,7 @@ export default function ToolsPage() {
             <div style={{display:'flex',alignItems:'flex-start',gap:'1rem',marginBottom:'var(--sp-md)',paddingBottom:'var(--sp-sm)',borderBottom:'1px solid var(--border)'}}>
               <div className="tool-icon">◈</div>
               <div>
-                <span className="tool-badge free">Free</span>
+                <span className="tool-badge free">Free · 3/day</span>
                 <h2>AI Face Analyzer</h2>
                 <p style={{fontSize:'.9rem',color:'var(--text-muted)',marginBottom:0}}>Facial symmetry · Canthal tilt · Jawline · Cheekbones · Skin clarity</p>
               </div>

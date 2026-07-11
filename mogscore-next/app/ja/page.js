@@ -44,7 +44,7 @@ const stats = [
   ['6','分析する指標'],
   ['54','ガイド & 記事'],
   ['9','ELOティア解説'],
-  ['無料','AIフェイスアナライザー']
+  ['無料','AI分析 · 3回/日']
 ]
 
 export default function JAHomePage() {
@@ -85,9 +85,9 @@ export default function JAHomePage() {
           <div className="grid-2">
             <article className="tool-card">
               <div className="tool-icon">◈</div>
-              <span className="tool-badge free">{'無料'}</span>
+              <span className="tool-badge free">{'無料 · 3回/日'}</span>
               <h3>{'AIフェイスアナライザー'}</h3>
-              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>{'写真をアップロードして、6つの顔指標の詳細なMogScoreとアドバイスを取得。'}</p>
+              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>{'写真をアップロードして、6つの顔指標の詳細なMogScoreとアドバイスを取得。無料で利用可 — ゲストは1日3回、ログインで1日10回。'}</p>
               <Link href="/ja/tools" className="btn btn-primary" style={{textAlign:'center',marginTop:'1rem'}}>{'顔を分析する →'}</Link>
             </article>
             <article className="tool-card">

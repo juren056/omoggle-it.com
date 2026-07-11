@@ -65,7 +65,7 @@ export default function HomePage() {
             <div className="stat-item"><span className="stat-num">6</span><span className="stat-label">Metrics Analyzed</span></div>
             <div className="stat-item"><span className="stat-num">54</span><span className="stat-label">Guides & Articles</span></div>
             <div className="stat-item"><span className="stat-num">9</span><span className="stat-label">ELO Tiers Explained</span></div>
-            <div className="stat-item"><span className="stat-num">Free</span><span className="stat-label">AI Face Analyzer</span></div>
+            <div className="stat-item"><span className="stat-num">Free</span><span className="stat-label">AI Analyzer · 3/day</span></div>
           </div>
         </div>
       </section>
@@ -79,9 +79,9 @@ export default function HomePage() {
           <div className="grid-2">
             <article className="tool-card">
               <div className="tool-icon">◈</div>
-              <span className="tool-badge free">Free</span>
+              <span className="tool-badge free">Free · 3/day</span>
               <h3>AI Face Analyzer</h3>
-              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>Upload your photo and get a detailed MogScore with ratings for all 6 facial metrics plus personalized looksmaxxing tips.</p>
+              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>Upload your photo and get a detailed MogScore with ratings for all 6 facial metrics plus personalized looksmaxxing tips. Free to use — 3 analyses/day as a guest, 10 when signed in.</p>
               <Link href="/tools" className="btn btn-primary" style={{textAlign:'center',marginTop:'1rem'}}>Analyze My Face →</Link>
             </article>
             <article className="tool-card">

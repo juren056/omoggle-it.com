@@ -44,7 +44,7 @@ const stats = [
   ['6','Métricas Analisadas'],
   ['54','Guias & Artigos'],
   ['9','Tiers ELO'],
-  ['Grátis','Analisador IA']
+  ['Grátis','Analisador · 3/dia']
 ]
 
 export default function PTHomePage() {
@@ -85,9 +85,9 @@ export default function PTHomePage() {
           <div className="grid-2">
             <article className="tool-card">
               <div className="tool-icon">◈</div>
-              <span className="tool-badge free">{'Grátis'}</span>
+              <span className="tool-badge free">{'Grátis · 3/dia'}</span>
               <h3>{'Analisador de Rosto IA'}</h3>
-              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>{'Envie sua foto e obtenha um MogScore detalhado com 6 métricas faciais e dicas personalizadas.'}</p>
+              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>{'Envie sua foto e obtenha um MogScore detalhado com 6 métricas faciais e dicas personalizadas. Grátis — 3 análises/dia como visitante, 10 com login.'}</p>
               <Link href="/pt/tools" className="btn btn-primary" style={{textAlign:'center',marginTop:'1rem'}}>{'Analisar Meu Rosto →'}</Link>
             </article>
             <article className="tool-card">
