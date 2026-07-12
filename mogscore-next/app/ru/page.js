@@ -54,7 +54,7 @@ export default function RUHomePage() {
       <header className="hero">
         <div className="container">
           <span className="hero-eyebrow">🔥 Вирально на Twitch в 2026</span>
-          <h1>Your Ultimate Guide to <em>Omoggle</em>,<br/>{'Моггинг & Луксмаксинг'}</h1>
+          <h1>{'Полный гайд по '}<em>Omoggle</em>,<br/>{'моггингу и луксмаксингу'}</h1>
           <p className="hero-sub">{'Бесплатный ИИ-анализатор лица, объяснение PSL Scale, тировые рейтинги и советы по победе в Omoggle.'}</p>
           <div className="hero-actions">
             <Link href="/ru/tools" className="btn btn-primary">{'Анализировать лицо с ИИ'}</Link>
@@ -113,7 +113,7 @@ export default function RUHomePage() {
                 {a.img && <img src={imageUrl(a.img)} alt={a.title} className="card-img" width="600" height="338" loading="lazy" />}
                 <div className="card-body">
                   <span className="card-tag">{a.tag}</span>
-                  <Link href={a.href} className="card-title">{a.title}</Link>
+                  <Link href={`/ru${a.href}`} className="card-title">{a.title}</Link>
                   <p className="card-excerpt">{a.desc}</p>
                 </div>
               </article>
@@ -121,7 +121,7 @@ export default function RUHomePage() {
           </div>
           <div style={{display:'flex',flexDirection:'column',gap:'8px',marginBottom:'var(--sp-lg)'}}>
             {allArticles.map(a => (
-              <Link href={a.href} key={a.href} className="article-row-item">
+              <Link href={`/ru${a.href}`} key={a.href} className="article-row-item">
                 <div style={{display:'flex',alignItems:'center',gap:'.75rem',minWidth:0}}>
                   {a.img && <img src={imageUrl(a.img)} alt={a.title} style={{width:60,height:42,objectFit:'cover',borderRadius:'var(--r-sm)',flexShrink:0}} loading="lazy" />}
                   <div style={{minWidth:0}}>
