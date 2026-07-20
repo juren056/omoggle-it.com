@@ -21,6 +21,33 @@ function prepareHtmlContent(html) {
   return cleanInternalHtmlLinks(injectContactEmail(fixArticleImagePaths(html)))
 }
 
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December']
+
+function extractArticleDates($) {
+  let published = null
+  let modified = null
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const data = JSON.parse($(el).text())
+      const nodes = Array.isArray(data['@graph']) ? data['@graph'] : [data]
+      for (const n of nodes) {
+        if (n && n.dateModified && !modified) modified = n.dateModified
+        if (n && n.datePublished && !published) published = n.datePublished
+      }
+    } catch {
+      /* ignore malformed JSON-LD */
+    }
+  })
+  return { published: published || modified, modified: modified || published }
+}
+
+function formatDate(iso) {
+  if (!iso) return null
+  const d = new Date(iso)
+  if (isNaN(d.getTime())) return null
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`
+}
+
 const LANG_UI = {
   ja: {
     home: 'ホーム', blog: 'ブログ', wiki: 'Wiki', tools: 'ツール',
@@ -95,8 +122,25 @@ export function createI18nSlugPage(lang) {
       related.push({ href: cleanHref($(el).attr('href')), text: $(el).text() })
     })
 
+    const { published, modified } = extractArticleDates($)
+    const updatedLabel = formatDate(modified) || '2026'
+    const description = $('meta[name="description"]').attr('content') || ''
+    const articleSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: h1,
+      description,
+      url: `https://omoggle-it.com/${lang}/${slug}`,
+      inLanguage: lang,
+      ...(published ? { datePublished: published } : {}),
+      ...(modified ? { dateModified: modified } : {}),
+      author: { '@type': 'Organization', name: 'MogScore Editorial Team' },
+      publisher: { '@type': 'Organization', name: 'MogScore', url: 'https://omoggle-it.com' },
+    }
+
     return (
       <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
         <Navbar />
         <div style={{ background: 'rgba(212,168,67,0.08)', borderBottom: '1px solid var(--border)', padding: '.6rem 0', textAlign: 'center' }}>
           <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', fontSize: '.82rem', color: 'var(--text-muted)' }}>
@@ -117,7 +161,7 @@ export function createI18nSlugPage(lang) {
             </nav>
             <span className="card-tag">{cat}</span>
             <h1 style={{ marginTop: '.75rem' }}>{h1}</h1>
-            <p style={{ color: 'var(--text-muted)', fontSize: '.85rem', marginTop: '.5rem' }}>{ui.updated} May 2026</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '.85rem', marginTop: '.5rem' }}>{ui.updated} {updatedLabel} · MogScore Editorial Team</p>
           </div>
         </header>
         <main className="section">
@@ -133,6 +177,9 @@ export function createI18nSlugPage(lang) {
                 </div>
               </aside>
             )}
+            <p style={{ marginTop: 'var(--sp-md)', fontSize: '.78rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
+              {ui.disclaimer} MogScore — not affiliated with Omoggle LLC.
+            </p>
             <div style={{ marginTop: 'var(--sp-lg)', paddingTop: 'var(--sp-sm)', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
               <a href={`/${lang}`} style={{ color: 'var(--text-muted)', fontSize: '.85rem', textDecoration: 'none' }}>
                 {ui.backToHome}

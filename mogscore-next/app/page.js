@@ -51,7 +51,7 @@ export default function HomePage() {
         <div className="container">
           <span className="hero-eyebrow">🔥 Trending on Twitch 2026</span>
           <h1>Your Ultimate Guide to <em>Omoggle</em>,<br/>Mogging & Looksmaxxing</h1>
-          <p className="hero-sub">Free AI face analyzer for looksmaxxing enthusiasts — complete PSL Scale wiki, tier rankings, and expert tips to win on Omoggle.</p>
+          <p className="hero-sub">Free AI face analyzer that scores the same 6 metrics as Omoggle — privately, from a single photo. No webcam, no strangers, no video upload. Plus the complete PSL Scale wiki, tier rankings and expert tips to win.</p>
           <div className="hero-actions">
             <Link href="/tools" className="btn btn-primary">Try AI Face Analyzer</Link>
             <Link href="/what-is-omoggle" className="btn btn-outline">What is Omoggle? →</Link>

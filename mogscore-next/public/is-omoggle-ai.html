@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap">
   <link rel="stylesheet" href="/css/style.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Is Omoggle Actually AI? The Full Technical Breakdown","url":"https://omoggle-it.com/is-omoggle-ai","dateModified":"2026-05-31","publisher":{"@type":"Organization","name":"MogScore"}}
+{"@context":"https://schema.org","@type":"Article","headline":"Is Omoggle Actually AI? The Full Technical Breakdown","url":"https://omoggle-it.com/is-omoggle-ai","datePublished":"2026-05-14","dateModified":"2026-07-20","publisher":{"@type":"Organization","name":"MogScore"}}
 </script>
 </head><body>
 <nav class="navbar"><div class="navbar-inner">
@@ -34,7 +34,7 @@
     <nav class="breadcrumb"><a href="/">Home</a><span>›</span><a href="/blog">Blog</a><span>›</span><span>Investigation</span></nav>
     <span class="card-tag" style="display:inline-block;margin-bottom:.75rem;">Investigation</span>
     <h1>Is Omoggle Actually AI? The Full Technical Breakdown</h1>
-    <p style="color:var(--text-muted);font-size:.85rem;margin-top:.5rem;">Updated May 31, 2026</p>
+    <p style="color:var(--text-muted);font-size:.85rem;margin-top:.5rem;">Updated July 20, 2026</p>
   </div>
 </header>
 <main class="section">
@@ -48,8 +48,17 @@
       <p>Omoggle uses two distinct AI systems for two different purposes:</p>
 
       <h3>1. MediaPipe for facial analysis</h3>
-      <p>The scoring system uses MediaPipe, Google's open-source computer vision framework, to map facial landmarks in real time from the webcam feed. This processes data client-side — on your device — and measures geometric relationships between facial points to generate scores for symmetry, canthal tilt, jawline definition, cheekbone prominence, skin clarity, and overall harmony.</p>
+      <p>The scoring system uses <strong>MediaPipe FaceMesh</strong>, Google's open-source computer vision model, to map facial landmarks in real time from the webcam feed. FaceMesh produces roughly <strong>478 3D landmarks per face in about 25 milliseconds</strong>, and it all runs client-side — in your browser, on your device. Those landmark coordinates become distances and angles, and those distances and angles become scores for symmetry, canthal tilt, jawline definition, cheekbone prominence, skin clarity, and overall harmony.</p>
       <p>This is not a "thinking" AI. It is a measurement system that maps specific landmark coordinates and calculates ratios against reference values. The scores are mathematical outputs, not subjective judgments.</p>
+
+      <h3>How the 5 sub-scores are weighted</h3>
+      <p>The individual metrics don't count equally. Each sub-score is normalized to a 0&ndash;100 range, then blended with unequal weights before being mapped onto the 1&ndash;10 PSL band:</p>
+      <ul>
+        <li><strong>Harmony and symmetry</strong> carry the most weight — they're stable traits that don't swing between sessions.</li>
+        <li><strong>Jawline and cheekbone</strong> structure sit in the middle (and are the most lighting-sensitive to capture).</li>
+        <li><strong>Skin clarity and canthal tilt</strong> are down-weighted, because skin especially can be distorted by lighting or a single bad night's sleep.</li>
+      </ul>
+      <p>The final mapping to a 1&ndash;10 PSL score is <strong>non-linear</strong>: because most faces cluster in the middle of the distribution, the raw-score gap between PSL 7 and 8 is far larger than between 5 and 6. For the full breakdown, see the <a href="/psl-scale-chart">PSL scale chart</a>.</p>
 
       <h3>2. NSFW.js for content moderation</h3>
       <p>Separately, Omoggle uses NSFW.js, an open-source machine learning model, to evaluate whether nudity is present in players' video feeds. This is the moderation layer — it detects prohibited content and can end or flag a match if triggered.</p>
@@ -60,7 +69,7 @@
       <p><strong>On advertising:</strong> Despite the above, Omoggle's privacy policy reserves the right to use "match-related content, including clips, screenshots, gameplay visuals, audio, usernames, display names, profile images, rankings, and match results" for advertising. Rogers has not fully reconciled this with the data privacy statements.</p>
 
       <h2>Why Scores Are Inconsistent</h2>
-      <p>Because Omoggle uses geometric measurement rather than holistic AI judgment, small changes in input conditions produce large changes in output scores. Camera angle, distance, lighting direction, and even webcam quality all affect how MediaPipe maps facial landmarks — and therefore what scores it generates. This is why the same person can score 5.2 in one session and 6.8 in the next.</p>
+      <p>Because Omoggle uses geometric measurement rather than holistic AI judgment, small changes in input conditions produce large changes in output scores. Camera angle, distance, lighting direction, and even webcam quality all affect how FaceMesh maps facial landmarks — and therefore what scores it generates. This is why the same person can score 5.2 in one session and 6.8 in the next. We break down all seven causes in <a href="/why-omoggle-score-changes">why your Omoggle score keeps changing</a>.</p>
       <p>This also explains why camera angle optimization is the single most effective way to improve your Omoggle score. You are not changing your face — you are optimizing the geometric inputs to a landmark detection system. See: <a href="/how-to-win-omoggle">How to Win on Omoggle</a>.</p>
 
       <h2>Is It Actually Fair?</h2>

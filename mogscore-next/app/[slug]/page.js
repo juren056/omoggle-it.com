@@ -21,6 +21,34 @@ function fixArticleImagePaths(html) {
     .replace(/\bsrc="\/images\/([^"?]+)(?:\?[^"]*)?"/g, (_, name) => `src="/images/${name}?v=${IMAGE_CACHE_VERSION}"`)
 }
 
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December']
+
+/** Pull datePublished/dateModified from any JSON-LD Article block in the source HTML. */
+function extractArticleDates($) {
+  let published = null
+  let modified = null
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const data = JSON.parse($(el).text())
+      const nodes = Array.isArray(data['@graph']) ? data['@graph'] : [data]
+      for (const n of nodes) {
+        if (n && n.dateModified && !modified) modified = n.dateModified
+        if (n && n.datePublished && !published) published = n.datePublished
+      }
+    } catch {
+      /* ignore malformed JSON-LD */
+    }
+  })
+  return { published: published || modified, modified: modified || published }
+}
+
+function formatDate(iso) {
+  if (!iso) return null
+  const d = new Date(iso)
+  if (isNaN(d.getTime())) return null
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`
+}
+
 import { ENGLISH_CONTENT_SLUGS } from '@/lib/i18n-routes'
 
 const STATIC_PAGES = ENGLISH_CONTENT_SLUGS
@@ -70,8 +98,25 @@ export default async function SlugPage({ params }) {
     related.push({ href: cleanHref($(el).attr('href')), text: $(el).text() })
   })
 
+  // E-E-A-T: real update date + Article schema (head JSON-LD is dropped when we extract body only)
+  const { published, modified } = extractArticleDates($)
+  const updatedLabel = formatDate(modified) || '2026'
+  const description = $('meta[name="description"]').attr('content') || ''
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: h1,
+    description,
+    url: `https://omoggle-it.com/${slug}`,
+    ...(published ? { datePublished: published } : {}),
+    ...(modified ? { dateModified: modified } : {}),
+    author: { '@type': 'Organization', name: 'MogScore Editorial Team' },
+    publisher: { '@type': 'Organization', name: 'MogScore', url: 'https://omoggle-it.com' },
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <Navbar />
       <header style={{padding:'var(--sp-lg) 0 var(--sp-sm)',borderBottom:'1px solid var(--border)'}}>
         <div className="container-sm">
@@ -84,7 +129,7 @@ export default async function SlugPage({ params }) {
           </nav>
           <span className="card-tag">{cat}</span>
           <h1 style={{marginTop:'.75rem'}}>{h1}</h1>
-          <p style={{color:'var(--text-muted)',fontSize:'.85rem',marginTop:'.5rem'}}>Updated May 2026</p>
+          <p style={{color:'var(--text-muted)',fontSize:'.85rem',marginTop:'.5rem'}}>Updated {updatedLabel} · Reviewed by the MogScore Editorial Team</p>
         </div>
       </header>
       <main className="section">
@@ -103,6 +148,9 @@ export default async function SlugPage({ params }) {
               </div>
             </aside>
           )}
+          <p style={{marginTop:'var(--sp-md)',fontSize:'.78rem',color:'var(--text-dim)',lineHeight:1.6}}>
+            Disclaimer: PSL scores and looksmaxxing metrics are a pseudoscientific approximation of facial aesthetics and are provided for entertainment only. MogScore is an independent resource and is not affiliated with Omoggle LLC.
+          </p>
         </div>
       </main>
       <Footer />

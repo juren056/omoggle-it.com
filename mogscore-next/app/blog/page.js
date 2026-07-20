@@ -13,6 +13,9 @@ export const metadata = {
 
 
 const articles = [
+  { href:'/is-omoggle-banned', tag:'News', title:'Is Omoggle Banned? Australia Block & Country Status', desc:'Omoggle was blocked in Australia on June 10, 2026 over under-16 rules. Where it is restricted, why, and what regulators say.', date:'July 20, 2026' },
+  { href:'/psl-scale-chart', tag:'Reference', title:'PSL Scale Chart: Every Score, Band & Metric Weight', desc:'What every PSL score means, how the 5 metrics are weighted, why the scale is non-linear, and how it maps to Omoggle tiers.', date:'July 20, 2026' },
+  { href:'/why-omoggle-score-changes', tag:'Guide', title:'Why Does My Omoggle Score Keep Changing?', desc:'Same face, different score. The 7 reasons — lighting, angle, distance, webcam, expression — and what you can control.', date:'July 20, 2026' },
   { href:'/what-is-omoggle', tag:'Wiki', title:'What is Omoggle? Complete 2026 Guide', desc:'The viral AI face-rating platform where strangers compete webcam-to-webcam. Everything you need to know.', date:'May 17, 2026' },
   { href:'/how-to-win-omoggle', tag:'Strategy', title:'How to Win on Omoggle: 7 Tips That Actually Work', desc:'Camera angle, lighting, and background — setup factors can raise your score by 1.5–2 points immediately.', date:'May 14, 2026' },
   { href:'/hunter-eyes-guide', tag:'Guide', title:'Hunter Eyes: What They Are and How to Get Them', desc:'The most discussed looksmaxxing feature — what you can realistically do to improve your eye area.', date:'May 17, 2026' },

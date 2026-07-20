@@ -78,6 +78,9 @@ export const ENGLISH_CONTENT_SLUGS = [
   'face-shape-guide',
   'mogger-meaning',
   'looksmaxxing-before-after',
+  'is-omoggle-banned',
+  'psl-scale-chart',
+  'why-omoggle-score-changes',
 ]
 
 /** English slugs for [lang]/[slug] English-fallback mirror pages */
