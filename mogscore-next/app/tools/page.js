@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { useUser } from '@clerk/nextjs'
+import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import TosModal from '@/components/TosModal'
@@ -33,19 +34,24 @@ export default function ToolsPage() {
     const today = new Date().toISOString().split('T')[0]
     const stored = JSON.parse(localStorage.getItem('rate_data') || '{}')
     if (stored.date === today) {
+      // Client-only persistence must be synchronized after hydration.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRateUsed(stored.count || 0)
-      if ((stored.count || 0) >= dailyLimit) setRateLimited(true)
+      setRateLimited(!isSignedIn && (stored.count || 0) >= dailyLimit)
     }
-  }, [dailyLimit])
+  }, [dailyLimit, isSignedIn])
 
-  function updateLocalRate(count) {
+  function updateLocalRate(count, remaining) {
     const today = new Date().toISOString().split('T')[0]
-    localStorage.setItem('rate_data', JSON.stringify({ date: today, count }))
-    setRateUsed(count)
-    if (count >= dailyLimit) setRateLimited(true)
+    setRateUsed(previous => {
+      const next = Math.max(previous, count)
+      localStorage.setItem('rate_data', JSON.stringify({ date: today, count: next }))
+      return next
+    })
+    if (remaining === 0) setRateLimited(true)
   }
 
-  async function compressImage(base64, maxKB = 1200) {
+  async function compressImage(dataUrl, maxKB = 1200) {
     return new Promise(resolve => {
       const img = new Image()
       img.onload = () => {
@@ -65,9 +71,16 @@ export default function ToolsPage() {
         while (result.length > maxKB * 1024 * 1.37 && q > 0.55) { q -= 0.05; result = canvas.toDataURL('image/jpeg', q) }
         resolve(result.split(',')[1])
       }
-      img.onerror = () => resolve(base64)
-      img.src = 'data:image/jpeg;base64,' + base64
+      img.onerror = () => resolve(dataUrl.split(',')[1])
+      img.src = dataUrl
     })
+  }
+
+  function validateSelectedFile(file) {
+    const allowedTypes = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif', 'image/avif'])
+    if (!allowedTypes.has(file.type)) return 'Please choose a JPEG, PNG, WebP, HEIC, or AVIF image.'
+    if (file.size > 12 * 1024 * 1024) return 'Please choose an image smaller than 12 MB.'
+    return null
   }
 
   async function callAPI(base64, mode) {
@@ -77,11 +90,14 @@ export default function ToolsPage() {
       body: JSON.stringify({ imageBase64: base64, mode })
     })
     const data = await res.json()
-    if (res.status === 429) throw new Error('rate_limit_exceeded')
+    if (res.status === 429) {
+      if (data.error === 'rate_limit_exceeded') setRateLimited(true)
+      throw new Error(data.error || 'rate_limit_exceeded')
+    }
     if (data.error === 'inappropriate_image') throw new Error('inappropriate_image')
     if (data.error === 'no_face') throw new Error('no_face')
     if (data.error) throw new Error(data.error)
-    if (data.remaining !== undefined) updateLocalRate(dailyLimit - data.remaining)
+    if (Number.isInteger(data.used) && !data.isPro) updateLocalRate(data.used, data.remaining)
     return data.result
   }
 
@@ -90,6 +106,8 @@ export default function ToolsPage() {
     if (!file) return
     // Reset input so same file can be selected again
     e.target.value = ''
+    const validationError = validateSelectedFile(file)
+    if (validationError) { setAnalyzeError(validationError); return }
     const reader = new FileReader()
     reader.onload = ev => {
       const url = ev.target.result
@@ -98,8 +116,7 @@ export default function ToolsPage() {
       setResults(null)
       setAnalyzeError('')
       // Compress in background
-      const b64 = url.split(',')[1]
-      compressImage(b64).then(c => setCurrentBase64(c))
+      compressImage(url).then(c => setCurrentBase64(c))
     }
     reader.onerror = () => setAnalyzeError('Could not read image. Please try another photo.')
     reader.readAsDataURL(file)
@@ -151,17 +168,15 @@ export default function ToolsPage() {
     setLoadingStep(steps[0])
     stepRef.current = setInterval(() => { si++; setLoadingStep(steps[si % steps.length]) }, 1300)
     try {
-      const text = await callAPI(currentBase64, 'analyze')
+      const result = await callAPI(currentBase64, 'analyze')
       clearInterval(stepRef.current)
-      let parsed
-      try { parsed = JSON.parse(text.replace(/```json|```/g,'').trim()) }
-      catch { parsed = { overall:6.2, tier:'HTN', metrics:[{name:'Facial Symmetry',score:6.5},{name:'Canthal Tilt',score:6.0},{name:'Jawline Definition',score:6.2},{name:'Cheekbone Prominence',score:6.4},{name:'Skin Clarity',score:6.8},{name:'Overall Harmony',score:6.1}], advice:['Practice mewing daily.','Start a skincare routine: cleanser + niacinamide + SPF 50.','Shoot from above eye level for best results.','Gym training sharpens jawline over time.'] } }
-      setResults(parsed); setAnalyzeState('done')
+      setResults(result); setAnalyzeState('done')
     } catch(e) {
       clearInterval(stepRef.current)
       const msg = e.message === 'inappropriate_image' ? '⚠️ Please upload a clear frontal face photo. Inappropriate content is not allowed.'
         : e.message === 'no_face' ? '⚠️ No clear face detected. Please upload a frontal face photo.'
         : e.message === 'rate_limit_exceeded' ? `⚠️ Daily limit reached (${dailyLimit}/day). ${isSignedIn ? 'Come back tomorrow.' : 'Sign up for 10 analyses/day!'}`
+        : e.message === 'too_many_requests' ? '⚠️ Too many requests. Please wait a minute and try again.'
         : 'Analysis failed. Please try again.'
       setAnalyzeError(msg); setAnalyzeState('error')
     }
@@ -174,11 +189,13 @@ export default function ToolsPage() {
 
   function handleSlot(n, e) {
     const file = e.target.files[0]; if (!file) return
+    const validationError = validateSelectedFile(file)
+    if (validationError) { setCompareError(validationError); return }
     const reader = new FileReader()
     reader.onload = ev => {
       const url = ev.target.result
       setSlotPreviews(p => ({...p, [n]: url}))
-      compressImage(url.split(',')[1]).then(c => setSlots(s => ({...s, [n]: c})))
+      compressImage(url).then(c => setSlots(s => ({...s, [n]: c})))
     }
     reader.readAsDataURL(file)
   }
@@ -194,12 +211,13 @@ export default function ToolsPage() {
     setCompareState('loading'); setCompareError(''); setCompareResult(null)
     try {
       const [r1, r2] = await Promise.all([callAPI(slots[1],'compare'), callAPI(slots[2],'compare')])
-      const s1 = parseFloat(JSON.parse(r1.replace(/```json|```/g,'').trim()).score)
-      const s2 = parseFloat(JSON.parse(r2.replace(/```json|```/g,'').trim()).score)
+      const s1 = r1.score
+      const s2 = r2.score
       setCompareResult({ s1, s2, winner: s1 > s2 ? 1 : s2 > s1 ? 2 : 0 })
       setCompareState('done')
     } catch(e) {
       const msg = e.message === 'rate_limit_exceeded' ? `⚠️ Daily limit reached. ${isSignedIn ? '' : 'Sign up for more!'}`
+        : e.message === 'too_many_requests' ? '⚠️ Too many requests. Please wait a minute and try again.'
         : e.message === 'no_face' ? '⚠️ No clear face in one or both photos.'
         : 'Battle failed. Please try again.'
       setCompareError(msg); setCompareState('idle')
@@ -230,10 +248,10 @@ export default function ToolsPage() {
                 <span style={{fontFamily:'var(--font-display)',fontSize:'1.1rem',color:'var(--gold)'}}>{Math.min(rateUsed, dailyLimit)}</span>
                 <span style={{color:'var(--text-muted)',fontSize:'.85rem'}}>/ {dailyLimit}</span>
                 {!isSignedIn && rateLimited && (
-                  <a href="/sign-up" className="btn btn-primary" style={{fontSize:'.75rem',padding:'.3rem .8rem'}}>Sign Up for 10/day →</a>
+                  <Link href="/sign-up" className="btn btn-primary" style={{fontSize:'.75rem',padding:'.3rem .8rem'}}>Sign Up for 10/day →</Link>
                 )}
                 {isSignedIn && rateLimited && (
-                  <a href="/pricing" className="btn btn-primary" style={{fontSize:'.75rem',padding:'.3rem .8rem'}}>Upgrade to Pro →</a>
+                  <Link href="/pricing" className="btn btn-primary" style={{fontSize:'.75rem',padding:'.3rem .8rem'}}>Upgrade to Pro →</Link>
                 )}
               </div>
             </div>
@@ -276,14 +294,14 @@ export default function ToolsPage() {
                     </span>
                   )}
                   {rateLimited && !isSignedIn && (
-                    <a href="/sign-up" className="btn btn-primary" style={{marginTop:'.5rem',display:'inline-block'}} onClick={e=>e.stopPropagation()}>
+                    <Link href="/sign-up" className="btn btn-primary" style={{marginTop:'.5rem',display:'inline-block'}} onClick={e=>e.stopPropagation()}>
                       Sign Up Free — 10/day →
-                    </a>
+                    </Link>
                   )}
                   {rateLimited && isSignedIn && (
-                    <a href="/pricing" className="btn btn-primary" style={{marginTop:'.5rem',display:'inline-block'}} onClick={e=>e.stopPropagation()}>
+                    <Link href="/pricing" className="btn btn-primary" style={{marginTop:'.5rem',display:'inline-block'}} onClick={e=>e.stopPropagation()}>
                       Upgrade to Pro — Unlimited →
-                    </a>
+                    </Link>
                   )}
                 </div>
               </label>
