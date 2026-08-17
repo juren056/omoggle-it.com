@@ -72,12 +72,12 @@ export default function PointsDashboard({ onClose }) {
   }
 
   async function handleShare() {
-    const text = 'I just got my MogScore on the free AI Face Analyzer! 👀'
+    const text = 'I just got my Mog Score on the free AI Face Analyzer! 👀'
     const url = 'https://omoggle-it.com/tools'
     let shared = false
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'My MogScore', text, url })
+        await navigator.share({ title: 'My Mog Score', text, url })
         shared = true
       } catch (e) {
         if (e.name !== 'AbortError') {

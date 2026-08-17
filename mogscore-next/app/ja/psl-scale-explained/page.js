@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'PSLスケール解説：すべての評価が意味すること（1〜10）| MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ja/psl-scale-explained" },
+  title: 'PSLスケール解説：すべての評価が意味すること（1〜10）| Omoggle IT',
   description: 'OmoggleがAIスコアリングの基盤として使用するPSLスケール（1〜10）の完全解説。各ランクが実際に意味することと、実際のプレイヤーがどこに位置するかを解説。',
 }
 

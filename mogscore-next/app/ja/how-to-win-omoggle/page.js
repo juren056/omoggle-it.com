@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Omoggleで勝つ方法：スコアを上げる7つのコツ | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ja/how-to-win-omoggle" },
+  title: 'Omoggleで勝つ方法：スコアを上げる7つのコツ | Omoggle IT',
   description: 'カメラアングル、照明、背景 — セットアップ要因だけでOmoggleスコアを1.5〜2ポイント上げられます。実証済みの7つのコツを解説。',
 }
 

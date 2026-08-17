@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import { imageUrl } from '@/lib/images'
 
 export const metadata = {
-  title: 'MogScore — Гайд по Omoggle, Луксмаксинг & PSL Scale Wiki',
+  alternates: { canonical: "https://omoggle-it.com/ru" },
+  title: 'Omoggle IT — Гайд по Omoggle, Луксмаксинг & PSL Scale Wiki',
   description: 'Бесплатный ИИ-анализатор лица, объяснение PSL Scale, тировые рейтинги Omoggle и советы по победе.',
 }
 
@@ -87,7 +88,7 @@ export default function RUHomePage() {
               <div className="tool-icon">◈</div>
               <span className="tool-badge free">{'Бесплатно · 3/день'}</span>
               <h3>{'ИИ-анализатор лица'}</h3>
-              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>{'Загрузите фото и получите подробный MogScore с оценкой 6 метрик лица и советами. Бесплатно — 3 анализа/день для гостей, 10 после входа.'}</p>
+              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>{'Загрузите фото и получите подробный Mog Score с оценкой 6 метрик лица и советами. Бесплатно — 3 анализа/день для гостей, 10 после входа.'}</p>
               <Link href="/ru/tools" className="btn btn-primary" style={{textAlign:'center',marginTop:'1rem'}}>{'Анализировать моё лицо →'}</Link>
             </article>
             <article className="tool-card">

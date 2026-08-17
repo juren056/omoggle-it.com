@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Omoggle完全ティアリスト2026：Adamを含む全9ランク | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ja/omoggle-tier-list-2026" },
+  title: 'Omoggle完全ティアリスト2026：Adamを含む全9ランク | Omoggle IT',
   description: '2026年5月時点でのOmoggleティアリスト完全版。MoleculeからAdamまでの全9ELOランクをELO要件と現在の状況付きで解説。',
 }
 

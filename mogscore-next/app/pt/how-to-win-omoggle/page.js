@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Como Vencer no Omoggle: 7 Dicas Para Aumentar Sua Pontuação | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/pt/how-to-win-omoggle" },
+  title: 'Como Vencer no Omoggle: 7 Dicas Para Aumentar Sua Pontuação | Omoggle IT',
   description: 'Ângulo da câmera, iluminação, fundo — fatores de configuração que aumentam sua pontuação no Omoggle em 1,5–2 pontos. 7 dicas comprovadas.',
 }
 

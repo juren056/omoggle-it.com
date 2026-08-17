@@ -1,13 +1,12 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import TosModal from '@/components/TosModal'
 
 export default function ToolsPage() {
-  const { isSignedIn } = useUser()
+  const [isSignedIn, setIsSignedIn] = useState(false)
   const dailyLimit = isSignedIn ? 10 : 3
 
   // Analyzer state
@@ -27,7 +26,7 @@ export default function ToolsPage() {
   const [compareResult, setCompareResult] = useState(null)
   const [compareError, setCompareError] = useState('')
 
-  const steps = ['Detecting facial landmarks...','Measuring symmetry...','Analyzing canthal tilt...','Calculating MogScore...','Writing recommendations...']
+  const steps = ['Detecting facial landmarks...','Measuring symmetry...','Analyzing canthal tilt...','Calculating Mog Score...','Writing recommendations...']
   const stepRef = useRef(null)
 
   useEffect(() => {
@@ -90,6 +89,7 @@ export default function ToolsPage() {
       body: JSON.stringify({ imageBase64: base64, mode })
     })
     const data = await res.json()
+    if (typeof data.isLoggedIn === 'boolean') setIsSignedIn(data.isLoggedIn)
     if (res.status === 429) {
       if (data.error === 'rate_limit_exceeded') setRateLimited(true)
       throw new Error(data.error || 'rate_limit_exceeded')
@@ -123,13 +123,13 @@ export default function ToolsPage() {
   }
 
   async function handleShare() {
-    const text = `I just got my MogScore on the free AI Face Analyzer! Check yours 👀`
+    const text = `I just got my Mog Score on the free AI Face Analyzer! Check yours 👀`
     const url = 'https://omoggle-it.com/tools'
     let shared = false
 
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'My MogScore', text, url })
+        await navigator.share({ title: 'My Mog Score', text, url })
         // navigator.share resolves only after user completes sharing
         shared = true
       } catch (e) {
@@ -231,7 +231,7 @@ export default function ToolsPage() {
       <header style={{padding:'var(--sp-lg) 0 var(--sp-sm)',borderBottom:'1px solid var(--border)'}}>
         <div className="container">
           <h1>Free Looksmaxxing Tools</h1>
-          <p style={{color:'var(--text-muted)',marginTop:'.5rem'}}>AI-powered face analysis and 1v1 battles. Upload your photo and get an instant MogScore. Free to use — 3 analyses/day as a guest, 10 when signed in.</p>
+          <p style={{color:'var(--text-muted)',marginTop:'.5rem'}}>AI-powered face analysis and 1v1 battles. Upload your photo and get an instant Mog Score. Free to use — 3 analyses/day as a guest, 10 when signed in.</p>
         </div>
       </header>
 

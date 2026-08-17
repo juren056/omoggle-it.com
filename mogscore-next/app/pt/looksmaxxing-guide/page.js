@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Guia de Looksmaxxing para Iniciantes: O Que É e Como Começar | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/pt/looksmaxxing-guide" },
+  title: 'Guia de Looksmaxxing para Iniciantes: O Que É e Como Começar | Omoggle IT',
   description: 'O que é looksmaxxing, por que funciona e como começar hoje. O guia de introdução baseado em evidências para melhorar sua aparência.',
 }
 

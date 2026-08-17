@@ -1,10 +1,10 @@
-import { SignIn } from '@clerk/nextjs'
+import { ClerkProvider, SignIn } from '@clerk/nextjs'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export default function SignInPage() {
   return (
-    <>
+    <ClerkProvider>
       <Navbar />
       <div style={{
         display: 'flex', justifyContent: 'center', alignItems: 'center',
@@ -22,6 +22,6 @@ export default function SignInPage() {
         </div>
       </div>
       <Footer />
-    </>
+    </ClerkProvider>
   )
 }

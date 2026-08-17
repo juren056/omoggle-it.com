@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Кантальный наклон: почему ИИ Omoggle оценивает его так высоко | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ru/canthal-tilt-guide" },
+  title: 'Кантальный наклон: почему ИИ Omoggle оценивает его так высоко | Omoggle IT',
   description: 'Что такое кантальный наклон, почему ИИ Omoggle оценивает его с весом до 18% и что реально можно сделать для его улучшения.',
 }
 

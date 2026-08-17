@@ -48,7 +48,7 @@ export default function PricingContent({ checkoutConfig = null }) {
       <header className="hero" style={{ paddingBottom: 'var(--sp-md)' }}>
         <div className="container">
           <span className="hero-eyebrow">Simple Pricing</span>
-          <h1>MogScore <em>Pro</em> Plans</h1>
+          <h1>Omoggle IT <em>Pro</em> Plans</h1>
           <p className="hero-sub">
             AI face analysis for entertainment and looksmaxxing. Free tier included — upgrade for unlimited daily analyses.
           </p>
@@ -73,7 +73,7 @@ export default function PricingContent({ checkoutConfig = null }) {
           <div className="article-content" style={{ marginTop: 'var(--sp-xl)' }}>
             <h2>What You Get</h2>
             <p>
-              MogScore Pro unlocks unlimited AI face analyses on our{' '}
+              Omoggle IT Pro unlocks unlimited AI face analyses on our{' '}
               <a href="/tools">Face Analyzer</a> and <a href="/tools#battle">1v1 Mog Battle</a> tools.
               All scores are for entertainment only — not medical or professional assessments.
             </p>
@@ -99,7 +99,7 @@ export default function PricingContent({ checkoutConfig = null }) {
             </p>
 
             <p style={{ fontSize: '.85rem', color: 'var(--text-dim)', marginTop: 'var(--sp-lg)' }}>
-              MogScore.wiki is an independent product and is not affiliated with Omoggle LLC or any AI model provider.
+              Omoggle IT is an independent product and is not affiliated with Omoggle LLC or any AI model provider.
               Prices shown in USD. Taxes may apply depending on your location.
             </p>
           </div>

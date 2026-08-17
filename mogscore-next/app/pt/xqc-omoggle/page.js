@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'xQc no Omoggle: Pontuação, Reação e O Que Aconteceu | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/pt/xqc-omoggle" },
+  title: 'xQc no Omoggle: Pontuação, Reação e O Que Aconteceu | Omoggle IT',
   description: 'A análise completa das pontuações de xQc no Omoggle, sua reação ao perder 6 rodadas seguidas e por que o clipe foi viral.',
 }
 

@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'xQc на Omoggle: счёт, реакция и что произошло | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ru/xqc-omoggle" },
+  title: 'xQc на Omoggle: счёт, реакция и что произошло | Omoggle IT',
   description: 'Полный разбор счётов xQc в Omoggle, его реакция на 6 поражений подряд и почему клип стал вирусным.',
 }
 

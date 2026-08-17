@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Как побеждать в Omoggle: 7 советов для улучшения счёта | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ru/how-to-win-omoggle" },
+  title: 'Как побеждать в Omoggle: 7 советов для улучшения счёта | Omoggle IT',
   description: 'Угол камеры, освещение, фон — факторы настройки, которые повышают ваш счёт в Omoggle на 1,5–2 пункта. 7 проверенных советов.',
 }
 

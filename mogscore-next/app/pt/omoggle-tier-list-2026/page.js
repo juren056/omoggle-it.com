@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Lista de Tiers Completa do Omoggle 2026: Todos os 9 Ranks | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/pt/omoggle-tier-list-2026" },
+  title: 'Lista de Tiers Completa do Omoggle 2026: Todos os 9 Ranks | Omoggle IT',
   description: 'A lista de tiers completa do Omoggle de maio de 2026. Todos os 9 ranks de ELO, de Molecule a Adam, com requisitos e status atual.',
 }
 

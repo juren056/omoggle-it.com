@@ -3,8 +3,9 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'What is Omoggle? Complete 2026 Guide | MogScore',
-  description: 'Omoggle is the viral AI face-rating platform where strangers compete on the PSL Scale. 2026 guide: how it works, Twitch ban reversal, tier list and how to win.',
+  title: 'What is Omoggle? Complete 2026 Guide',
+  description: 'Omoggle is the viral AI face-rating platform where strangers compete on the PSL Scale. Learn how it works, how ratings work and how to practice.',
+  alternates: { canonical: 'https://omoggle-it.com/what-is-omoggle' },
 }
 
 export default function WhatIsOmoggle() {
@@ -90,7 +91,7 @@ export default function WhatIsOmoggle() {
             <p>Basic access is free. Omoggle Pro ($10/month) unlocks analytics and priority matchmaking.</p>
 
             <div className="highlight-box">
-              <p>Practice without a live opponent — use our <Link href="/tools"><strong>free AI Face Analyzer</strong></Link> to score all 6 metrics and get personalized looksmaxxing tips.</p>
+              <p>Practice without a live opponent using the <Link href="/omoggle-practice-test"><strong>Omoggle Practice Test</strong></Link>, then compare the <Link href="/psl-test">PSL Test</Link> and <Link href="/mog-score">Mog Score</Link>.</p>
             </div>
           </article>
 

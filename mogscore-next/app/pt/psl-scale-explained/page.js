@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'PSL Scale Explicado: O Que Cada Pontuação Significa | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/pt/psl-scale-explained" },
+  title: 'PSL Scale Explicado: O Que Cada Pontuação Significa | Omoggle IT',
   description: 'A PSL Scale completa que o Omoggle usa como base de pontuação de IA. O que cada rank significa e onde os jogadores reais se encaixam.',
 }
 

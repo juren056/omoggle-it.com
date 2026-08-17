@@ -3,7 +3,7 @@ import { getContactEmail } from '@/lib/contact'
 
 export const metadata = {
   title: 'Terms of Service',
-  description: 'MogScore Terms of Service — rules for using our AI face analysis tools, subscriptions, and website.',
+  description: 'Mog Score Terms of Service — rules for using our AI face analysis tools, subscriptions, and website.',
   alternates: { canonical: 'https://omoggle-it.com/terms-of-service' },
 }
 
@@ -12,19 +12,19 @@ export default function TermsOfServicePage() {
   return (
     <LegalLayout title="Terms of Service" updated="June 30, 2026">
       <p>
-        These Terms of Service (&quot;Terms&quot;) govern your use of MogScore.wiki and related services at{' '}
-        <strong>omoggle-it.com</strong> (&quot;MogScore&quot;, &quot;we&quot;, &quot;us&quot;). By using our website or tools, you agree to these Terms.
+        These Terms of Service (&quot;Terms&quot;) govern your use of Omoggle IT and related services at{' '}
+        <strong>omoggle-it.com</strong> (&quot;Mog Score&quot;, &quot;we&quot;, &quot;us&quot;). By using our website or tools, you agree to these Terms.
       </p>
 
       <h2>1. Service Description</h2>
       <p>
-        MogScore provides AI-powered facial analysis tools, Omoggle guides, and looksmaxxing content for{' '}
+        Mog Score provides AI-powered facial analysis tools, Omoggle guides, and looksmaxxing content for{' '}
         <strong>entertainment purposes only</strong>. Scores and recommendations are not medical, psychological,
-        or professional advice. MogScore is an independent product and is <strong>not affiliated with Omoggle LLC</strong> or any AI model provider.
+        or professional advice. Omoggle IT is an independent product and is <strong>not affiliated with Omoggle LLC</strong> or any AI model provider.
       </p>
 
       <h2>2. Eligibility</h2>
-      <p>You must be at least <strong>18 years old</strong> to use MogScore. By using the service, you confirm you meet this requirement.</p>
+      <p>You must be at least <strong>18 years old</strong> to use Mog Score. By using the service, you confirm you meet this requirement.</p>
 
       <h2>3. Account & Acceptable Use</h2>
       <p>You agree not to:</p>
@@ -67,7 +67,7 @@ export default function TermsOfServicePage() {
 
       <h2>7. Intellectual Property</h2>
       <p>
-        MogScore content, branding, and website design are owned by MogScore. You may not copy, redistribute, or commercially exploit our content without permission.
+        Mog Score content, branding, and website design are owned by Mog Score. You may not copy, redistribute, or commercially exploit our content without permission.
       </p>
 
       <h2>8. Disclaimer of Warranties</h2>
@@ -78,7 +78,7 @@ export default function TermsOfServicePage() {
 
       <h2>9. Limitation of Liability</h2>
       <p>
-        To the maximum extent permitted by law, MogScore shall not be liable for indirect, incidental, or consequential damages
+        To the maximum extent permitted by law, Mog Score shall not be liable for indirect, incidental, or consequential damages
         arising from your use of the service. Our total liability shall not exceed the amount you paid us in the 12 months preceding the claim.
       </p>
 

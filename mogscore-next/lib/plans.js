@@ -10,7 +10,7 @@ export const PLANS = {
     features: [
       '10 AI face analyses per day (signed in)',
       '3 analyses per day (guest)',
-      'Full 6-metric MogScore breakdown',
+      'Full 6-metric Mog Score breakdown',
       'Earn bonus uses via points',
     ],
   },

@@ -1,10 +1,11 @@
 import { Suspense } from 'react'
+import { ClerkProvider } from '@clerk/nextjs'
 import { getCheckoutConfig } from '@/lib/checkout-config'
 import PricingContent from './PricingContent'
 
 export const metadata = {
-  title: 'Pricing — MogScore Pro Plans',
-  description: 'MogScore pricing: Free AI face analyzer with daily limits, or Pro for unlimited analyses. Cancel anytime.',
+  title: 'Pricing — Omoggle IT Pro Plans',
+  description: 'Omoggle IT pricing: free AI face analyzer with daily limits, or Pro for unlimited analyses. Cancel anytime.',
   alternates: { canonical: 'https://omoggle-it.com/pricing' },
 }
 
@@ -14,8 +15,10 @@ export default function PricingPage() {
   const checkoutConfig = getCheckoutConfig()
 
   return (
-    <Suspense fallback={<div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>Loading pricing…</div>}>
-      <PricingContent checkoutConfig={checkoutConfig} />
-    </Suspense>
+    <ClerkProvider>
+      <Suspense fallback={<div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>Loading pricing…</div>}>
+        <PricingContent checkoutConfig={checkoutConfig} />
+      </Suspense>
+    </ClerkProvider>
   )
 }

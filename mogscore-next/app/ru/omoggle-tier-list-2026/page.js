@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Полный тир-лист Omoggle 2026: все 9 рангов | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ru/omoggle-tier-list-2026" },
+  title: 'Полный тир-лист Omoggle 2026: все 9 рангов | Omoggle IT',
   description: 'Полный тир-лист Omoggle на май 2026 года. Все 9 ELO-рангов от Molecule до Adam с требованиями и текущим статусом.',
 }
 

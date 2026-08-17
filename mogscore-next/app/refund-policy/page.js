@@ -3,7 +3,7 @@ import { getContactEmail } from '@/lib/contact'
 
 export const metadata = {
   title: 'Refund Policy',
-  description: 'MogScore refund policy for Pro subscriptions and digital services.',
+  description: 'Mog Score refund policy for Pro subscriptions and digital services.',
   alternates: { canonical: 'https://omoggle-it.com/refund-policy' },
 }
 
@@ -12,14 +12,14 @@ export default function RefundPolicyPage() {
   return (
     <LegalLayout title="Refund Policy" updated="June 30, 2026">
       <p>
-        This Refund Policy applies to paid subscriptions and digital services purchased through MogScore.wiki at{' '}
+        This Refund Policy applies to paid subscriptions and digital services purchased through Omoggle IT at{' '}
         <strong>omoggle-it.com</strong>.
       </p>
 
       <h2>1. Subscription Refunds</h2>
       <h3>7-Day Satisfaction Guarantee</h3>
       <p>
-        If you subscribe to MogScore Pro and are not satisfied, you may request a <strong>full refund within 7 days</strong> of your initial purchase,
+        If you subscribe to Omoggle IT Pro and are not satisfied, you may request a <strong>full refund within 7 days</strong> of your initial purchase,
         provided you have not substantially used the unlimited analysis feature (defined as more than 50 analyses during that period).
       </p>
       <h3>Renewals</h3>

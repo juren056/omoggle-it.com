@@ -13,7 +13,7 @@ export const runtime = 'nodejs'
 
 const PROMPTS = {
   compare: 'Rate this image for a fun entertainment app. Score from 4.0 to 8.5. Always return a score even if unclear. ONLY return {"error":"no_face"} if 100% certain there is no human at all. Return ONLY JSON: {"score":<number>}.',
-  analyze: 'You are a fun AI for MogScore entertainment. Score any image with a possible person. Even if blurry or filtered — always score it. ONLY return {"error":"no_face"} if 100% certain zero humans. Return ONLY valid JSON: {"overall":<4.5-8.5>,"tier":"<Molecule|Sub3|LTN|MTN|HTN|Chadlite|Chad|Slayer>","metrics":[{"name":"Facial Symmetry","score":<1-10>},{"name":"Canthal Tilt","score":<1-10>},{"name":"Jawline Definition","score":<1-10>},{"name":"Cheekbone Prominence","score":<1-10>},{"name":"Skin Clarity","score":<1-10>},{"name":"Overall Harmony","score":<1-10>}],"advice":["<tip1>","<tip2>","<tip3>","<tip4>"]} Keep overall 4.5-8.5.',
+  analyze: 'You are a fun AI for Mog Score entertainment. Score any image with a possible person. Even if blurry or filtered — always score it. ONLY return {"error":"no_face"} if 100% certain zero humans. Return ONLY valid JSON: {"overall":<4.5-8.5>,"tier":"<Molecule|Sub3|LTN|MTN|HTN|Chadlite|Chad|Slayer>","metrics":[{"name":"Facial Symmetry","score":<1-10>},{"name":"Canthal Tilt","score":<1-10>},{"name":"Jawline Definition","score":<1-10>},{"name":"Cheekbone Prominence","score":<1-10>},{"name":"Skin Clarity","score":<1-10>},{"name":"Overall Harmony","score":<1-10>}],"advice":["<tip1>","<tip2>","<tip3>","<tip4>"]} Keep overall 4.5-8.5.',
 }
 
 function requestError(error) {

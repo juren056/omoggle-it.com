@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: '初心者のためのルックスマックスガイド：基本と始め方 | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ja/looksmaxxing-guide" },
+  title: '初心者のためのルックスマックスガイド：基本と始め方 | Omoggle IT',
   description: 'ルックスマックスとは何か、なぜ機能するのか、そして今日から始めるための方法。外見の改善に関する科学的根拠に基づいた入門ガイド。',
 }
 

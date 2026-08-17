@@ -4,8 +4,8 @@ import ContactContent from '@/components/ContactContent'
 import { getContactEmail } from '@/lib/contact'
 
 export const metadata = {
-  title: 'Contact MogScore.wiki | Omoggle Guide & PSL Scale',
-  description: 'Contact the MogScore team for questions about our free AI face analyzer, PSL Scale content, looksmaxxing guides, advertising, or partnership inquiries.',
+  title: 'Contact Omoggle IT | Omoggle Guide & PSL Scale',
+  description: 'Contact the Mog Score team for questions about our free AI face analyzer, PSL Scale content, looksmaxxing guides, advertising, or partnership inquiries.',
   alternates: { canonical: 'https://omoggle-it.com/contact' },
 }
 

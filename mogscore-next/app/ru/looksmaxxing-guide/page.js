@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Гайд по луксмаксингу для начинающих: что это и как начать | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ru/looksmaxxing-guide" },
+  title: 'Гайд по луксмаксингу для начинающих: что это и как начать | Omoggle IT',
   description: 'Что такое луксмаксинг, почему это работает и как начать сегодня. Вводный гайд, основанный на доказательствах, для улучшения внешности.',
 }
 

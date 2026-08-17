@@ -1,9 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { SignInButton, SignUpButton, useUser } from '@clerk/nextjs'
-import { useState, useEffect } from 'react'
-import UserMenu from './UserMenu'
+import { useState } from 'react'
 
 const LANGS = [
   { code: 'en', label: 'EN' },
@@ -15,19 +13,19 @@ const LANGS = [
 // Localized labels per language; only routes that have a localized version are
 // prefixed with /{lang} (see LOCALIZED_ROUTES). Others stay on the English route.
 const NAV_LABELS = {
-  en: { home: 'Home', tools: 'Tools', pricing: 'Pricing', blog: 'Blog', wiki: 'Wiki', pslTest: 'PSL Test', tryAi: 'Try AI →' },
-  ja: { home: 'ホーム', tools: 'ツール', pricing: '料金', blog: 'ブログ', wiki: 'Wiki', pslTest: 'PSLテスト', tryAi: 'AIを試す →' },
-  pt: { home: 'Início', tools: 'Ferramentas', pricing: 'Preços', blog: 'Blog', wiki: 'Wiki', pslTest: 'Teste PSL', tryAi: 'Testar IA →' },
-  ru: { home: 'Главная', tools: 'Инструменты', pricing: 'Цены', blog: 'Блог', wiki: 'Вики', pslTest: 'PSL тест', tryAi: 'Попробовать ИИ →' },
+  en: { omoggle: 'Omoggle', pslTest: 'PSL Test', mogScore: 'Mog Score', analyzer: 'Face Analyzer', guides: 'Guides', blog: 'Blog', tryAi: 'Try AI →' },
+  ja: { omoggle: 'Omoggle', pslTest: 'PSLテスト', mogScore: 'Mog Score', analyzer: '顔分析', guides: 'ガイド', blog: 'ブログ', tryAi: 'AIを試す →' },
+  pt: { omoggle: 'Omoggle', pslTest: 'Teste PSL', mogScore: 'Mog Score', analyzer: 'Analisador', guides: 'Guias', blog: 'Blog', tryAi: 'Testar IA →' },
+  ru: { omoggle: 'Omoggle', pslTest: 'PSL тест', mogScore: 'Mog Score', analyzer: 'Анализ лица', guides: 'Гайды', blog: 'Блог', tryAi: 'Попробовать ИИ →' },
 }
 
 const NAV_ITEMS = [
-  { key: 'home', href: '/' },
-  { key: 'tools', href: '/tools' },
-  { key: 'pricing', href: '/pricing' },
+  { key: 'omoggle', href: '/what-is-omoggle' },
+  { key: 'pslTest', href: '/psl-test' },
+  { key: 'mogScore', href: '/mog-score' },
+  { key: 'analyzer', href: '/tools' },
+  { key: 'guides', href: '/looksmaxxing-guide' },
   { key: 'blog', href: '/blog' },
-  { key: 'wiki', href: '/what-is-omoggle' },
-  { key: 'pslTest', href: '/psl-scale-test' },
 ]
 
 // Routes that have a localized (/{lang}/...) counterpart.
@@ -35,7 +33,6 @@ const LOCALIZED_ROUTES = new Set(['/', '/tools', '/what-is-omoggle'])
 
 export default function Navbar() {
   const pathname = usePathname()
-  const { isSignedIn } = useUser()
   const [menuOpen, setMenuOpen] = useState(false)
 
   // Derive language synchronously from the path so the SSR/SSG HTML already
@@ -56,9 +53,6 @@ export default function Navbar() {
   }))
   const toolsHref = localize('/tools')
 
-  // Close menu on route change
-  useEffect(() => { setMenuOpen(false) }, [pathname])
-
   function getLangUrl(langCode) {
     let page = pathname
     if (['ja','pt','ru'].includes(parts[0])) page = '/' + parts.slice(1).join('/')
@@ -70,8 +64,8 @@ export default function Navbar() {
   return (
     <nav className="navbar" role="navigation" aria-label="Main navigation">
       <div className="navbar-inner">
-        <Link href={localize('/')} className="navbar-logo" aria-label="MogScore home">
-          MogScore<span>.wiki</span>
+        <Link href={localize('/')} className="navbar-logo" aria-label="Omoggle IT home">
+          Omoggle<span> IT</span>
         </Link>
 
         {/* Desktop nav */}
@@ -104,23 +98,10 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Auth */}
-          {isSignedIn ? (
-            <UserMenu />
-          ) : (
-            <div className="nav-guest-actions" style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
-              <SignInButton mode="modal">
-                <button style={{ fontSize: '.8rem', color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                  Sign In
-                </button>
-              </SignInButton>
-              <SignUpButton mode="modal">
-                <button style={{ fontSize: '.8rem', background: 'none', border: '1px solid var(--border-md)', color: 'var(--gold)', padding: '.35rem .85rem', borderRadius: 'var(--r-sm)', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                  Sign Up
-                </button>
-              </SignUpButton>
-            </div>
-          )}
+          <div className="nav-guest-actions" style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+            <Link href="/sign-in" style={{ fontSize: '.8rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>Sign In</Link>
+            <Link href="/sign-up" style={{ fontSize: '.8rem', border: '1px solid var(--border-md)', color: 'var(--gold)', padding: '.35rem .85rem', borderRadius: 'var(--r-sm)', whiteSpace: 'nowrap' }}>Sign Up</Link>
+          </div>
 
           <Link href={toolsHref} className="btn btn-primary nav-cta nav-cta-desktop" style={{ fontSize: '.8rem', padding: '.4rem .85rem' }}>
             {labels.tryAi}
@@ -142,13 +123,13 @@ export default function Navbar() {
           <ul className={`navbar-nav mobile-open`} role="list">
             {navLinks.map(l => (
               <li key={l.href}>
-                <Link href={l.href} className={pathname === l.href ? 'active' : ''}>
+                <Link href={l.href} className={pathname === l.href ? 'active' : ''} onClick={() => setMenuOpen(false)}>
                   {l.label}
                 </Link>
               </li>
             ))}
             <li style={{ padding: '.75rem 0 .5rem' }}>
-              <Link href={toolsHref} className="btn btn-primary" style={{ display: 'block', width: '100%', textAlign: 'center' }}>
+              <Link href={toolsHref} className="btn btn-primary" style={{ display: 'block', width: '100%', textAlign: 'center' }} onClick={() => setMenuOpen(false)}>
                 {labels.tryAi}
               </Link>
             </li>
@@ -168,20 +149,10 @@ export default function Navbar() {
                 </Link>
               ))}
             </li>
-            {!isSignedIn && (
-              <li style={{ display: 'flex', gap: '.5rem', padding: '.65rem 0' }}>
-                <SignInButton mode="modal">
-                  <button style={{ flex: 1, padding: '.65rem', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 'var(--r-sm)', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '.9rem' }}>
-                    Sign In
-                  </button>
-                </SignInButton>
-                <SignUpButton mode="modal">
-                  <button style={{ flex: 1, padding: '.65rem', background: 'var(--gold)', border: 'none', borderRadius: 'var(--r-sm)', color: '#0D1117', cursor: 'pointer', fontSize: '.9rem', fontWeight: 600 }}>
-                    Sign Up Free
-                  </button>
-                </SignUpButton>
-              </li>
-            )}
+            <li style={{ display: 'flex', gap: '.5rem', padding: '.65rem 0' }}>
+              <Link href="/sign-in" style={{ flex: 1, padding: '.65rem', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 'var(--r-sm)', color: 'var(--text-muted)', fontSize: '.9rem', textAlign: 'center' }}>Sign In</Link>
+              <Link href="/sign-up" style={{ flex: 1, padding: '.65rem', background: 'var(--gold)', borderRadius: 'var(--r-sm)', color: '#0D1117', fontSize: '.9rem', fontWeight: 600, textAlign: 'center' }}>Sign Up Free</Link>
+            </li>
           </ul>
         )}
       </div>

@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import { imageUrl } from '@/lib/images'
 
 export const metadata = {
-  title: 'MogScore — Omoggle ガイド、ルックスマックス & PSLスケール Wiki',
+  alternates: { canonical: "https://omoggle-it.com/ja" },
+  title: 'Omoggle IT — Omoggle ガイド、ルックスマックス & PSLスケール Wiki',
   description: '無料AIフェイスアナライザー、PSLスケール解説、Omoggleティアランキングと攻略。',
 }
 
@@ -87,7 +88,7 @@ export default function JAHomePage() {
               <div className="tool-icon">◈</div>
               <span className="tool-badge free">{'無料 · 3回/日'}</span>
               <h3>{'AIフェイスアナライザー'}</h3>
-              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>{'写真をアップロードして、6つの顔指標の詳細なMogScoreとアドバイスを取得。無料で利用可 — ゲストは1日3回、ログインで1日10回。'}</p>
+              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>{'写真をアップロードして、6つの顔指標の詳細なMog Scoreとアドバイスを取得。無料で利用可 — ゲストは1日3回、ログインで1日10回。'}</p>
               <Link href="/ja/tools" className="btn btn-primary" style={{textAlign:'center',marginTop:'1rem'}}>{'顔を分析する →'}</Link>
             </article>
             <article className="tool-card">

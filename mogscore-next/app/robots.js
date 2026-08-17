@@ -4,7 +4,16 @@ export default function robots() {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/sign-in', '/sign-up'],
+        disallow: [
+          '/api/',
+          '/dashboard/',
+          '/account/',
+          '/profile/',
+          '/history/',
+          '/billing/',
+          '/sign-in',
+          '/sign-up',
+        ],
       },
     ],
     sitemap: 'https://omoggle-it.com/sitemap.xml',

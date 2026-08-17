@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'カンタールチルト解説：OmoggleのAIスコアリングで最重要の目の指標 | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ja/canthal-tilt-guide" },
+  title: 'カンタールチルト解説：OmoggleのAIスコアリングで最重要の目の指標 | Omoggle IT',
   description: 'カンタールチルトとは何か、なぜOmoggleのAIが最大18%の重みで評価するのか、そして実際に改善できることは何かを解説。',
 }
 

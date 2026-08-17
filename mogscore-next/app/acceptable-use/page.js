@@ -3,7 +3,7 @@ import { getContactEmail } from '@/lib/contact'
 
 export const metadata = {
   title: 'Acceptable Use Policy',
-  description: 'MogScore Acceptable Use Policy — prohibited content and behavior for AI face analysis tools.',
+  description: 'Mog Score Acceptable Use Policy — prohibited content and behavior for AI face analysis tools.',
   alternates: { canonical: 'https://omoggle-it.com/acceptable-use' },
 }
 
@@ -12,15 +12,15 @@ export default function AcceptableUsePage() {
   return (
     <LegalLayout title="Acceptable Use Policy" updated="June 30, 2026">
       <p>
-        This Acceptable Use Policy (&quot;AUP&quot;) defines permitted and prohibited uses of MogScore.wiki (&quot;MogScore&quot;).
+        This Acceptable Use Policy (&quot;AUP&quot;) defines permitted and prohibited uses of Omoggle IT (&quot;Mog Score&quot;).
         It supplements our <a href="/terms-of-service">Terms of Service</a>.
       </p>
 
-      <h2>1. Purpose of MogScore</h2>
+      <h2>1. Purpose of Mog Score</h2>
       <p>
-        MogScore provides <strong>AI facial analysis for entertainment</strong> — scoring facial metrics, comparing photos,
+        Mog Score provides <strong>AI facial analysis for entertainment</strong> — scoring facial metrics, comparing photos,
         and offering looksmaxxing tips. It is <strong>not</strong> a face-generation, face-swap, or deepfake tool.
-        MogScore is independent and not affiliated with Omoggle LLC or any AI model provider.
+        Omoggle IT is independent and not affiliated with Omoggle LLC or any AI model provider.
       </p>
 
       <h2>2. Permitted Use</h2>
@@ -43,16 +43,16 @@ export default function AcceptableUsePage() {
 
       <h2>4. Prohibited Behavior</h2>
       <ul>
-        <li>Using MogScore to harass, bully, or publicly shame individuals based on appearance</li>
+        <li>Using Mog Score to harass, bully, or publicly shame individuals based on appearance</li>
         <li>Automated scraping, bot abuse, or circumventing rate limits</li>
-        <li>Reselling or redistributing MogScore analysis as a commercial service without authorization</li>
+        <li>Reselling or redistributing Mog Score analysis as a commercial service without authorization</li>
         <li>Attempting to extract, reverse-engineer, or replicate our AI systems</li>
         <li>Any illegal activity under applicable law</li>
       </ul>
 
       <h2>5. AI Analysis Limitations</h2>
       <p>
-        MogScore analyzes existing photos — it does <strong>not</strong> generate new images from text prompts.
+        Mog Score analyzes existing photos — it does <strong>not</strong> generate new images from text prompts.
         Scores are algorithmic estimates for entertainment and may be inaccurate. Do not use results for employment,
         medical, insurance, or legal decisions.
       </p>

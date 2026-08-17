@@ -63,9 +63,16 @@ export async function generateMetadata({ params }) {
   if (!fs.existsSync(htmlPath)) return {}
   const html = fs.readFileSync(htmlPath, 'utf-8')
   const $ = cheerio.load(html)
+  const canonicalAliases = {
+    'psl-scale-explained': '/psl-scale',
+    'psl-scale-test': '/psl-test',
+  }
   return {
     title: $('title').text() || slug,
     description: $('meta[name="description"]').attr('content') || '',
+    alternates: {
+      canonical: `https://omoggle-it.com${canonicalAliases[slug] || `/${slug}`}`,
+    },
   }
 }
 
@@ -110,8 +117,8 @@ export default async function SlugPage({ params }) {
     url: `https://omoggle-it.com/${slug}`,
     ...(published ? { datePublished: published } : {}),
     ...(modified ? { dateModified: modified } : {}),
-    author: { '@type': 'Organization', name: 'MogScore Editorial Team' },
-    publisher: { '@type': 'Organization', name: 'MogScore', url: 'https://omoggle-it.com' },
+    author: { '@type': 'Organization', name: 'Omoggle IT Editorial Team' },
+    publisher: { '@type': 'Organization', name: 'Omoggle IT', url: 'https://omoggle-it.com' },
   }
 
   return (
@@ -129,7 +136,7 @@ export default async function SlugPage({ params }) {
           </nav>
           <span className="card-tag">{cat}</span>
           <h1 style={{marginTop:'.75rem'}}>{h1}</h1>
-          <p style={{color:'var(--text-muted)',fontSize:'.85rem',marginTop:'.5rem'}}>Updated {updatedLabel} · Reviewed by the MogScore Editorial Team</p>
+          <p style={{color:'var(--text-muted)',fontSize:'.85rem',marginTop:'.5rem'}}>Updated {updatedLabel} · Reviewed by the Omoggle IT Editorial Team</p>
         </div>
       </header>
       <main className="section">
@@ -149,7 +156,7 @@ export default async function SlugPage({ params }) {
             </aside>
           )}
           <p style={{marginTop:'var(--sp-md)',fontSize:'.78rem',color:'var(--text-dim)',lineHeight:1.6}}>
-            Disclaimer: PSL scores and looksmaxxing metrics are a pseudoscientific approximation of facial aesthetics and are provided for entertainment only. MogScore is an independent resource and is not affiliated with Omoggle LLC.
+            Disclaimer: PSL scores and looksmaxxing metrics are subjective approximations provided for entertainment and educational use only. Omoggle IT is an independent resource and is not affiliated with Omoggle LLC.
           </p>
         </div>
       </main>

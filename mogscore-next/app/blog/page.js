@@ -3,12 +3,13 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Blog — Omoggle Guides, Looksmaxxing & PSL News | MogScore',
+  title: 'Blog — Omoggle Guides, Looksmaxxing & PSL News',
   description: 'Omoggle guides, looksmaxxing tips, PSL Scale analysis, streamer scores and the latest news from the looksmaxxing community. Updated weekly with fresh content.',
   openGraph: {
-    title: 'MogScore Blog — Omoggle & Looksmaxxing Guides',
+    title: 'Omoggle IT Blog — Omoggle & Looksmaxxing Guides',
     description: 'Omoggle guides, looksmaxxing tips, PSL Scale analysis and streamer news.',
   },
+  alternates: { canonical: 'https://omoggle-it.com/blog' },
 }
 
 

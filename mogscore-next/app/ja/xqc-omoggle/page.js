@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'xQcのOmoggleスコア、反応と何が起きたか | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/ja/xqc-omoggle" },
+  title: 'xQcのOmoggleスコア、反応と何が起きたか | Omoggle IT',
   description: 'xQcがOmoggleで6連敗した際のスコア、反応、そして実際に何が起きたかの完全解析。なぜこのクリップがバイラルになったか。',
 }
 

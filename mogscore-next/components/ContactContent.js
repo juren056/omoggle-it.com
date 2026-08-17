@@ -43,7 +43,7 @@ export default function ContactContent({ email }) {
     }
 
     const label = SUBJECT_LABELS[subject] || subject
-    const mailSubject = encodeURIComponent('[MogScore] ' + label)
+    const mailSubject = encodeURIComponent('[Omoggle IT] ' + label)
     const mailBody = encodeURIComponent(`Name: ${name}\nReply-to: ${userEmail}\n\n${message}`)
     window.location.href = `mailto:${email}?subject=${mailSubject}&body=${mailBody}`
 
@@ -57,7 +57,7 @@ export default function ContactContent({ email }) {
 
   const cards = [
     { icon: '📧', title: 'General Inquiries', desc: 'Questions about our tools, content, or anything else.' },
-    { icon: '💼', title: 'Advertising & Partnerships', desc: 'Interested in advertising or collaborating with MogScore?' },
+    { icon: '💼', title: 'Advertising & Partnerships', desc: 'Interested in advertising or collaborating with Omoggle IT?' },
     { icon: '🔒', title: 'Privacy & Data', desc: 'Questions about your data, privacy policy, or GDPR requests.' },
     { icon: '✍️', title: 'Content Submissions', desc: 'Want to contribute a guide, article, or streamer score update?' },
   ]

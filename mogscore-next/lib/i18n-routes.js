@@ -88,13 +88,13 @@ export const LANG_MIRROR_SLUGS = ENGLISH_CONTENT_SLUGS.filter(
   slug => !TRANSLATED_ARTICLE_SLUGS.includes(slug)
 )
 
-export function getI18nSitemapEntries(baseUrl, today) {
+export function getI18nSitemapEntries(baseUrl, lastModified = '2026-05-23') {
   const entries = []
 
   for (const lang of SUPPORTED_LANGS) {
     entries.push({
       url: `${baseUrl}/${lang}`,
-      lastModified: today,
+      lastModified,
       changeFrequency: 'weekly',
       priority: 0.8,
     })
@@ -102,7 +102,7 @@ export function getI18nSitemapEntries(baseUrl, today) {
     for (const slug of TRANSLATED_ARTICLE_SLUGS) {
       entries.push({
         url: `${baseUrl}/${lang}/${slug}`,
-        lastModified: today,
+        lastModified,
         changeFrequency: 'monthly',
         priority: 0.7,
       })
@@ -111,7 +111,7 @@ export function getI18nSitemapEntries(baseUrl, today) {
     for (const slug of LANG_STATIC_HTML_SLUGS) {
       entries.push({
         url: `${baseUrl}/${lang}/${slug}`,
-        lastModified: today,
+        lastModified,
         changeFrequency: slug === 'tools' ? 'weekly' : 'monthly',
         priority: slug === 'tools' ? 0.8 : 0.7,
       })

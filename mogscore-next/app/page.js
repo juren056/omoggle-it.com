@@ -1,46 +1,37 @@
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { imageUrl } from '@/lib/images'
 
 export const metadata = {
-  title: 'Free PSL Scale Test, Omoggle Guide & Looksmaxxing Wiki',
-  description: 'Free AI PSL Scale test and face analyzer. Score 6 facial metrics from your photo. Complete Omoggle guide, looksmaxxing tips and full PSL Scale explained.',
-  alternates: {
-    canonical: 'https://omoggle-it.com/',
-  },
+  title: 'Omoggle, PSL & Looksmaxxing Tools',
+  description: 'Practice Omoggle-style comparisons, take a free PSL test, calculate your Mog Score and explore AI-powered face analysis and looksmaxxing guides.',
+  alternates: { canonical: 'https://omoggle-it.com/' },
 }
 
-const featuredArticles = [
-  {href:'/what-is-omoggle',tag:'Wiki',img:'/images/what-is-omoggle.jpg',title:'What is Omoggle? Complete 2026 Guide',desc:'The viral AI face-rating platform explained — how it works, tier list, streamers and how to win.'},
-  {href:'/psl-scale-explained',tag:'Reference',img:'/images/psl-scale.jpg',title:'PSL Scale Explained: Ranks 1–10',desc:"The 1–10 scale Omoggle uses as its AI scoring backbone. What each number means."},
-  {href:'/how-to-win-omoggle',tag:'Strategy',img:'/images/how-to-win-omoggle.jpg',title:'How to Win on Omoggle: 7 Tips',desc:'Camera angle, lighting and background — setup factors that raise your score by 1.5–2 points.'},
-  {href:'/hunter-eyes-guide',tag:'Guide',img:'/images/canthal-tilt.jpg',title:'Hunter Eyes: What They Are and How to Get Them',desc:'The most discussed looksmaxxing feature — what you can realistically do to improve your eye area.'},
-  {href:'/face-fat-loss-guide',tag:'Guide',img:'/images/gym-face.jpg',title:'Face Fat Loss: Reveal Your Jawline',desc:'Highest-ROI looksmaxxing intervention. Timeline and most effective approach.'},
-  {href:'/looksmaxxing-results-timeline',tag:'Guide',img:'/images/looksmaxxing-guide.jpg',title:'Looksmaxxing Results Timeline',desc:'Honest timelines: Skincare 4–6 weeks. Face fat 8–16 weeks. Mewing months to years.'},
+const toolEntries = [
+  { href: '/omoggle-practice-test', icon: '⚔', title: 'Omoggle Practice', description: 'Practice Omoggle-style face comparisons before playing.', action: 'Start Practice' },
+  { href: '/psl-test', icon: '◎', title: 'PSL Test', description: 'Upload a photo for an entertainment-only PSL face rating.', action: 'Take the PSL Test' },
+  { href: '/mog-score', icon: '◆', title: 'Mog Score', description: 'Check your mog rating, facial strengths and harmony score.', action: 'Get My Mog Score' },
+  { href: '/tools', icon: '◈', title: 'AI Face Analyzer', description: 'Use the existing six-metric analyzer or start a 1v1 Mog Battle.', action: 'Analyze a Face' },
 ]
 
-const allArticles = [
-  {href:'/softmaxxing-vs-hardmaxxing',tag:'Guide',img:'/images/looksmaxxing-guide.jpg',title:'Softmaxxing vs Hardmaxxing: Which First?',date:'May 17'},
-  {href:'/facial-symmetry-improvement',tag:'Guide',img:'/images/facial-symmetry.jpg',title:'How to Improve Facial Symmetry',date:'May 17'},
-  {href:'/is-omoggle-ai',tag:'Investigation',img:'/images/what-is-omoggle.jpg',title:"Is Omoggle Actually AI? Developer's Answer",date:'May 14'},
-  {href:'/omoggle-fake-sites',tag:'Warning',img:'/images/omoggle-updates.jpg',title:'Fake Omoggle Sites: How to Spot Them',date:'May 14'},
-  {href:'/omoggle-tier-list-2026',tag:'Updated',img:'/images/tier-list.jpg',title:'Full Tier List 2026: All 9 Ranks Including Adam',date:'May 14'},
-  {href:'/agent00-omoggle',tag:'News',img:'/images/viral-moments.jpg',title:'Agent00 Wore a Prosthetic Forehead and Still Won',date:'May 14'},
-  {href:'/jasontheween-omoggle',tag:'News',img:'/images/viral-moments.jpg',title:'Jasontheween & CORE Boys Omoggle Battles',date:'May 14'},
-  {href:'/xqc-omoggle',tag:'News',img:'/images/xqc-omoggle.jpg',title:'xQc on Omoggle: He Lost 6 in a Row',date:'May 5'},
-  {href:'/asmongold-omoggle',tag:'News',img:'/images/asmongold-omoggle.jpg',title:'Asmongold Omoggle Score & Highlights',date:'May 5'},
-  {href:'/clavicular-mogged',tag:'News',img:'/images/clavicular-mogged.jpg',title:'Clavicular Ragequit After Getting Mogged',date:'May 5'},
-  {href:'/omoggle-elo-system',tag:'Wiki',img:'/images/elo-system.jpg',title:'Omoggle ELO System Explained',date:'May 3'},
-  {href:'/omoggle-vs-omegle',tag:'Wiki',img:'/images/omoggle-vs-omegle.jpg',title:'Omoggle vs Omegle: What is the Difference?',date:'May 3'},
-  {href:'/looksmaxxing-guide',tag:'Guide',img:'/images/looksmaxxing-guide.jpg',title:'Looksmaxxing Guide for Beginners',date:'May 1'},
-  {href:'/canthal-tilt-guide',tag:'Guide',img:'/images/canthal-tilt.jpg',title:'Canthal Tilt Guide: What It Is and How to Improve',date:'May 1'},
-  {href:'/mewing-guide',tag:'Guide',img:'/images/mewing-guide.jpg',title:'Mewing Guide: Does It Actually Work?',date:'May 1'},
-  {href:'/jawline-guide',tag:'Guide',img:'/images/jawline-gym.jpg',title:'Jawline Guide: How to Get a Sharper Jaw',date:'May 1'},
-  {href:'/skincare-looksmaxxing',tag:'Guide',img:'/images/skincare-looksmaxx.jpg',title:'Skincare for Looksmaxxing: Complete Routine',date:'Apr 28'},
-  {href:'/gym-face-guide',tag:'Guide',img:'/images/gym-face.jpg',title:'Gym Face Guide: How Training Changes Your Face',date:'Apr 28'},
-  {href:'/sleep-looksmaxxing',tag:'Guide',img:'/images/sleep-looksmaxxing.jpg',title:'Sleep and Looksmaxxing: Why It Matters',date:'Apr 28'},
-  {href:'/haircut-looksmaxxing',tag:'Guide',img:'/images/haircut-looksmaxxing.jpg',title:'Best Haircut for Looksmaxxing',date:'Apr 25'},
+const latestUpdates = [
+  { href: '/omoggle-practice-test', title: 'Omoggle Practice Test', description: 'A new interactive way to practice choosing the stronger Omoggle setup.', updated: 'Aug 17, 2026' },
+  { href: '/psl-test', title: 'Free PSL Test', description: 'A dedicated PSL rating tool with symmetry, jawline, eye-area and harmony results.', updated: 'Aug 17, 2026' },
+  { href: '/mog-score', title: 'Mog Score Test', description: 'Get an entertainment-focused mog rating with readable facial-strength labels.', updated: 'Aug 17, 2026' },
+  { href: '/psl-scale', title: 'PSL Scale Guide', description: 'Understand every PSL band, what affects a rating and where the scale falls short.', updated: 'Aug 17, 2026' },
+  { href: '/is-omoggle-banned', title: 'Is Omoggle Banned?', description: 'Country restrictions, safety context and ways to check current access.', updated: 'Jul 20, 2026' },
+  { href: '/why-omoggle-score-changes', title: 'Why Omoggle Scores Change', description: 'Lighting, angle, distance and camera factors that can change a result.', updated: 'Jul 20, 2026' },
+]
+
+const popularGuides = [
+  ['/psl-scale', 'PSL Scale Explained', 'A practical guide to subjective PSL ratings from low to high.'],
+  ['/mogging-meaning', 'What Does Mog Mean?', 'Mogging, mogged and mogger explained without duplicate definitions.'],
+  ['/hunter-eyes-guide', 'Hunter Eyes Guide', 'What the term means and realistic ways to improve eye-area presentation.'],
+  ['/canthal-tilt-guide', 'Canthal Tilt Guide', 'How eye-corner angle affects photos and face-rating tools.'],
+  ['/face-shape-guide', 'Face Shape Guide', 'Identify common face shapes and choose complementary styling.'],
+  ['/jawline-guide', 'Jawline Guide', 'Evidence-aware ways to improve jawline definition and presentation.'],
+  ['/looksmaxxing-guide', 'Looksmaxxing Guide', 'Start with practical, non-invasive changes that have broad value.'],
 ]
 
 export default function HomePage() {
@@ -49,90 +40,75 @@ export default function HomePage() {
       <Navbar />
       <header className="hero">
         <div className="container">
-          <span className="hero-eyebrow">🔥 Trending on Twitch 2026</span>
-          <h1>Your Ultimate Guide to <em>Omoggle</em>,<br/>Mogging & Looksmaxxing</h1>
-          <p className="hero-sub">Free AI face analyzer that scores the same 6 metrics as Omoggle — privately, from a single photo. No webcam, no strangers, no video upload. Plus the complete PSL Scale wiki, tier rankings and expert tips to win.</p>
+          <span className="hero-eyebrow">Omoggle practice · PSL ratings · Mog tools</span>
+          <h1><em>Omoggle, PSL</em> & Looksmaxxing Tools</h1>
+          <p className="hero-sub">Practice for Omoggle, calculate your PSL score, compare mog ratings, and explore AI-powered face analysis tools.</p>
           <div className="hero-actions">
-            <Link href="/tools" className="btn btn-primary">Try AI Face Analyzer</Link>
-            <Link href="/what-is-omoggle" className="btn btn-outline">What is Omoggle? →</Link>
+            <Link href="/omoggle-practice-test" className="btn btn-primary">Practice Omoggle</Link>
+            <Link href="/psl-test" className="btn btn-outline">Take the Free PSL Test</Link>
           </div>
         </div>
       </header>
 
-      <section className="section-alt section">
-        <div className="container">
-          <div className="stats-row">
-            <div className="stat-item"><span className="stat-num">6</span><span className="stat-label">Metrics Analyzed</span></div>
-            <div className="stat-item"><span className="stat-num">54</span><span className="stat-label">Guides & Articles</span></div>
-            <div className="stat-item"><span className="stat-num">9</span><span className="stat-label">ELO Tiers Explained</span></div>
-            <div className="stat-item"><span className="stat-num">Free</span><span className="stat-label">AI Analyzer · 3/day</span></div>
+      <main>
+        <section className="section section-alt" aria-labelledby="tool-entry-heading">
+          <div className="container">
+            <div className="section-header"><span className="section-label">Choose a Tool</span><h2 id="tool-entry-heading">Four Ways to Start</h2></div>
+            <div className="home-entry-grid">
+              {toolEntries.map(entry => (
+                <article className="tool-card home-entry-card" key={entry.href}>
+                  <div className="tool-icon" aria-hidden="true">{entry.icon}</div>
+                  <h3>{entry.title}</h3>
+                  <p>{entry.description}</p>
+                  <Link href={entry.href} className="btn btn-outline">{entry.action} →</Link>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Free Tools</span>
-            <h2>AI-Powered Looksmaxxing Tools</h2>
-          </div>
-          <div className="grid-2">
-            <article className="tool-card">
-              <div className="tool-icon">◈</div>
-              <span className="tool-badge free">Free · 3/day</span>
-              <h3>AI Face Analyzer</h3>
-              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>Upload your photo and get a detailed MogScore with ratings for all 6 facial metrics plus personalized looksmaxxing tips. Free to use — 3 analyses/day as a guest, 10 when signed in.</p>
-              <Link href="/tools" className="btn btn-primary" style={{textAlign:'center',marginTop:'1rem'}}>Analyze My Face →</Link>
-            </article>
-            <article className="tool-card">
-              <div className="tool-icon">⚡</div>
-              <span className="tool-badge new">New</span>
-              <h3>1v1 Mog Battle</h3>
-              <p style={{fontSize:'.88rem',color:'var(--text-muted)',flex:1}}>Upload two photos and let the AI decide who mogs whom. Perfect for settling debates with friends.</p>
-              <Link href="/tools#battle" className="btn btn-outline" style={{textAlign:'center',marginTop:'1rem'}}>Start a Battle →</Link>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Latest Articles</span>
-            <h2>Featured Guides & News</h2>
-          </div>
-          <div className="grid-3" style={{marginBottom:'var(--sp-lg)'}}>
-            {featuredArticles.map(a => (
-              <article className="card" key={a.href}>
-                {a.img && <img src={imageUrl(a.img)} alt={a.title} className="card-img" width="600" height="338" loading="lazy" />}
-                <div className="card-body">
-                  <span className="card-tag">{a.tag}</span>
-                  <a href={a.href} className="card-title">{a.title}</a>
-                  <p className="card-excerpt">{a.desc}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div style={{display:'flex',flexDirection:'column',gap:'8px',marginBottom:'var(--sp-lg)'}}>
-            {allArticles.map(a => (
-              <Link href={a.href} key={a.href} className="article-row-item">
-                <div style={{display:'flex',alignItems:'center',gap:'.75rem',minWidth:0}}>
-                  {a.img && <img src={imageUrl(a.img)} alt={a.title} className="list-card-img" loading="lazy" />}
-                  <div style={{minWidth:0}}>
-                    <span className="card-tag" style={{marginBottom:'.25rem',display:'inline-block'}}>{a.tag}</span>
-                    <div style={{fontSize:'.9rem',color:'var(--text)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{a.title}</div>
+        <section className="section" aria-labelledby="latest-updates-heading">
+          <div className="container">
+            <div className="section-header"><span className="section-label">Fresh & Useful</span><h2 id="latest-updates-heading">Latest Omoggle & Looksmaxxing Updates</h2></div>
+            <div className="grid-3">
+              {latestUpdates.map(update => (
+                <article className="card" key={update.href}>
+                  <div className="card-body">
+                    <Link href={update.href} className="card-title">{update.title}</Link>
+                    <p className="card-excerpt">{update.description}</p>
+                    <span className="card-meta">Updated {update.updated}</span>
                   </div>
-                </div>
-                <span style={{fontSize:'.78rem',color:'var(--text-dim)',flexShrink:0}}>{a.date}</span>
-              </Link>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
-          <div style={{textAlign:'center'}}>
-            <Link href="/blog" className="btn btn-outline">View All Articles →</Link>
-          </div>
-        </div>
-      </section>
+        </section>
 
+        <section className="section section-alt" aria-labelledby="popular-guides-heading">
+          <div className="container">
+            <div className="section-header"><span className="section-label">Evergreen Library</span><h2 id="popular-guides-heading">Popular Guides</h2></div>
+            <div className="popular-guide-list">
+              {popularGuides.map(([href, title, description]) => (
+                <Link href={href} className="popular-guide-item" key={href}>
+                  <span><strong>{title}</strong><small>{description}</small></span><span aria-hidden="true">→</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" aria-labelledby="trust-heading">
+          <div className="container">
+            <div className="section-header"><span className="section-label">Clear Expectations</span><h2 id="trust-heading">Useful Tools, No Inflated Claims</h2></div>
+            <div className="stats-row">
+              <div className="stat-item"><span className="stat-num">Free</span><span className="stat-label">Guest access</span></div>
+              <div className="stat-item"><span className="stat-num">Fast</span><span className="stat-label">Instant results</span></div>
+              <div className="stat-item"><span className="stat-num">Private</span><span className="stat-label">No public profile required</span></div>
+              <div className="stat-item"><span className="stat-num">Honest</span><span className="stat-label">Entertainment-only ratings</span></div>
+            </div>
+          </div>
+        </section>
+      </main>
       <Footer />
     </>
   )

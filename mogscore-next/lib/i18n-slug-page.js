@@ -134,8 +134,8 @@ export function createI18nSlugPage(lang) {
       inLanguage: lang,
       ...(published ? { datePublished: published } : {}),
       ...(modified ? { dateModified: modified } : {}),
-      author: { '@type': 'Organization', name: 'MogScore Editorial Team' },
-      publisher: { '@type': 'Organization', name: 'MogScore', url: 'https://omoggle-it.com' },
+      author: { '@type': 'Organization', name: 'Omoggle IT Editorial Team' },
+      publisher: { '@type': 'Organization', name: 'Omoggle IT', url: 'https://omoggle-it.com' },
     }
 
     return (
@@ -161,7 +161,7 @@ export function createI18nSlugPage(lang) {
             </nav>
             <span className="card-tag">{cat}</span>
             <h1 style={{ marginTop: '.75rem' }}>{h1}</h1>
-            <p style={{ color: 'var(--text-muted)', fontSize: '.85rem', marginTop: '.5rem' }}>{ui.updated} {updatedLabel} · MogScore Editorial Team</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '.85rem', marginTop: '.5rem' }}>{ui.updated} {updatedLabel} · Omoggle IT Editorial Team</p>
           </div>
         </header>
         <main className="section">
@@ -178,7 +178,7 @@ export function createI18nSlugPage(lang) {
               </aside>
             )}
             <p style={{ marginTop: 'var(--sp-md)', fontSize: '.78rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
-              {ui.disclaimer} MogScore — not affiliated with Omoggle LLC.
+              {ui.disclaimer} Omoggle IT — not affiliated with Omoggle LLC.
             </p>
             <div style={{ marginTop: 'var(--sp-lg)', paddingTop: 'var(--sp-sm)', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
               <a href={`/${lang}`} style={{ color: 'var(--text-muted)', fontSize: '.85rem', textDecoration: 'none' }}>

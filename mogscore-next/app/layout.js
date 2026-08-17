@@ -1,4 +1,3 @@
-import { ClerkProvider } from '@clerk/nextjs'
 import { Bebas_Neue, DM_Sans } from 'next/font/google'
 import './globals.css'
 import { getContactEmail } from '@/lib/contact'
@@ -26,19 +25,18 @@ export const viewport = {
 
 export const metadata = {
   title: {
-    default: 'MogScore — Free PSL Scale Test, Omoggle Guide & Looksmaxxing Wiki',
-    template: '%s | MogScore'
+    default: 'Omoggle IT — Omoggle, PSL & Looksmaxxing Tools',
+    template: '%s | Omoggle IT'
   },
   description: 'Free AI PSL Scale test and face analyzer. Score your face on 6 metrics — symmetry, canthal tilt, jawline, cheekbones and skin. Omoggle guide and looksmaxxing tips.',
   metadataBase: new URL('https://omoggle-it.com'),
   openGraph: {
     type: 'website',
-    siteName: 'MogScore',
+    siteName: 'Omoggle IT',
     images: [{ url: '/images/og-home.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@mogscore',
   },
   icons: {
     icon: [
@@ -62,8 +60,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const contactEmail = getContactEmail()
   return (
-    <ClerkProvider>
-      <html lang="en" className={`${bebasNeue.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${bebasNeue.variable} ${dmSans.variable}`}>
         <head>
           <link rel="dns-prefetch" href="https://buy.stripe.com" />
           <link rel="preconnect" href="https://buy.stripe.com" crossOrigin="anonymous" />
@@ -75,7 +72,6 @@ export default function RootLayout({ children }) {
           ) : null}
         </head>
         <body>{children}</body>
-      </html>
-    </ClerkProvider>
+    </html>
   )
 }

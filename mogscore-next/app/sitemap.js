@@ -1,33 +1,54 @@
-import {
-  ENGLISH_CONTENT_SLUGS,
-  getI18nSitemapEntries,
-  SUPPORTED_LANGS,
-  LANG_STATIC_HTML_SLUGS,
-} from '@/lib/i18n-routes'
+import fs from 'fs'
+import path from 'path'
+import { ENGLISH_CONTENT_SLUGS, getI18nSitemapEntries } from '@/lib/i18n-routes'
+
+const BASE_URL = 'https://omoggle-it.com'
+const FIRST_PHASE_UPDATED = '2026-08-17'
+const NON_CANONICAL_ALIASES = new Set(['psl-scale-explained', 'psl-scale-test'])
+
+const CORE_PAGES = [
+  { path: '', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'weekly', priority: 1 },
+  { path: '/tools', lastModified: '2026-08-06', changeFrequency: 'weekly', priority: 0.9 },
+  { path: '/blog', lastModified: '2026-07-20', changeFrequency: 'weekly', priority: 0.85 },
+  { path: '/what-is-omoggle', lastModified: '2026-05-23', changeFrequency: 'monthly', priority: 0.85 },
+  { path: '/omoggle-practice-test', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'weekly', priority: 0.95 },
+  { path: '/psl-test', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'weekly', priority: 0.95 },
+  { path: '/psl-scale', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'monthly', priority: 0.9 },
+  { path: '/mog-score', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'weekly', priority: 0.95 },
+  { path: '/contact', lastModified: '2026-06-04', changeFrequency: 'yearly', priority: 0.5 },
+  { path: '/pricing', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'monthly', priority: 0.5 },
+  { path: '/terms-of-service', lastModified: '2026-06-04', changeFrequency: 'yearly', priority: 0.4 },
+  { path: '/refund-policy', lastModified: '2026-06-04', changeFrequency: 'yearly', priority: 0.4 },
+  { path: '/acceptable-use', lastModified: '2026-06-04', changeFrequency: 'yearly', priority: 0.4 },
+]
+
+function articleLastModified(slug) {
+  try {
+    const html = fs.readFileSync(path.join(process.cwd(), 'public', `${slug}.html`), 'utf8')
+    return html.match(/"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1]
+      || html.match(/"datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1]
+      || '2026-05-07'
+  } catch {
+    return '2026-05-07'
+  }
+}
 
 export default function sitemap() {
-  const baseUrl = 'https://omoggle-it.com'
-  const today = new Date().toISOString().split('T')[0]
-
-  const corePages = [
-    { url: baseUrl, lastModified: today, changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${baseUrl}/tools`, lastModified: today, changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/psl-scale-test`, lastModified: today, changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/blog`, lastModified: today, changeFrequency: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/what-is-omoggle`, lastModified: today, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/contact`, lastModified: today, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/pricing`, lastModified: today, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/privacy-policy`, lastModified: today, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/terms-of-service`, lastModified: today, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/refund-policy`, lastModified: today, changeFrequency: 'monthly', priority: 0.5 },
-  ]
-
-  const contentPages = ENGLISH_CONTENT_SLUGS.map(slug => ({
-    url: `${baseUrl}/${slug}`,
-    lastModified: today,
-    changeFrequency: 'monthly',
-    priority: 0.8,
+  const coreEntries = CORE_PAGES.map(page => ({
+    url: `${BASE_URL}${page.path}`,
+    lastModified: page.lastModified,
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
   }))
+  const corePaths = new Set(CORE_PAGES.map(page => page.path.slice(1)))
+  const contentEntries = ENGLISH_CONTENT_SLUGS
+    .filter(slug => !NON_CANONICAL_ALIASES.has(slug) && !corePaths.has(slug))
+    .map(slug => ({
+      url: `${BASE_URL}/${slug}`,
+      lastModified: articleLastModified(slug),
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    }))
 
-  return [...corePages, ...contentPages, ...getI18nSitemapEntries(baseUrl, today)]
+  return [...coreEntries, ...contentEntries, ...getI18nSitemapEntries(BASE_URL, '2026-05-23')]
 }

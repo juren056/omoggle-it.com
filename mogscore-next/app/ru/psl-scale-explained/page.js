@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'PSL шкала: что это и как оценивают лицо от 1 до 10 | MogScore',
+  title: 'PSL шкала: что это и как оценивают лицо от 1 до 10 | Omoggle IT',
   description: 'Что такое PSL шкала простыми словами: ранги от 1 до 10, термины LTN, MTN, HTN, Chadlite, как ИИ Omoggle считает балл и почему угол съёмки меняет результат.',
   alternates: {
     canonical: 'https://omoggle-it.com/ru/psl-scale-explained',

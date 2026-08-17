@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Inclinação Canthal Explicada: Por Que a IA do Omoggle a Valoriza Tanto | MogScore',
+  alternates: { canonical: "https://omoggle-it.com/pt/canthal-tilt-guide" },
+  title: 'Inclinação Canthal Explicada: Por Que a IA do Omoggle a Valoriza Tanto | Omoggle IT',
   description: 'O que é inclinação canthal, por que a IA do Omoggle a pontua com até 18% de peso e o que você pode realisticamente fazer para melhorá-la.',
 }
 
