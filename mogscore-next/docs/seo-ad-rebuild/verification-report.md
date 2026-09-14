@@ -21,7 +21,9 @@ Updated: 2026-09-14. This file is finalized after the local production build and
 | Firefox/WebKit | BLOCKED | No installed project runners confirmed yet |
 | Real iPhone/Android | BLOCKED | No physical devices in this local environment |
 | Lighthouse/CWV trace | BLOCKED | Required Chrome DevTools MCP from the web-performance workflow is unavailable; no score is fabricated |
-| Real Adsterra serving | BLOCKED | Placement and authorized ads.txt data not supplied; switch remains off |
+| Ten-unit Adsterra wiring | PASS | Native, Popunder, Social Bar, Smartlink and six responsive banner configurations are represented in code |
+| Adsterra configuration | PASS | All exact GET CODE URLs, keys and the Native container ID are configured; production defaults to enabled |
+| Real Adsterra serving | PENDING DEPLOY | Network requests and recognized impressions require production deployment; authorized ads.txt data is still unavailable |
 | Paid cloud API call | NOT APPLICABLE | Deliberately not invoked for local acceptance testing |
 
 Performance targets (LCP ≤2.5s, INP ≤200ms, CLS ≤0.1) remain targets until production field data exists. Model and WASM files do not load on article routes by design.

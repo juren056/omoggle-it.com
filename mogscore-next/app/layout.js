@@ -1,6 +1,8 @@
 import localFont from 'next/font/local'
 import './globals.css'
 import { getContactEmail } from '@/lib/contact'
+import { getAdsterraConfig } from '@/lib/ad-config'
+import AdsterraGlobalUnits from '@/components/AdsterraGlobalUnits'
 
 const bebasNeue = localFont({
   src: './fonts/BebasNeue-Regular.ttf',
@@ -59,6 +61,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   const contactEmail = getContactEmail()
+  const adsterraConfig = getAdsterraConfig()
   return (
     <html lang="en" className={`${bebasNeue.variable} ${dmSans.variable}`}>
         <head>
@@ -66,7 +69,7 @@ export default function RootLayout({ children }) {
             <script dangerouslySetInnerHTML={{ __html: `window.__SITE_CONTACT_EMAIL__=${JSON.stringify(contactEmail)};` }} />
           ) : null}
         </head>
-        <body>{children}</body>
+        <body>{children}<AdsterraGlobalUnits config={adsterraConfig} /></body>
     </html>
   )
 }

@@ -1,6 +1,6 @@
 # Manual actions after code review
 
-1. In Vercel Production variables, keep `ADSTERRA_ENABLED=false` for the first deploy. Add the exact Native Banner script URL and container ID from Adsterra, then follow `monetization-setup.md` before enabling it.
+1. Deploy the verified ten-unit Adsterra configuration, then inspect each unit's network request and dashboard statistics. Set `ADSTERRA_ENABLED=false` and redeploy if an emergency kill switch is needed.
 2. Add `public/ads.txt` only from the exact Adsterra dashboard authorization line. Rebuild and verify the public response.
 3. Analytics is intentionally not mounted and there is no cookie popup. If analytics is ever added later, review regional disclosure and consent obligations before deployment.
 4. Keep `NEW_SUBSCRIPTIONS_ENABLED=false` unless the business deliberately reopens sales. Keep `CLOUD_ANALYSIS_ENABLED=true` only while existing Pro members must retain the legacy benefit; turning it false is an immediate server-side circuit breaker.

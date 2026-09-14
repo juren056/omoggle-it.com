@@ -13,9 +13,9 @@ Updated: 2026-09-14
 | Legacy cloud cost control | Complete | Active Pro + auth required, quota retained, 30s timeout, retry removed, kill switch added |
 | Existing member protection | Complete in code | `/account`, subscription status and Stripe portal retained; webhooks untouched |
 | New subscription acquisition | Closed by default | `NEW_SUBSCRIPTIONS_ENABLED=false` |
-| Ad network migration | Complete in code | Legacy AdSense injection and Google seller line removed; Adsterra native/display config centralized |
-| Real ad activation | Blocked externally | Exact Adsterra Native Banner script URL, container ID and authorized `ads.txt` line not supplied |
-| Optional-services choice | Complete | Conservative opt-in; tool routes exclude scripts regardless of choice |
+| Ad network migration | Complete in code | All 10 Adsterra units mapped: Native, Popunder, Social Bar, Smartlink and six responsive banners |
+| Real ad activation | Ready for deploy | All 10 GET CODE values configured; authorized `ads.txt` line is still a separate dashboard dependency |
+| Optional-services choice | Complete | No popup; tool, account, API, legal and commercial-policy routes exclude ad scripts |
 | Privacy copy | Complete | Reflects local default and legacy paid cloud exception |
 | Troubleshooting and About | Complete | New crawlable pages with honest unknown status |
 | Analytics events | Complete in code | Allowlisted event names and non-sensitive parameters only |

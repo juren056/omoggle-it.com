@@ -20,4 +20,10 @@ const toolsPage = fs.readFileSync(path.join(root, 'app', 'tools', 'page.js'), 'u
 assert.ok(!layout.includes('ThirdPartyScripts'), 'cookie/optional-services popup must not be mounted')
 assert.ok(!toolsPage.includes('TosModal'), 'tools page must not show an entry modal')
 assert.ok(!textFiles.some(file => fs.readFileSync(file, 'utf8').includes('omoggle_optional_services_consent')), 'obsolete consent storage key must be removed')
+const envExample = fs.readFileSync(path.join(root, '.env.example'), 'utf8')
+for (const token of [
+  'NATIVE_SCRIPT_URL', 'POPUNDER_SCRIPT_URL', 'SOCIAL_BAR_SCRIPT_URL', 'SMARTLINK_URL',
+  'BANNER_728X90_KEY', 'BANNER_468X60_KEY', 'BANNER_160X300_KEY',
+  'BANNER_320X50_KEY', 'BANNER_300X250_KEY', 'BANNER_160X600_KEY',
+]) assert.ok(envExample.includes(`NEXT_PUBLIC_ADSTERRA_${token}=`), `${token} missing from .env.example`)
 console.log(`Static rebuild checks passed across ${textFiles.length} text files.`)
