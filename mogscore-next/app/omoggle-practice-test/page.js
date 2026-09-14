@@ -33,9 +33,9 @@ export default function OmogglePracticePage() {
         </div>
       </header>
       <main>
-        <section className="section"><div className="container"><CameraSetupCheck /></div></section>
-        <section className="section section-alt"><div className="container"><LocalFaceTool variant="analyzer" /></div></section>
-        <section className="section"><div className="container"><div className="section-header"><span className="section-label">Auxiliary exercise</span><h2>Five-Round Setup Quiz</h2></div><OmogglePracticeTool /></div></section>
+        <section className="section"><div className="container"><OmogglePracticeTool /></div></section>
+        <section className="section section-alt"><div className="container-sm"><div className="tool-section"><div className="tool-section-heading"><div className="tool-icon">◉</div><div><span className="tool-badge free">Local camera</span><h2 id="camera-check-heading">Camera Setup Check</h2><p>Check one private camera frame after completing the familiar practice quiz.</p></div></div><CameraSetupCheck showHeading={false} /></div></div></section>
+        <section className="section"><div className="container-sm"><div className="tool-section"><div className="tool-section-heading"><div className="tool-icon">◈</div><div><span className="tool-badge free">Photo option</span><h2 id="analyzer-tool-heading">Local Photo Check</h2><p>Use an existing photo instead of enabling the camera.</p></div></div><LocalFaceTool variant="analyzer" showHeading={false} /></div></div></section>
         <section className="section section-alt"><article className="content-section container-sm">
           <h2>How the Omoggle Practice Test Works</h2>
           <p>The primary tool checks one camera frame or local photo for detectable face count, exposure, framing and head direction. The quiz then explains why repeatable setup choices matter. This is not Omoggle&apos;s official program and cannot verify or predict its undisclosed scoring rules.</p>

@@ -7,18 +7,9 @@ import { trackSafeEvent } from '@/lib/analytics'
 export default function AdSlotClient({ config, slotName }) {
   const ref = useRef(null)
   const [eligible, setEligible] = useState(false)
-  const [consent, setConsent] = useState(null)
 
   useEffect(() => {
-    const read = () => setConsent(window.localStorage.getItem('omoggle_optional_services_consent'))
-    const timer = window.setTimeout(read, 0)
-    const changed = event => setConsent(event.detail)
-    window.addEventListener('omoggle-consent-change', changed)
-    return () => { window.clearTimeout(timer); window.removeEventListener('omoggle-consent-change', changed) }
-  }, [])
-
-  useEffect(() => {
-    if (!config.enabled || consent !== 'granted') return
+    if (!config.enabled) return
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setEligible(true)
@@ -28,7 +19,7 @@ export default function AdSlotClient({ config, slotName }) {
     }, { rootMargin: '240px' })
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
-  }, [config.enabled, config.pageType, consent])
+  }, [config.enabled, config.pageType])
 
   if (!config.enabled) return null
   return (

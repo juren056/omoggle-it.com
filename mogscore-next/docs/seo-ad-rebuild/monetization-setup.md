@@ -15,7 +15,7 @@ Set these in the Production environment only:
 
 These placement identifiers are normally public in browser markup; account credentials and API keys must never be placed in `NEXT_PUBLIC_*`. Preview/development builds never request ads even if configuration is accidentally present. `ADSTERRA_ENABLED=false` is the global kill switch.
 
-The initial slots are after homepage tools, after article content, and after troubleshooting steps. Tool/photo/camera, sign-in, sign-up, account, billing, history and API routes are excluded. Ads require explicit optional-services consent and lazy-load near the viewport. No fill or a blocker leaves the page usable.
+The initial slots are after homepage tools, after article content, and after troubleshooting steps. Tool/photo/camera, sign-in, sign-up, account, billing, history and API routes are excluded. No cookie or optional-services popup is shown; an enabled placement lazy-loads near the viewport. No fill or a blocker leaves the page usable.
 
 ## ads.txt
 
@@ -23,4 +23,4 @@ The initial slots are after homepage tools, after article content, and after tro
 
 ## Activation check
 
-Deploy first with the switch false. Verify sensitive routes make no Adsterra/GA requests. Then set the IDs and switch true, allow optional services on a public guide, and confirm exactly one placement request in browser Network tools. Also test rejection, ad blocking, mobile layout and no-fill. Revenue and recognized impressions must be read from Adsterra reports, never inferred from the local `ad_slot_requested` event.
+Deploy first with the switch false. Verify sensitive routes make no Adsterra or analytics requests. Then set the IDs and switch true on a public guide, and confirm exactly one placement request in browser Network tools. Also test rejection, ad blocking, mobile layout and no-fill. Revenue and recognized impressions must be read from Adsterra reports, never inferred from the local `ad_slot_requested` event.

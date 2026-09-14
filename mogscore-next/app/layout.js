@@ -1,6 +1,20 @@
+import localFont from 'next/font/local'
 import './globals.css'
 import { getContactEmail } from '@/lib/contact'
-import ThirdPartyScripts from '@/components/ThirdPartyScripts'
+
+const bebasNeue = localFont({
+  src: './fonts/BebasNeue-Regular.ttf',
+  weight: '400',
+  variable: '--font-bebas',
+  display: 'swap',
+})
+
+const dmSans = localFont({
+  src: './fonts/DMSans-Variable.ttf',
+  weight: '300 500',
+  variable: '--font-dm',
+  display: 'swap',
+})
 
 export const viewport = {
   width: 'device-width',
@@ -46,19 +60,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const contactEmail = getContactEmail()
   return (
-    <html lang="en">
+    <html lang="en" className={`${bebasNeue.variable} ${dmSans.variable}`}>
         <head>
           {contactEmail ? (
             <script dangerouslySetInnerHTML={{ __html: `window.__SITE_CONTACT_EMAIL__=${JSON.stringify(contactEmail)};` }} />
           ) : null}
         </head>
-        <body>
-          {children}
-          <ThirdPartyScripts
-            analyticsId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-6YC3XR4ZRC'}
-            analyticsEnabled={process.env.ANALYTICS_ENABLED === 'true'}
-          />
-        </body>
+        <body>{children}</body>
     </html>
   )
 }

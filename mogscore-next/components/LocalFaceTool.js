@@ -31,7 +31,7 @@ function relatedLink(result) {
   return ['/why-omoggle-score-changes', 'Why scores change']
 }
 
-export default function LocalFaceTool({ variant = 'analyzer' }) {
+export default function LocalFaceTool({ variant = 'analyzer', showHeading = true }) {
   const copy = LABELS[variant] || LABELS.analyzer
   const inputRef = useRef(null)
   const abortRef = useRef(null)
@@ -116,7 +116,7 @@ export default function LocalFaceTool({ variant = 'analyzer' }) {
 
   return (
     <section className="local-face-tool" aria-labelledby={`${variant}-tool-heading`}>
-      <div className="local-tool-heading"><span className="section-label">Runs in your browser</span><h2 id={`${variant}-tool-heading`}>{copy.title}</h2><p>The photo stays on this device. The model measures landmarks and photo setup; it does not identify you or determine objective attractiveness.</p></div>
+      {showHeading && <div className="local-tool-heading"><span className="section-label">Runs in your browser</span><h2 id={`${variant}-tool-heading`}>{copy.title}</h2><p>The photo stays on this device. The model measures landmarks and photo setup; it does not identify you or determine objective attractiveness.</p></div>}
       <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" onChange={chooseFile} hidden />
       {!preview ? (
         <button type="button" className="rating-upload" onClick={() => inputRef.current?.click()}><span className="rating-upload-icon" aria-hidden="true">＋</span><strong>Choose a photo</strong><small>One authorized adult · JPEG, PNG or WebP · 10 MB maximum</small></button>

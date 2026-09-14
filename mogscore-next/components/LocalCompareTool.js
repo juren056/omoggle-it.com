@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { analyzeLocalImage, releaseLocalFaceEngine, validateLocalImage } from '@/lib/local-face-engine'
 
-export default function LocalCompareTool() {
+export default function LocalCompareTool({ showHeading = true }) {
   const [slots, setSlots] = useState([null, null])
   const [authorized, setAuthorized] = useState(false)
   const [state, setState] = useState('idle')
@@ -50,9 +50,9 @@ export default function LocalCompareTool() {
     setSlots([null, null]); setResult(null); setError(''); setAuthorized(false); setState('idle')
   }
 
-  return <section className="local-compare" id="battle" aria-labelledby="compare-heading">
-    <span className="section-label">Same-person photo comparison</span><h2 id="compare-heading">Local 1v1 Photo Setup Comparison</h2>
-    <p>Compare two photos of yourself—or one consenting adult—to see which setup is more consistent. This is not a public ranking or a comparison of strangers.</p>
+  return <section className="local-compare" aria-labelledby="compare-heading">
+    {showHeading && <><span className="section-label">Same-person photo comparison</span><h2 id="compare-heading">Local 1v1 Photo Setup Comparison</h2>
+    <p>Compare two photos of yourself—or one consenting adult—to see which setup is more consistent. This is not a public ranking or a comparison of strangers.</p></>}
     <div className="compare-grid">{slots.map((slot, index) => <label className="compare-slot" key={index}><input type="file" accept="image/jpeg,image/png,image/webp" onChange={event => select(index, event)} hidden />{slot ? <>
       {/* Blob URLs stay in the browser and cannot use the Next image optimizer. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}

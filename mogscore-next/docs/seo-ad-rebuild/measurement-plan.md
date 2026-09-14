@@ -1,6 +1,6 @@
 # Measurement and net-revenue plan
 
-Optional GA4 is disabled until `ANALYTICS_ENABLED=true` and the visitor opts in. The implementation allowlists `tool_view`, `analysis_start`, `analysis_complete`, `analysis_error`, `practice_start`, `practice_complete`, `camera_permission_result`, `result_related_click`, `share_card_generate`, `guide_to_tool_click` and `ad_slot_requested`. Allowed parameters exclude images, filenames, landmarks, exact scores and form text.
+No runtime analytics provider is mounted, so the site does not show a cookie or analytics-consent popup. The internal event helper still allowlists `tool_view`, `analysis_start`, `analysis_complete`, `analysis_error`, `practice_start`, `practice_complete`, `camera_permission_result`, `result_related_click`, `share_card_generate`, `guide_to_tool_click` and `ad_slot_requested`, but it is inert unless a future owner deliberately adds a compatible provider. Allowed parameters exclude images, filenames, landmarks, exact scores and form text.
 
 `ad_slot_requested` means only that an eligible container approached the viewport. It is not an Adsterra impression and has no revenue value by itself.
 

@@ -6,7 +6,7 @@ The site now leads with free local utilities rather than new subscriptions. `/to
 
 The free path no longer calls `/api/analyze`. The legacy endpoint remains for active authenticated Pro members only, retains the Supabase quota/concurrency reservation and 30-second timeout, removes the automatic paid retry, and adds `CLOUD_ANALYSIS_ENABLED`. Existing Stripe portal/webhook and entitlement code remain. New checkout is closed by default with `NEW_SUBSCRIPTIONS_ENABLED`.
 
-Legacy global/repeated AdSense and analytics injection was removed. A centralized Adsterra-only Native Banner/display path now requires production mode, valid configuration, an allowed page type, a non-sensitive route, consent and viewport proximity. It is not activated because real placement data was not supplied. The unverified Google `ads.txt` line was deleted.
+Legacy global/repeated AdSense and analytics injection was removed. A centralized Adsterra-only Native Banner/display path now requires production mode, valid configuration, an allowed page type, a non-sensitive route and viewport proximity. No cookie or optional-services popup is shown. It is not activated because real placement data was not supplied. The unverified Google `ads.txt` line was deleted.
 
 The dependency audit identified critical advisories in Next 16.2.6. Next and its ESLint config were minimally upgraded to 16.3.5; `js-cookie`, `undici` and `baseline-browser-mapping` were pinned through npm overrides to compatible fixed versions. The final production-only npm audit reports zero known vulnerabilities.
 

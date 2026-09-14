@@ -6,7 +6,7 @@ import { analyzeLocalImage, releaseLocalFaceEngine } from '@/lib/local-face-engi
 import { diagnosticMessages } from '@/lib/local-face-rules.mjs'
 import { trackSafeEvent } from '@/lib/analytics'
 
-export default function CameraSetupCheck() {
+export default function CameraSetupCheck({ showHeading = true }) {
   const videoRef = useRef(null)
   const streamRef = useRef(null)
   const abortRef = useRef(null)
@@ -59,8 +59,8 @@ export default function CameraSetupCheck() {
   }
 
   return <section className="camera-check" aria-labelledby="camera-check-heading">
-    <span className="section-label">Primary practice tool</span><h2 id="camera-check-heading">Camera Setup & Image Quality Check</h2>
-    <p>This checks one camera frame on your device. It does not connect to Omoggle, repair permissions on another site, predict a winner, or reveal Omoggle&apos;s private scoring rules.</p>
+    {showHeading && <><span className="section-label">Primary practice tool</span><h2 id="camera-check-heading">Camera Setup & Image Quality Check</h2>
+    <p>This checks one camera frame on your device. It does not connect to Omoggle, repair permissions on another site, predict a winner, or reveal Omoggle&apos;s private scoring rules.</p></>}
     <div className="camera-stage"><video ref={videoRef} playsInline muted aria-label="Private camera preview" />{cameraState === 'idle' && <button type="button" className="btn btn-primary" onClick={startCamera}>Enable Camera</button>}</div>
     {message && <p className="camera-message" role="status">{message}</p>}
     {cameraState === 'ready' && <div className="camera-actions"><button type="button" className="btn btn-primary" onClick={captureAndCheck}>Check This Frame</button><button type="button" className="btn btn-outline" onClick={stopCamera}>Stop Camera</button></div>}

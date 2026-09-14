@@ -3,7 +3,7 @@
 Do not reset or erase the repository. Revert only the relevant reviewed files from version control or disable with configuration.
 
 - Ads: set `ADSTERRA_ENABLED=false`; this removes requests and containers without a deploy after the environment rebuild/restart. Revert `AdSlot*`, `ad-config.js` and placements only if removing the infrastructure.
-- Analytics/consent: set `ANALYTICS_ENABLED=false`. Revert `ThirdPartyScripts.js` and the layout mount if removing the preference UI.
+- Analytics: no runtime provider or preference UI is mounted. Revert the layout and analytics integration together if a future provider is introduced.
 - Local engine: revert the five tool pages/components plus `local-face-engine.js`, `local-face-rules.mjs` and the Worker. Remove MediaPipe dependency/assets only after no imports remain. Do not silently restore guest paid API calls.
 - Legacy cloud: set `CLOUD_ANALYSIS_ENABLED=false` for immediate containment. Reverting the API authorization changes would re-expose paid calls and requires a separate security review.
 - Homepage/navigation: revert `app/page.js`, `Navbar.js` and `Footer.js`; preserve old URLs.
