@@ -4,8 +4,8 @@ import { getCheckoutConfig } from '@/lib/checkout-config'
 import PricingContent from './PricingContent'
 
 export const metadata = {
-  title: 'Pricing — Omoggle IT Pro Plans',
-  description: 'Omoggle IT pricing: free AI face analyzer with daily limits, or Pro for unlimited analyses. Cancel anytime.',
+  title: 'Existing Member Billing',
+  description: 'Existing Omoggle IT members can review legacy plan information and manage billing. New subscriptions are closed by default.',
   alternates: { canonical: 'https://omoggle-it.com/pricing' },
 }
 

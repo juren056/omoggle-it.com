@@ -5,6 +5,7 @@ const origin = process.env.TEST_ORIGIN || 'http://127.0.0.1:3127'
 const publicPaths = [
   '/', '/blog', '/tools', '/what-is-omoggle', '/agent00-omoggle',
   '/omoggle-practice-test', '/psl-test', '/psl-scale', '/mog-score',
+  '/face-shape-detector', '/omoggle-troubleshooting', '/about',
   '/ja', '/pt', '/ru', '/ja/what-is-omoggle', '/pt/tools', '/ru/tools',
 ]
 
@@ -54,7 +55,7 @@ for (const location of locations) {
   const response = await fetch(`${origin}${path}`, { redirect: 'manual', headers: { 'user-agent': 'Googlebot' } })
   assert.equal(response.status, 200, `indexed sitemap URL should remain 200: ${path}`)
 }
-for (const path of ['/omoggle-practice-test', '/psl-test', '/psl-scale', '/mog-score']) {
+for (const path of ['/omoggle-practice-test', '/psl-test', '/psl-scale', '/mog-score', '/face-shape-detector', '/omoggle-troubleshooting', '/about']) {
   assert(locations.includes(`https://omoggle-it.com${path}`), `sitemap missing ${path}`)
 }
 for (const forbidden of ['/psl-scale-explained', '/psl-scale-test', '/sign-in', '/sign-up']) {

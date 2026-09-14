@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PricingCards from '@/components/PricingCards'
 import { getContactEmail } from '@/lib/contact'
+import Link from 'next/link'
 
 export default function PricingContent({ checkoutConfig = null }) {
   const supportEmail = getContactEmail()
@@ -47,10 +48,10 @@ export default function PricingContent({ checkoutConfig = null }) {
       <Navbar />
       <header className="hero" style={{ paddingBottom: 'var(--sp-md)' }}>
         <div className="container">
-          <span className="hero-eyebrow">Simple Pricing</span>
-          <h1>Omoggle IT <em>Pro</em> Plans</h1>
+          <span className="hero-eyebrow">Legacy member billing</span>
+          <h1>Existing <em>Pro</em> Membership</h1>
           <p className="hero-sub">
-            AI face analysis for entertainment and looksmaxxing. Free tier included — upgrade for unlimited daily analyses.
+            New subscriptions are closed by default while existing paid members retain access, billing management and cancellation.
           </p>
         </div>
       </header>
@@ -73,9 +74,7 @@ export default function PricingContent({ checkoutConfig = null }) {
           <div className="article-content" style={{ marginTop: 'var(--sp-xl)' }}>
             <h2>What You Get</h2>
             <p>
-              Omoggle IT Pro unlocks unlimited AI face analyses on our{' '}
-              <a href="/tools">Face Analyzer</a> and <a href="/tools#battle">1v1 Mog Battle</a> tools.
-              All scores are for entertainment only — not medical or professional assessments.
+              The new free tools run locally in the browser. Existing Pro members may retain the legacy cloud analysis benefit while it is enabled by the site owner.
             </p>
 
             <h2>Billing & Cancellation</h2>
@@ -83,7 +82,7 @@ export default function PricingContent({ checkoutConfig = null }) {
               <li>Payments are processed securely by <strong>Stripe</strong>.</li>
               <li>Subscriptions renew automatically until canceled.</li>
               <li>Cancel anytime from your account menu or the Manage Subscription button above.</li>
-              <li>See our <a href="/refund-policy">Refund Policy</a> for refund eligibility.</li>
+              <li>See our <Link href="/refund-policy">Refund Policy</Link> for refund eligibility.</li>
             </ul>
 
             <h2>Support</h2>
@@ -95,7 +94,7 @@ export default function PricingContent({ checkoutConfig = null }) {
                 <em>support email not configured</em>
               )}{' '}
               or visit our{' '}
-              <a href="/contact">Contact page</a>. We respond within 3 business days.
+              <Link href="/contact">Contact page</Link>. We respond within 3 business days.
             </p>
 
             <p style={{ fontSize: '.85rem', color: 'var(--text-dim)', marginTop: 'var(--sp-lg)' }}>

@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import OmogglePracticeTool from '@/components/OmogglePracticeTool'
+import CameraSetupCheck from '@/components/CameraSetupCheck'
+import LocalFaceTool from '@/components/LocalFaceTool'
 import { StructuredData, breadcrumbSchema, webApplicationSchema } from '@/components/StructuredData'
 
 const path = '/omoggle-practice-test'
@@ -25,16 +27,18 @@ export default function OmogglePracticePage() {
       <header className="seo-page-header">
         <div className="container-sm">
           <nav className="breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span>›</span><Link href="/what-is-omoggle">Omoggle</Link><span>›</span><span>Practice Test</span></nav>
-          <span className="hero-eyebrow">Interactive Omoggle Simulator</span>
+          <span className="hero-eyebrow">Private camera setup practice</span>
           <h1>Omoggle Practice Test</h1>
-          <p>Practice the repeatable camera, lighting and presentation choices that make Omoggle-style comparisons clearer—without entering a live webcam match.</p>
+          <p>Check camera permission, lighting, framing and head direction on your device before using a live site. No camera frame is uploaded.</p>
         </div>
       </header>
       <main>
-        <section className="section"><div className="container"><OmogglePracticeTool /></div></section>
+        <section className="section"><div className="container"><CameraSetupCheck /></div></section>
+        <section className="section section-alt"><div className="container"><LocalFaceTool variant="analyzer" /></div></section>
+        <section className="section"><div className="container"><div className="section-header"><span className="section-label">Auxiliary exercise</span><h2>Five-Round Setup Quiz</h2></div><OmogglePracticeTool /></div></section>
         <section className="section section-alt"><article className="content-section container-sm">
           <h2>How the Omoggle Practice Test Works</h2>
-          <p>Each round gives you two possible setups. Choose the option that is more likely to produce a consistent computer-vision result. You receive an explanation after every choice. This is practice for presentation and image quality—not a claim that one person is objectively more attractive.</p>
+          <p>The primary tool checks one camera frame or local photo for detectable face count, exposure, framing and head direction. The quiz then explains why repeatable setup choices matter. This is not Omoggle&apos;s official program and cannot verify or predict its undisclosed scoring rules.</p>
 
           <h2>How Omoggle Ratings Work</h2>
           <p>Omoggle-style systems compare facial landmarks, proportions and image characteristics. Lighting, lens distance, head position and expression can influence what the software detects. Read our <Link href="/what-is-omoggle">complete Omoggle guide</Link> for the platform overview.</p>

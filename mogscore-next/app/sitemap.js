@@ -3,7 +3,7 @@ import path from 'path'
 import { ENGLISH_CONTENT_SLUGS, getI18nSitemapEntries } from '@/lib/i18n-routes'
 
 const BASE_URL = 'https://omoggle-it.com'
-const FIRST_PHASE_UPDATED = '2026-08-17'
+const FIRST_PHASE_UPDATED = '2026-09-14'
 const NON_CANONICAL_ALIASES = new Set(['psl-scale-explained', 'psl-scale-test'])
 
 const CORE_PAGES = [
@@ -15,6 +15,9 @@ const CORE_PAGES = [
   { path: '/psl-test', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'weekly', priority: 0.95 },
   { path: '/psl-scale', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'monthly', priority: 0.9 },
   { path: '/mog-score', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'weekly', priority: 0.95 },
+  { path: '/face-shape-detector', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'weekly', priority: 0.9 },
+  { path: '/omoggle-troubleshooting', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'monthly', priority: 0.85 },
+  { path: '/about', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'yearly', priority: 0.5 },
   { path: '/contact', lastModified: '2026-06-04', changeFrequency: 'yearly', priority: 0.5 },
   { path: '/pricing', lastModified: FIRST_PHASE_UPDATED, changeFrequency: 'monthly', priority: 0.5 },
   { path: '/terms-of-service', lastModified: '2026-06-04', changeFrequency: 'yearly', priority: 0.4 },

@@ -1,9 +1,9 @@
 export const metadata = {
-  title: 'Free AI Face Analyzer & 1v1 Mog Battle',
-  description: 'Free AI face analyzer and PSL Scale test. Score 6 facial metrics: symmetry, canthal tilt, jawline, cheekbones, skin clarity. Upload any photo, no signup needed.',
+  title: 'Free Local Face Analyzer & Photo Setup Comparison',
+  description: 'Analyze face landmarks, lighting, framing and camera setup locally in your browser. No signup and no photo upload in the free flow.',
   openGraph: {
-    title: 'Free PSL Scale Test & AI Face Analyzer',
-    description: 'Upload your photo and get your PSL score instantly. Scores all 6 Omoggle metrics free.',
+    title: 'Free Local Face & Camera Tools',
+    description: 'Private browser-based face landmark, framing and camera setup checks.',
     images: [{ url: 'https://omoggle-it.com/images/og-tools.jpg' }],
   },
   alternates: { canonical: 'https://omoggle-it.com/tools' },

@@ -18,6 +18,7 @@ export default function Footer() {
               <li><Link href="/psl-test">PSL Test</Link></li>
               <li><Link href="/psl-scale">PSL Scale</Link></li>
               <li><Link href="/mog-score">Mog Score</Link></li>
+              <li><Link href="/face-shape-detector">Face Shape Detector</Link></li>
             </ul>
           </div>
           <div>
@@ -37,6 +38,7 @@ export default function Footer() {
               <li><Link href="/refund-policy">Refund Policy</Link></li>
               <li><Link href="/acceptable-use">Acceptable Use</Link></li>
               <li><Link href="/contact">Contact</Link></li>
+              <li><Link href="/about">About</Link></li>
             </ul>
           </div>
         </div>
@@ -49,7 +51,7 @@ export default function Footer() {
                 {' · '}
               </>
             ) : null}
-            <Link href="/pricing">Pricing</Link> · <Link href="/privacy-policy">Privacy</Link> · <Link href="/terms-of-service">Terms</Link> · <Link href="/contact">Contact</Link>
+            <Link href="/account">Existing member account</Link> · <Link href="/privacy-policy">Privacy</Link> · <Link href="/terms-of-service">Terms</Link> · <Link href="/contact">Contact</Link>
           </span>
         </div>
       </div>

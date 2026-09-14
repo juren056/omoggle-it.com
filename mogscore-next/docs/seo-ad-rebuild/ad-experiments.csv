@@ -1,0 +1,2 @@
+experiment_id,status,start_date,end_date,page_type,device,control,variant,primary_metric,notes
+baseline-001,not_started,,,content,desktop,"one post-content native slot","none",net_revenue,"Requires real Adsterra activation and enough traffic; no result claimed"

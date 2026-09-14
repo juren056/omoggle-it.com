@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en"><head></head><body>﻿
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Is Omoggle Actually AI? MediaPipe, NSFW.js Explained | Omoggle IT</title>
@@ -12,15 +12,15 @@
   <meta property="og:description" content="Omoggle uses MediaPipe for facial landmark detection and NSFW.js for content moderation — not an LLM. Full technical breakdown of how scoring works.">
   <meta property="og:image" content="https://omoggle-it.com/images/what-is-omoggle.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YC3XR4ZRC"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6YC3XR4ZRC');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2031710024449901" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap">
+
+
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500&amp;display=swap">
   <link rel="stylesheet" href="/css/style.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Is Omoggle Actually AI? The Full Technical Breakdown","url":"https://omoggle-it.com/is-omoggle-ai","datePublished":"2026-05-14","dateModified":"2026-07-20","publisher":{"@type":"Organization","name":"Omoggle IT"}}
+{"@context":"https://schema.org","@type":"Article","headline":"Is Omoggle Actually AI? The Full Technical Breakdown","url":"https://omoggle-it.com/is-omoggle-ai","datePublished":"2026-05-14","dateModified":"2026-09-14","publisher":{"@type":"Organization","name":"Omoggle IT"}}
 </script>
-</head><body>
+
 <nav class="navbar"><div class="navbar-inner">
   <a href="/" class="navbar-logo">Omoggle<span> IT</span></a>
   <ul class="navbar-nav">
@@ -48,17 +48,17 @@
       <p>Omoggle uses two distinct AI systems for two different purposes:</p>
 
       <h3>1. MediaPipe for facial analysis</h3>
-      <p>The scoring system uses <strong>MediaPipe FaceMesh</strong>, Google's open-source computer vision model, to map facial landmarks in real time from the webcam feed. FaceMesh produces roughly <strong>478 3D landmarks per face in about 25 milliseconds</strong>, and it all runs client-side — in your browser, on your device. Those landmark coordinates become distances and angles, and those distances and angles become scores for symmetry, canthal tilt, jawline definition, cheekbone prominence, skin clarity, and overall harmony.</p>
+      <p>Omoggle has not published enough current technical documentation for this site to verify its model, landmark count, latency or scoring inputs. Our own free tools use a disclosed, self-hosted MediaPipe Face Landmarker model and separate local heuristics.</p>
       <p>This is not a "thinking" AI. It is a measurement system that maps specific landmark coordinates and calculates ratios against reference values. The scores are mathematical outputs, not subjective judgments.</p>
 
       <h3>How the 5 sub-scores are weighted</h3>
-      <p>The individual metrics don't count equally. Each sub-score is normalized to a 0&ndash;100 range, then blended with unequal weights before being mapped onto the 1&ndash;10 PSL band:</p>
+      <p>The individual metrics don't count equally. Each sub-score is normalized to a 0–100 range, then blended with unequal weights before being mapped onto the 1–10 PSL band:</p>
       <ul>
         <li><strong>Harmony and symmetry</strong> carry the most weight — they're stable traits that don't swing between sessions.</li>
         <li><strong>Jawline and cheekbone</strong> structure sit in the middle (and are the most lighting-sensitive to capture).</li>
         <li><strong>Skin clarity and canthal tilt</strong> are down-weighted, because skin especially can be distorted by lighting or a single bad night's sleep.</li>
       </ul>
-      <p>The final mapping to a 1&ndash;10 PSL score is <strong>non-linear</strong>: because most faces cluster in the middle of the distribution, the raw-score gap between PSL 7 and 8 is far larger than between 5 and 6. For the full breakdown, see the <a href="/psl-scale-chart">PSL scale chart</a>.</p>
+      <p>The final mapping to a 1–10 PSL score is <strong>non-linear</strong>: because most faces cluster in the middle of the distribution, the raw-score gap between PSL 7 and 8 is far larger than between 5 and 6. For the full breakdown, see the <a href="/psl-scale-chart">PSL scale chart</a>.</p>
 
       <h3>2. NSFW.js for content moderation</h3>
       <p>Separately, Omoggle uses NSFW.js, an open-source machine learning model, to evaluate whether nudity is present in players' video feeds. This is the moderation layer — it detects prohibited content and can end or flag a match if triggered.</p>
@@ -101,7 +101,7 @@
       <li><a href="/contact">Contact</a></li>
     </ul></div>
   </div>
-  <div class="footer-bottom"><span class="footer-copy">© 2026 Omoggle IT — For entertainment only.</span><span class="footer-copy"><a href="#" data-env-contact-email>__CONTACT_EMAIL__</a> · <a href="/contact">Contact</a></span></div>
+  <div class="footer-bottom"><span class="footer-copy">© 2026 Omoggle IT — For entertainment only.</span><span class="footer-copy"><a href="#" data-env-contact-email="">__CONTACT_EMAIL__</a> · <a href="/contact">Contact</a></span></div>
 </div></footer>
 <script src="/js/components.js"></script>
 </body></html>

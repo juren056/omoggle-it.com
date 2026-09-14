@@ -13,7 +13,7 @@ const LANGS = [
 // Localized labels per language; only routes that have a localized version are
 // prefixed with /{lang} (see LOCALIZED_ROUTES). Others stay on the English route.
 const NAV_LABELS = {
-  en: { omoggle: 'Omoggle', pslTest: 'PSL Test', mogScore: 'Mog Score', analyzer: 'Face Analyzer', guides: 'Guides', blog: 'Blog', tryAi: 'Try AI →' },
+  en: { omoggle: 'Omoggle Help', pslTest: 'PSL Test', mogScore: 'Mog Score', analyzer: 'All Tools', guides: 'Guides', blog: 'Blog', tryAi: 'Free Tools →' },
   ja: { omoggle: 'Omoggle', pslTest: 'PSLテスト', mogScore: 'Mog Score', analyzer: '顔分析', guides: 'ガイド', blog: 'ブログ', tryAi: 'AIを試す →' },
   pt: { omoggle: 'Omoggle', pslTest: 'Teste PSL', mogScore: 'Mog Score', analyzer: 'Analisador', guides: 'Guias', blog: 'Blog', tryAi: 'Testar IA →' },
   ru: { omoggle: 'Omoggle', pslTest: 'PSL тест', mogScore: 'Mog Score', analyzer: 'Анализ лица', guides: 'Гайды', blog: 'Блог', tryAi: 'Попробовать ИИ →' },
@@ -100,7 +100,7 @@ export default function Navbar() {
 
           <div className="nav-guest-actions" style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
             <Link href="/sign-in" style={{ fontSize: '.8rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>Sign In</Link>
-            <Link href="/sign-up" style={{ fontSize: '.8rem', border: '1px solid var(--border-md)', color: 'var(--gold)', padding: '.35rem .85rem', borderRadius: 'var(--r-sm)', whiteSpace: 'nowrap' }}>Sign Up</Link>
+            <Link href="/account" style={{ fontSize: '.8rem', border: '1px solid var(--border-md)', color: 'var(--gold)', padding: '.35rem .85rem', borderRadius: 'var(--r-sm)', whiteSpace: 'nowrap' }}>Member Account</Link>
           </div>
 
           <Link href={toolsHref} className="btn btn-primary nav-cta nav-cta-desktop" style={{ fontSize: '.8rem', padding: '.4rem .85rem' }}>
@@ -151,7 +151,7 @@ export default function Navbar() {
             </li>
             <li style={{ display: 'flex', gap: '.5rem', padding: '.65rem 0' }}>
               <Link href="/sign-in" style={{ flex: 1, padding: '.65rem', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 'var(--r-sm)', color: 'var(--text-muted)', fontSize: '.9rem', textAlign: 'center' }}>Sign In</Link>
-              <Link href="/sign-up" style={{ flex: 1, padding: '.65rem', background: 'var(--gold)', borderRadius: 'var(--r-sm)', color: '#0D1117', fontSize: '.9rem', fontWeight: 600, textAlign: 'center' }}>Sign Up Free</Link>
+              <Link href="/account" style={{ flex: 1, padding: '.65rem', background: 'var(--gold)', borderRadius: 'var(--r-sm)', color: '#0D1117', fontSize: '.9rem', fontWeight: 600, textAlign: 'center' }}>Member Account</Link>
             </li>
           </ul>
         )}

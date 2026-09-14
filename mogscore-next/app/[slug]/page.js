@@ -1,9 +1,11 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import fs from 'fs'
 import path from 'path'
 import * as cheerio from 'cheerio'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import AdSlot from '@/components/AdSlot'
 
 import { IMAGE_CACHE_VERSION } from '@/lib/images'
 import { injectContactEmail } from '@/lib/contact'
@@ -128,9 +130,9 @@ export default async function SlugPage({ params }) {
       <header style={{padding:'var(--sp-lg) 0 var(--sp-sm)',borderBottom:'1px solid var(--border)'}}>
         <div className="container-sm">
           <nav style={{fontSize:'.82rem',color:'var(--text-muted)',marginBottom:'.75rem'}}>
-            <a href="/" style={{color:'var(--gold)'}}>Home</a>
+            <Link href="/" style={{color:'var(--gold)'}}>Home</Link>
             <span style={{margin:'0 .5rem'}}>›</span>
-            <a href="/blog" style={{color:'var(--gold)'}}>Blog</a>
+            <Link href="/blog" style={{color:'var(--gold)'}}>Blog</Link>
             <span style={{margin:'0 .5rem'}}>›</span>
             <span>{cat}</span>
           </nav>
@@ -145,6 +147,7 @@ export default async function SlugPage({ params }) {
             className="article-content"
             dangerouslySetInnerHTML={{ __html: articleContent }}
           />
+          <AdSlot pageType="content" slotName={`article-${slug}`} />
           {related.length > 0 && (
             <aside style={{marginTop:'var(--sp-lg)',paddingTop:'var(--sp-md)',borderTop:'1px solid var(--border)'}}>
               <h2 style={{fontSize:'1.2rem',marginBottom:'var(--sp-sm)'}}>Related Articles</h2>

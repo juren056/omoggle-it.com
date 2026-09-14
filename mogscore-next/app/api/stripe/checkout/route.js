@@ -12,6 +12,9 @@ function emailFromSessionClaims(sessionClaims) {
 }
 
 export async function POST(req) {
+  if (process.env.NEW_SUBSCRIPTIONS_ENABLED !== 'true') {
+    return NextResponse.json({ error: 'New subscriptions are not currently available' }, { status: 403 })
+  }
   const { userId, sessionClaims } = await auth()
   if (!userId) {
     return NextResponse.json({ error: 'Sign in required' }, { status: 401 })

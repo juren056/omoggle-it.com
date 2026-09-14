@@ -10,13 +10,17 @@
     "test:html-links": "node scripts/test-html-links.mjs && node scripts/clean-static-html-links.mjs --check",
     "test:analyze": "node scripts/test-analyze-validation.mjs",
     "test:first-phase": "node scripts/test-first-phase.mjs",
-    "test:http-acceptance": "node scripts/test-http-acceptance.mjs"
+    "test:http-acceptance": "node scripts/test-http-acceptance.mjs",
+    "test:local-rules": "node --test scripts/test-local-face-rules.mjs",
+    "test:rebuild-static": "node scripts/test-rebuild-static.mjs",
+    "verify:rebuild": "npm run test:local-rules && npm run test:rebuild-static && npm run test:html-links && npm run test:first-phase && npm run build"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.3.5",
+    "@mediapipe/tasks-vision": "1.0.1",
     "@supabase/supabase-js": "^2.106.1",
     "cheerio": "^1.2.0",
-    "next": "16.2.6",
+    "next": "16.3.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "stripe": "^22.3.0"
@@ -27,8 +31,13 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.6",
+    "eslint-config-next": "16.3.5",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "baseline-browser-mapping": "2.11.23",
+    "js-cookie": "3.0.8",
+    "undici": "7.29.0"
   }
 }

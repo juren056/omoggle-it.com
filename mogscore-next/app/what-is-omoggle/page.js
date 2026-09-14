@@ -1,10 +1,11 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata = {
   title: 'What is Omoggle? Complete 2026 Guide',
-  description: 'Omoggle is the viral AI face-rating platform where strangers compete on the PSL Scale. Learn how it works, how ratings work and how to practice.',
+  description: 'An independent guide to the Omoggle concept, camera preparation, uncertain scoring claims and safer troubleshooting.',
   alternates: { canonical: 'https://omoggle-it.com/what-is-omoggle' },
 }
 
@@ -21,41 +22,32 @@ export default function WhatIsOmoggle() {
           </nav>
           <span className="card-tag">Wiki</span>
           <h1 style={{marginTop:'.75rem'}}>What is Omoggle? Complete 2026 Guide</h1>
-          <p style={{color:'var(--text-muted)',fontSize:'.85rem',marginTop:'.5rem'}}>Updated May 17, 2026 · 8 min read</p>
+          <p style={{color:'var(--text-muted)',fontSize:'.85rem',marginTop:'.5rem'}}>Updated September 14, 2026 · Independent guide</p>
         </div>
       </header>
       <main className="section">
         <div className="container-sm">
           <article style={{lineHeight:1.8}}>
-            <img src="/images/what-is-omoggle.jpg" alt="Omoggle AI face rating interface" style={{width:'100%',borderRadius:'var(--r-lg)',marginBottom:'var(--sp-md)',border:'1px solid var(--border)'}} loading="eager" />
+            <Image src="/images/what-is-omoggle.jpg" alt="Illustration accompanying the independent Omoggle guide" width={1200} height={675} priority sizes="(max-width: 760px) 100vw, 760px" style={{width:'100%',height:'auto',borderRadius:'var(--r-lg)',marginBottom:'var(--sp-md)',border:'1px solid var(--border)'}} />
 
             <h2>What is Omoggle?</h2>
-            <p>Omoggle is a webcam-based platform that pairs two random strangers and uses AI to score both faces on the <Link href="/psl-scale-explained">PSL Scale</Link> (0–10). The higher scorer wins and is declared the "Mogger." The loser gets "Mogged."</p>
-            <p>The name combines <em>Omegle</em> (the defunct random chat site) and <em>mogging</em> — looksmaxxing slang for outclassing someone in appearance. The platform launched in late March 2026 and went viral in May.</p>
+            <p>Omoggle is commonly described as a webcam-based face-comparison experience using looksmaxxing slang such as “mogging.” Omoggle IT is an independent guide and cannot inspect the platform’s private scoring, matching or moderation code.</p>
+            <p>Availability and behavior may change. Use the <Link href="/omoggle-troubleshooting">troubleshooting flow</Link> when the site or camera does not work; a failed cross-origin request from another website is not proof of an outage.</p>
 
             <h2>How Does Omoggle Work?</h2>
-            <p>You enter Omoggle, complete a camera check, and get matched with a random opponent. The AI scans both faces for approximately 10–15 seconds and outputs a score. Each match updates your <Link href="/omoggle-elo-system">ELO rating</Link> which determines your global rank.</p>
+            <p>A typical session requires browser camera permission and a clear, front-facing image. Exact processing time, ranking behavior and match rules are controlled by Omoggle and are not independently verified here. Our <Link href="/omoggle-practice-test">practice tool</Link> checks only camera setup on your device.</p>
 
-            <h3>The 6 Scoring Metrics</h3>
-            <p>Omoggle's computer vision system measures six key metrics:</p>
-            <ul style={{paddingLeft:'1.5rem',marginBottom:'1rem',color:'var(--text-muted)'}}>
-              <li style={{marginBottom:'.5rem'}}><strong style={{color:'var(--text)'}}>Facial Symmetry</strong> — ~22% of score</li>
-              <li style={{marginBottom:'.5rem'}}><strong style={{color:'var(--text)'}}>Canthal Tilt</strong> — ~18%</li>
-              <li style={{marginBottom:'.5rem'}}><strong style={{color:'var(--text)'}}>Jawline Definition</strong> — ~18%</li>
-              <li style={{marginBottom:'.5rem'}}><strong style={{color:'var(--text)'}}>Cheekbone Prominence</strong> — ~16%</li>
-              <li style={{marginBottom:'.5rem'}}><strong style={{color:'var(--text)'}}>Skin Clarity</strong> — ~14%</li>
-              <li><strong style={{color:'var(--text)'}}>Overall Harmony</strong> — ~12%</li>
-            </ul>
+            <h3>What Can Be Observed</h3>
+            <p>Lighting, framing, head direction and lens perspective visibly change a camera image. Published claims about exact Omoggle metric weights are not verifiable from its private implementation, so this guide does not present them as facts.</p>
 
             <h2>Why Did Omoggle Go Viral?</h2>
-            <p>The platform exploded in May 2026 when xQc lost six consecutive rounds while Jesse laughed in the background — the clip got 24,000+ likes on X. Looksmaxxing streamer Clavicular ragequit his stream after being out-scored, generating 68,000 likes. On May 5th, 2026, Twitch officially updated its rules to allow Omoggle streams.</p>
+            <p>Clips and creator reactions can make a comparison format spread quickly, but social engagement counts and platform rules change. See the dated creator articles for their cited context rather than treating old counts as live facts.</p>
 
             <h2>Is Omoggle Actually AI?</h2>
-            <p>Developer Pablo Rogers clarified in May 2026 that the platform uses <strong>computer vision and facial landmark analysis</strong> — not large language models. The system maps geometric relationships between facial points rather than judging attractiveness like a human would.</p>
-            <p>This explains why camera angle and lighting have such a large impact on scores. See: <Link href="/is-omoggle-ai">Is Omoggle Actually AI?</Link></p>
+            <p>“AI” can refer to many different systems. Without public technical documentation, this site cannot confirm Omoggle’s current model or exact feature set. Camera angle and lighting still affect the pixels any vision system receives. See: <Link href="/is-omoggle-ai">Is Omoggle Actually AI?</Link></p>
 
             <h2>The ELO Tier System</h2>
-            <p>Omoggle uses an ELO rating system with 9 tiers:</p>
+            <p>Community pages describe ELO-style tiers, but labels and thresholds may change and are not represented here as an official live specification. The table below is retained as a historical community reference, not a verified current rulebook:</p>
             <div style={{overflowX:'auto',background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',margin:'var(--sp-md) 0'}}>
               <table style={{width:'100%',borderCollapse:'collapse'}}>
                 <thead>
@@ -88,7 +80,7 @@ export default function WhatIsOmoggle() {
             </div>
 
             <h2>Is Omoggle Free?</h2>
-            <p>Basic access is free. Omoggle Pro ($10/month) unlocks analytics and priority matchmaking.</p>
+            <p>Check Omoggle itself for current availability and pricing. Omoggle IT does not sell access to Omoggle. This site’s own new subscriptions are closed by default; the local tools are free.</p>
 
             <div className="highlight-box">
               <p>Practice without a live opponent using the <Link href="/omoggle-practice-test"><strong>Omoggle Practice Test</strong></Link>, then compare the <Link href="/psl-test">PSL Test</Link> and <Link href="/mog-score">Mog Score</Link>.</p>

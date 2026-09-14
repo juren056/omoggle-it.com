@@ -1,20 +1,6 @@
-import { Bebas_Neue, DM_Sans } from 'next/font/google'
 import './globals.css'
 import { getContactEmail } from '@/lib/contact'
-
-const bebasNeue = Bebas_Neue({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-bebas',
-  display: 'swap',
-})
-
-const dmSans = DM_Sans({
-  weight: ['300', '400', '500'],
-  subsets: ['latin'],
-  variable: '--font-dm',
-  display: 'swap',
-})
+import ThirdPartyScripts from '@/components/ThirdPartyScripts'
 
 export const viewport = {
   width: 'device-width',
@@ -28,7 +14,7 @@ export const metadata = {
     default: 'Omoggle IT — Omoggle, PSL & Looksmaxxing Tools',
     template: '%s | Omoggle IT'
   },
-  description: 'Free AI PSL Scale test and face analyzer. Score your face on 6 metrics — symmetry, canthal tilt, jawline, cheekbones and skin. Omoggle guide and looksmaxxing tips.',
+  description: 'Free, private browser-based Omoggle camera checks, PSL presentation tools, Mog Score comparisons and practical guides.',
   metadataBase: new URL('https://omoggle-it.com'),
   openGraph: {
     type: 'website',
@@ -60,18 +46,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const contactEmail = getContactEmail()
   return (
-    <html lang="en" className={`${bebasNeue.variable} ${dmSans.variable}`}>
+    <html lang="en">
         <head>
-          <link rel="dns-prefetch" href="https://buy.stripe.com" />
-          <link rel="preconnect" href="https://buy.stripe.com" crossOrigin="anonymous" />
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YC3XR4ZRC"></script>
-          <script dangerouslySetInnerHTML={{__html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6YC3XR4ZRC');`}} />
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2031710024449901" crossOrigin="anonymous"></script>
           {contactEmail ? (
             <script dangerouslySetInnerHTML={{ __html: `window.__SITE_CONTACT_EMAIL__=${JSON.stringify(contactEmail)};` }} />
           ) : null}
         </head>
-        <body>{children}</body>
+        <body>
+          {children}
+          <ThirdPartyScripts
+            analyticsId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-6YC3XR4ZRC'}
+            analyticsEnabled={process.env.ANALYTICS_ENABLED === 'true'}
+          />
+        </body>
     </html>
   )
 }

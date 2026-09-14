@@ -29,6 +29,7 @@ export default function PricingCards({ subscription, checkoutConfig, compact = f
 
   const isPro = subscription?.isPro
   const hasBilling = subscription?.hasBillingAccount
+  const newSubscriptionsEnabled = checkoutConfig?.newSubscriptionsEnabled === true
 
   const hasDirectPaymentLinks = Boolean(
     checkoutConfig?.paymentLinks?.monthly && checkoutConfig?.paymentLinks?.yearly
@@ -119,6 +120,8 @@ export default function PricingCards({ subscription, checkoutConfig, compact = f
               <button onClick={handleManage} disabled={!!loading} className="btn btn-outline" style={{ width: '100%', textAlign: 'center' }}>
                 {loading === 'portal' ? 'Opening…' : 'Manage Subscription'}
               </button>
+            ) : !newSubscriptionsEnabled ? (
+              <span style={{ fontSize: '.82rem', color: 'var(--text-muted)', textAlign: 'center' }}>Not open to new subscriptions</span>
             ) : !isSignedIn ? (
               <SignInButton mode="modal">
                 <button className="btn btn-primary" style={{ width: '100%' }}>Sign In to Upgrade</button>

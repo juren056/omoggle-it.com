@@ -109,16 +109,10 @@ async function callVisionModel({ apiKey, imageBase64, mime, mode }) {
   return parseModelResult(text, mode)
 }
 
-async function getValidatedModelResult(input) {
-  try {
-    return await callVisionModel(input)
-  } catch (error) {
-    if (error.message !== 'invalid_model_response') throw error
-    return callVisionModel(input)
-  }
-}
-
 export async function POST(req) {
+  if (process.env.CLOUD_ANALYSIS_ENABLED === 'false') {
+    return NextResponse.json({ error: 'Legacy cloud analysis is disabled' }, { status: 503 })
+  }
   if (!req.headers.get('content-type')?.toLowerCase().startsWith('application/json')) {
     return NextResponse.json({ error: 'Content-Type must be application/json' }, { status: 415 })
   }
@@ -127,25 +121,9 @@ export async function POST(req) {
     return NextResponse.json({ error: 'Request body too large' }, { status: 413 })
   }
 
-  let input
-  try {
-    input = validateAnalyzeRequest(await readJsonBody(req))
-  } catch (error) {
-    if (error.message === 'request_too_large') {
-      return NextResponse.json({ error: 'Request body too large' }, { status: 413 })
-    }
-    const message = requestError(error)
-    return NextResponse.json({ error: message || 'Invalid request' }, { status: message ? 400 : 500 })
-  }
-
-  const apiKey = process.env.GPTSAPI_KEY
-  const supabase = getSupabase()
-  if (!apiKey || !supabase) {
-    return NextResponse.json({ error: 'Analysis service not configured' }, { status: 503 })
-  }
-
   const { userId } = await auth()
-  const isLoggedIn = Boolean(userId)
+  if (!userId) return NextResponse.json({ error: 'Sign in required for legacy cloud analysis' }, { status: 401 })
+  const isLoggedIn = true
   let isPro = false
   if (userId) {
     try {
@@ -155,6 +133,20 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Could not verify subscription' }, { status: 503 })
     }
   }
+  if (!isPro) return NextResponse.json({ error: 'An active legacy Pro membership is required' }, { status: 403 })
+
+  let input
+  try {
+    input = validateAnalyzeRequest(await readJsonBody(req))
+  } catch (error) {
+    if (error.message === 'request_too_large') return NextResponse.json({ error: 'Request body too large' }, { status: 413 })
+    const message = requestError(error)
+    return NextResponse.json({ error: message || 'Invalid request' }, { status: message ? 400 : 500 })
+  }
+
+  const apiKey = process.env.GPTSAPI_KEY
+  const supabase = getSupabase()
+  if (!apiKey || !supabase) return NextResponse.json({ error: 'Analysis service not configured' }, { status: 503 })
 
   let quota
   try {
@@ -183,7 +175,7 @@ export async function POST(req) {
 
   const reservationId = quota.reservationId
   try {
-    const result = await getValidatedModelResult({ apiKey, ...input })
+    const result = await callVisionModel({ apiKey, ...input })
     if (result.error) {
       await updateReservation(supabase, 'release_analysis_use', reservationId)
       return NextResponse.json({ error: result.error }, { status: 422 })

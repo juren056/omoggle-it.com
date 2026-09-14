@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored MediaPipe runtime binaries/scripts are not project-authored source.
+    "public/mediapipe/**",
   ]),
 ]);
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { trackSafeEvent } from '@/lib/analytics'
 
 const rounds = [
   { prompt: 'Which setup gives the AI a clearer comparison?', options: [['A', 'Dim ceiling light · camera below chin'], ['B', 'Soft front light · camera at eye level']], answer: 1, lesson: 'Even front lighting and eye-level framing reduce shadows and perspective distortion.' },
@@ -19,12 +20,13 @@ export default function OmogglePracticeTool() {
 
   function choose(index) {
     if (choice !== null) return
+    if (round === 0) trackSafeEvent('practice_start', { tool_name: 'omoggle_practice', processing_mode: 'local' })
     setChoice(index)
     if (index === current.answer) setScore(value => value + 1)
   }
 
   function next() {
-    if (round === rounds.length - 1) { setComplete(true); return }
+    if (round === rounds.length - 1) { setComplete(true); trackSafeEvent('practice_complete', { tool_name: 'omoggle_practice', processing_mode: 'local' }); return }
     setRound(value => value + 1)
     setChoice(null)
   }
